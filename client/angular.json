@@ -27,7 +27,9 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -67,10 +69,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options":{
+          "options": {
             "sslKey": "./ssl/server.key",
             "sslCert": "./ssl/server.crt",
-            "ssl":true,
+            "ssl": true,
             "browserTarget": "test:build"
           },
           "configurations": {
@@ -101,7 +103,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

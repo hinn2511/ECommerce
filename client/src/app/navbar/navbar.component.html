@@ -1,36 +1,103 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="'over'"
-      [opened]='false'>
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">T-shirt</a>
-      <a mat-list-item href="#">Shirt</a>
-      <a mat-list-item href="#">Dress</a>
-      <a mat-list-item href="#">Shoe</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span class="mb-4">Logo</span>
-      <span *ngIf="(isHandset$ | async) ? false : true">
-        <button mat-button>T-shirt</button>
-        <button mat-button>Shirt</button>
-        <button mat-button>Dress</button>
-        <button mat-button>Shoe</button>
-      </span>
-      
-    
-    </mat-toolbar>
-    <app-product-list></app-product-list>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" (click)="navigationBarToggle()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Minimalist Closet</a>
+        <button class="btn btn-search-mobile navbar-toggler" type="button">
+            <span><i class="fa fa-search"></i></span>
+        </button>
+        <div class="navbar-collapse" [class.collapse]="!collapse">
+            <div class="row col-sm-12 justify-content-between">
+                <div class="col-sm-4">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item d-sm-block d-md-none">
+                            <span dropdown>
+                                <a class="nav-link" href id="basic-link" dropdownToggle (click)="false">Categories</a>
+                                
+                                <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu" role="menu"
+                                    aria-labelledby="basic-link">
+                                    <li *ngFor="let choice of items">
+                                        <a class="dropdown-item" href="#">{{choice}}</a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Collection</a>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Promotion</a>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-5">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
+                        <form class="form-inline" *ngIf="search">
+                            <div class="form-group">
+                              <input type="text" class="form-control px-3 mx-3" id="search" placeholder="Search">
+                            </div>
+                            <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+                            <button class="btn" type="submit" (click)="searchBarToggle()"><i class="fa fa-times"></i></button>
+                        </form>
+                        <li class="nav-item d-none d-sm-none d-md-block">
+                            <button class="btn" (click)="searchBarToggle()" *ngIf="!search">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </li>
+                        <li class="nav-item d-none d-sm-none d-md-block">
+                            <button class="btn">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            </button>
+                        </li>
+                        <li class="nav-item d-none d-sm-none d-md-block">
+                            <button class="btn">
+                                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                            </button>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Your cart</a>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Register</a>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Your account</a>
+                        </li>
+                        <li class="nav-item d-sm-block d-md-none">
+                            <a class="nav-link" href="#">Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded d-none d-sm-none d-md-block">
+    <div class="container-fluid">
+        <ul class="navbar-nav col-sm-12 me-auto mb-2 mb-lg-0 d-flex justify-content-center">
+            <li class="nav-item mx-4 ">
+                <a class="nav-link nav-link-desktop" href="#">Categories</a>
+            </li>
+            <li class="nav-item mx-4 ">
+                <a class="nav-link nav-link-desktop" href="#">Collection</a>
+            </li>
+            <li class="nav-item mx-4 ">
+                <a class="nav-link nav-link-desktop" href="#">Promotion</a>
+            </li>
+            <li class="nav-item mx-4 d-none d-sm-none d-md-block">
+                <a class="nav-link nav-link-desktop" href="#">Blog</a>
+            </li>
+        </ul>
+    </div>
+</nav>

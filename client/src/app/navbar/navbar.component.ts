@@ -1,28 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [{ provide: BsDropdownConfig, useValue: { isAnimated: true, autoClose: true } }]
 })
-export class NavbarComponent implements OnInit{
-  opened = false;
-  show = true;
+export class NavbarComponent implements OnInit {
+  collapse = false;
+  search = false;
+  items: string[] = [
+    'Dress',
+    'Shirt',
+    'T-shirt',
+    'Shoe',
+    'Dress',
+    'Shirt',
+    'T-shirt',
+    'Shoe'
+  ];
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-      
-    );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor() { }
 
   ngOnInit(): void {
-    this.opened = false;
+    this.collapse = false;
+    this.search = false;
+  }
+
+  navigationBarToggle() {
+    this.collapse = !this.collapse;
+  }
+
+  searchBarToggle() {
+    this.search = !this.search;
   }
 
 }

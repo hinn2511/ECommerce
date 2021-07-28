@@ -1,21 +1,41 @@
-.sidenav-container {
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+@media screen and (max-width: 480px) {
+    .navbar, .dropdown-toggle, .dropdown-item {
+        font-size: 2rem;
+    }
+
+    .dropdown-menu {
+        width: 110%;
+        background-color: transparent;
+        border: none;
+    }
+
+    .dropdown-item {
+        margin-left: 10vw;
+        font-size: 1.75rem;
+    }
+
+    .btn-search-mobile {
+        padding: 0.55rem 1.15rem;
+        border: none;
+    }
 }
 
-.sidenav {
-  width: 200px;
+
+.btn-cart {
+    color: black;
+    border-radius: 30px;
+    border: 2px solid black;
 }
 
-.sidenav .mat-toolbar {
-  background: inherit;
+.dropdown-toggle {
+    margin-left: 0;
 }
 
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+.nav-link-desktop {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.navbar-toggler {
+    border: none;
 }
