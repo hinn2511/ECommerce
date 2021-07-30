@@ -2,32 +2,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    
+
     public class ProductsController : BaseApiController
     {
-        private readonly DataContext _context;
-        public ProductsController(DataContext context)
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
+        public ProductsController(IProductRepository productRepository, IMapper mapper)
         {
-            _context = context;
+            _mapper = mapper;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-            return  await _context.Products.ToListAsync();
-            
+            var products = await _productRepository.GetAllProductsForCustomerAsync();
+
+            return Ok(products);
+
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        [HttpGet("{productName}")]
+        public async Task<ActionResult<ProductDto>> GetProduct(string productName)
         {
-            return await _context.Products.FindAsync(id);
+            return await _productRepository.GetProductForCustomerAsync(productName);
         }
     }
 }
