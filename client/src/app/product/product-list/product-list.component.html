@@ -1,0 +1,18 @@
+<!--Desktop-->
+<div class="container row col-12">
+    <div class="col-lg-2">
+        <h4 class="mt-5">Bộ lọc</h4>
+        <p class="text-muted">Đang xây dựng</p>
+    </div>
+    <div class="col-lg-10">
+        <div class="category-header">
+            <h2 class="category-name font-secondary">{{category}}</h2>
+            <hr class="dropdown-divider">
+        </div>
+        <div class="row col-sm-12 product-list">
+            <div *ngFor="let product of products$ | async" class="col-12 col-md-6 col-lg-3">
+                <app-product-card [product]="product"></app-product-card>
+            </div>
+        </div>
+    </div>
+</div>

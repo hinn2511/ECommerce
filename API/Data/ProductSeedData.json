@@ -1,132 +1,212 @@
 [
-    {
-      "ProductName": "Holland",
-      "Quantity": 0,
-      "Price": 170829,
-      "Introduction": "Irure Lorem excepteur ex elit amet enim laboris officia non elit voluptate. Aliquip id labore culpa non anim. Nulla labore et Lorem ea. Minim dolore sint in laboris eu incididunt Lorem voluptate nulla velit. Pariatur anim dolore nisi irure pariatur qui nulla veniam occaecat nisi. Esse quis voluptate exercitation elit ea labore nostrud labore aliquip incididunt. Ullamco ipsum ipsum ipsum elit tempor irure aliquip sint dolor reprehenderit.\r\n",
-      "Created": "2020-02-10",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/93.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Lloyd",
-      "Quantity": 0,
-      "Price": 461910,
-      "Introduction": "Reprehenderit voluptate aliquip elit occaecat amet fugiat. Sit occaecat adipisicing labore proident. Consectetur irure veniam reprehenderit do dolore culpa ut quis deserunt. Anim ea irure magna mollit esse tempor. Cillum anim irure reprehenderit pariatur aute Lorem.\r\n",
-      "Created": "2019-11-01",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/65.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Shaffer",
-      "Quantity": 0,
-      "Price": 372167,
-      "Introduction": "Aliqua est velit cillum minim voluptate nisi tempor sunt sint sint. Tempor et velit excepteur tempor adipisicing pariatur eu. Voluptate id commodo voluptate aliquip aliqua laboris velit enim consectetur eiusmod adipisicing amet. Duis minim sunt incididunt exercitation laboris.\r\n",
-      "Created": "2019-10-18",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/88.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Stephenson",
-      "Quantity": 0,
-      "Price": 422651,
-      "Introduction": "Aliquip duis dolore dolore enim ex pariatur tempor officia pariatur. Et anim Lorem deserunt est voluptate esse nostrud cupidatat commodo ex culpa. Velit incididunt eu est aliquip excepteur cupidatat. Proident cupidatat veniam cupidatat minim proident duis pariatur ad aute dolor consectetur deserunt incididunt. Eiusmod proident nisi deserunt cupidatat sunt in. Amet excepteur esse laborum ex eiusmod.\r\n",
-      "Created": "2020-01-18",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/69.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Mcneil",
-      "Quantity": 0,
-      "Price": 894998,
-      "Introduction": "Quis aute labore nulla veniam enim tempor aute sint enim pariatur culpa. Culpa incididunt sunt ad ullamco amet et proident. Anim voluptate adipisicing aliqua ad labore aliqua labore. Tempor ut sit deserunt duis ipsum laborum ea est. Irure mollit voluptate esse velit ullamco.\r\n",
-      "Created": "2019-02-03",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/20.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Stafford",
-      "Quantity": 0,
-      "Price": 538294,
-      "Introduction": "Eu sint excepteur ullamco deserunt laboris fugiat. Do amet Lorem eiusmod ut. Exercitation quis do tempor cupidatat magna occaecat officia incididunt exercitation. Dolor esse ad laboris duis officia officia sint. Laborum et eiusmod ullamco minim officia.\r\n",
-      "Created": "2020-04-19",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/41.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Garcia",
-      "Quantity": 0,
-      "Price": 391698,
-      "Introduction": "Lorem do in incididunt anim anim nulla laboris mollit officia duis id id eiusmod. Et labore officia exercitation minim cupidatat id laboris sint consectetur consequat. Sunt commodo commodo minim dolor. Proident nisi laboris officia eu irure eiusmod culpa nulla cillum incididunt cillum eu quis. Excepteur amet excepteur veniam nostrud. Consectetur commodo in enim amet veniam excepteur officia ullamco laboris veniam. Proident nisi magna proident eu anim nulla ipsum aliqua adipisicing veniam.\r\n",
-      "Created": "2019-07-31",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/28.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Pugh",
-      "Quantity": 0,
-      "Price": 887776,
-      "Introduction": "Enim elit minim ipsum fugiat dolor dolor occaecat nostrud non qui consequat ex adipisicing adipisicing. Officia exercitation commodo ad fugiat. Non qui enim aute cupidatat ipsum tempor cupidatat proident eiusmod nisi nostrud enim.\r\n",
-      "Created": "2019-11-14",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/96.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Nolan",
-      "Quantity": 0,
-      "Price": 389483,
-      "Introduction": "Magna id qui sunt eiusmod velit. Non anim sint anim ipsum do excepteur culpa eiusmod cillum fugiat ipsum et exercitation culpa. Minim nisi cupidatat enim consectetur cillum dolore commodo cupidatat amet laborum sit aliquip ea irure. Tempor duis eu id laboris magna cupidatat culpa ex eu pariatur laboris velit dolor qui.\r\n",
-      "Created": "2020-02-16",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/70.jpg",
-          "IsMain": true
-        }
-      ]
-    },
-    {
-      "ProductName": "Stuart",
-      "Quantity": 0,
-      "Price": 929025,
-      "Introduction": "Dolore fugiat deserunt nostrud incididunt laborum aliqua minim duis laboris. Quis tempor consequat in est quis officia cupidatat amet. Labore culpa deserunt et minim. Duis aliqua exercitation dolor exercitation excepteur ipsum ipsum ipsum proident eiusmod incididunt cupidatat. Dolor ea qui culpa occaecat excepteur amet. Proident do laborum labore enim officia.\r\n",
-      "Created": "2020-06-01",
-      "ProductPhotos": [
-        {
-          "Url": "https://randomuser.me/api/portraits/women/49.jpg",
-          "IsMain": true
-        }
-      ]
-    }
-  ]
+  {
+    "ProductName": "Ball",
+    "CategoryId": 1,
+    "CollectionId": 2,
+    "ProductCode": "B111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 554461,
+    "BrandId": 1,
+    "Material": "nhôm",
+    "Introduction": "Sunt nostrud id ut nulla reprehenderit quis aute irure ipsum. Ex eu nisi amet tempor qui eu ut ad adipisicing. Culpa deserunt et voluptate fugiat velit.\r\n",
+    "Created": "2020-05-30",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/830000297-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Haynes",
+    "CategoryId": 1,
+    "CollectionId": 2,
+    "ProductCode": "H111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 766323,
+    "BrandId": 2,
+    "Material": "gỗ",
+    "Introduction": "Ex elit culpa laborum ipsum mollit. Do id dolor consequat Lorem. Officia nulla adipisicing Lorem in sunt.\r\n",
+    "Created": "2019-01-20",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/830000062-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Spencer",
+    "CategoryId": 1,
+    "CollectionId": 2,
+    "ProductCode": "S111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 411696,
+    "BrandId": 3,
+    "Material": "thép",
+    "Introduction": "Voluptate deserunt voluptate elit voluptate deserunt deserunt exercitation irure excepteur consequat mollit. Laboris Lorem sit aute et occaecat. Fugiat eu pariatur enim duis esse sit magna dolore in sint. Laborum id deserunt aliquip mollit voluptate adipisicing enim ex tempor exercitation aute excepteur Lorem consequat. Eiusmod dolore anim eu velit qui voluptate non non pariatur adipisicing ad.\r\n",
+    "Created": "2020-05-04",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/650001851-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Sawyer",
+    "CategoryId": 3,
+    "CollectionId": 2,
+    "ProductCode": "S222",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 482177,
+    "BrandId": 1,
+    "Material": "giấy",
+    "Introduction": "Adipisicing dolore nostrud consectetur commodo sunt ullamco. Aliqua ex consequat nisi officia nostrud ad ullamco. Laboris excepteur deserunt labore sunt veniam eiusmod laboris ea voluptate Lorem sunt nulla. Duis dolor labore amet adipisicing ex anim proident adipisicing non.\r\n",
+    "Created": "2020-02-28",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/650001848-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Kinney",
+    "CategoryId": 3,
+    "CollectionId": 2,
+    "ProductCode": "K111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 576284,
+    "BrandId": 2,
+    "Material": "gỗ",
+    "Introduction": "Consequat laboris mollit mollit consequat officia non elit Lorem. Occaecat consectetur anim amet qui qui mollit laboris fugiat qui excepteur. Non adipisicing adipisicing ea eu consectetur mollit nostrud id officia ullamco ut.\r\n",
+    "Created": "2020-01-24",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/650002033-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Allison",
+    "CategoryId": 3,
+    "CollectionId": 2,
+    "ProductCode": "A111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 200925,
+    "BrandId": 1,
+    "Material": "gỗ",
+    "Introduction": "Aute aute et excepteur ut aliquip eiusmod proident enim laboris ut. Ea in deserunt elit eiusmod tempor Lorem et ullamco mollit. Sit quis laborum adipisicing aute esse exercitation Lorem eiusmod ea consequat ex nostrud.\r\n",
+    "Created": "2019-03-22",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/650002080-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Welch",
+    "CategoryId": 1,
+    "CollectionId": 2,
+    "ProductCode": "W111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 329269,
+    "BrandId": 3,
+    "Material": "đất sét",
+    "Introduction": "Excepteur irure sit adipisicing sint. Cupidatat consequat fugiat commodo ex ut cupidatat. Anim est elit culpa occaecat ex commodo tempor excepteur officia et incididunt. In adipisicing esse occaecat magna nisi adipisicing commodo voluptate incididunt sint consequat ullamco do esse.\r\n",
+    "Created": "2019-01-22",
+    "ProductPhotos": [
+      {
+        "Url": "https://www.ulcdn.net/opt/www.ulcdn.net/images/products/330460/product/altis_green_Artificial_Plant_LP.jpg?1614933051",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Clemons",
+    "CategoryId": 3,
+    "CollectionId": 2,
+    "ProductCode": "C111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 799338,
+    "BrandId": 1,
+    "Material": "gỗ",
+    "Introduction": "Ipsum amet ea reprehenderit nostrud excepteur irure culpa labore. Aliqua proident esse tempor sit. Cillum incididunt nostrud mollit ut in adipisicing adipisicing voluptate minim quis. Culpa consectetur nisi laborum ad Lorem deserunt esse in ullamco non ad do. Ea commodo cillum pariatur commodo aute. Irure in excepteur occaecat amet ex incididunt id.\r\n",
+    "Created": "2020-06-22",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/650000783-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Jacobson",
+    "CategoryId": 4,
+    "CollectionId": 2,
+    "ProductCode": "J111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 753077,
+    "BrandId": 3,
+    "Material": "gỗ",
+    "Introduction": "Ullamco laborum aute pariatur laborum mollit excepteur voluptate elit non nulla adipisicing enim. Deserunt quis do duis ad qui dolor officia nostrud nisi cupidatat. Do est veniam dolore pariatur minim nostrud minim ad nisi magna. Proident sint velit commodo esse mollit adipisicing ipsum non aliquip nisi. Anim incididunt pariatur aliquip laboris officia. Anim sint pariatur amet aliquip quis elit in reprehenderit dolore adipisicing anim voluptate.\r\n",
+    "Created": "2019-08-16",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/650002026-NB001.png",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "ProductName": "Faulkner",
+    "CategoryId": 3,
+    "CollectionId": 2,
+    "ProductCode": "F111",
+    "Height": 1200,
+    "Width": 200,
+    "Length": 400,
+    "Weight": 30,
+    "Price": 160452,
+    "BrandId": 2,
+    "Material": "gỗ",
+    "Introduction": "Eiusmod excepteur dolor irure culpa excepteur dolor exercitation elit aliquip esse voluptate deserunt officia. Dolor esse officia culpa dolor duis qui. Dolore dolor cillum consectetur cillum culpa tempor sint ad sint nisi id in qui laboris. Adipisicing incididunt amet dolor labore enim eiusmod nostrud commodo ut sunt sit consequat excepteur ullamco. Nulla laboris anim aliqua ut tempor ea incididunt proident. Mollit fugiat enim nisi quis labore sint cupidatat labore irure non proident elit excepteur voluptate.\r\n",
+    "Created": "2019-04-09",
+    "ProductPhotos": [
+      {
+        "Url": "https://aconcept.sgp1.digitaloceanspaces.com/products/630000029-NB001.png",
+        "IsMain": true
+      }
+    ]
+  }
+]

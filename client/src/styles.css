@@ -1,4 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+body { 
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html, body { height: 100%; width: 100%; margin: 0; }
+
+.container {
+    height: 100%;
+    width: 100%;
+    margin: 0; 
+    padding: 0;
+    min-width: 100%;
+}
+
+.font-brand {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.font-heading {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.font-secondary {
+    font-family: 'Raleway', sans-serif;
+}
+
+.font-cursive {
+    font-family: 'Abril Fatface', cursive;
+}
+
+.btn:focus, .btn.focus, form {
+    outline: none !important;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;
+}
+
+.btn {
+    border-radius: 10rem;
+}

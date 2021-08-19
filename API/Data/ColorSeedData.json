@@ -1,0 +1,27 @@
+[
+    {
+        "HexCode": "ffffff",
+        "ColorCode": "B000",
+        "ColorName": "Đen"
+    },
+    {
+        "HexCode": "0000ff",
+        "ColorCode": "B100",
+        "ColorName": "Xanh lam"
+    },
+    {
+        "HexCode": "00ff00",
+        "ColorCode": "G000",
+        "ColorName": "Xanh lục"
+    },
+    {
+        "HexCode": "ff0000",
+        "ColorCode": "R000",
+        "ColorName": "Đỏ"
+    },
+    {
+        "HexCode": "ffff00",
+        "ColorCode": "Y000",
+        "ColorName": "Vàng"
+    }
+]

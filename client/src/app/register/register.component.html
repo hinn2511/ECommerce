@@ -1,0 +1,74 @@
+<div class="register-card container row col-lg-12 justify-content-center">
+  <!--Login card with 8/12 screen width-->
+  <div class="col-lg-9">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <!--Login card image-->
+          <div class="col-lg-5 d-none d-lg-block">
+            <div class="text-center">
+              <img class="register-img" src="../../assets/register-cover.jpg" alt="">
+            </div>
+          </div>
+          <!--Login card text-->
+          <div class="col-lg-7 row register-text justify-content-center">
+            <!--Login input-->
+            <div class="col-lg-8">
+              <h2 class="card-title text-center font-secondary">Đăng ký</h2>
+
+              <form #registerForm="ngForm" (ngSubmit)="register()">
+                <div class="form-group">
+
+                              
+
+                  <label for="username" class="label font-secondary">Tên đăng nhập</label>
+                  <input 
+                    name="username"
+                    [(ngModel)]="model.username"
+                    type="text" 
+                    class="form-control" 
+                    id="username" 
+                    aria-describedby="Username"
+                    placeholder="Tên đăng nhập">
+
+                  <label for="password" class="label font-secondary">Mật khẩu</label>
+                  <input 
+                    name="password"
+                    [(ngModel)]="model.password"
+                    type="password" 
+                    class="form-control" 
+                    id="password" 
+                    placeholder="Mật khẩu">
+
+                  <label for="rênterPassword" class="label font-secondary">Xác nhận mật khẩu</label>
+                  <input 
+                    name="reEnterPassword"
+                    [(ngModel)]="model.reEtnerpassword"
+                    type="reEnterPassword" 
+                    class="form-control" 
+                    id="reEnterPassword" 
+                    placeholder="Xác nhận mật khẩu">
+  
+                  
+              
+                  <div class="divider"></div>
+                  <div class="form-check">
+                    <input
+                      type="checkbox" 
+                      class="form-check-input" 
+                      id="savePassword">
+                    <label class="form-check-label" for="savePassword">Đồng ý với <a href="">Điều khoản người dùng</a></label>                    
+                  </div>
+                  <div class="divider"></div>
+                  <button type="submit" class="btn btn-primary btn-register">Đăng ký</button>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

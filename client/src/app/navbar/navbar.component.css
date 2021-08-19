@@ -1,41 +1,72 @@
-@media screen and (max-width: 480px) {
-    .navbar, .dropdown-toggle, .dropdown-item {
+
+
+@media screen and (max-width: 1200px) {
+    .navbar {
+        height: auto;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+        margin-left: 2.4rem;
+    }
+
+    .nav-link {
         font-size: 2rem;
     }
 
+    .navbar-collapse {
+        z-index: 999;
+        width: 100vw;
+        height: 100vh;
+        margin: 0.5rem -1rem;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
     .dropdown-menu {
-        width: 110%;
         background-color: transparent;
         border: none;
+        font-size: 2rem;
     }
 
     .dropdown-item {
-        margin-left: 10vw;
         font-size: 1.75rem;
     }
 
-    .btn-search-mobile {
-        padding: 0.55rem 1.15rem;
+    .btn {
+        padding: 0.55rem 1rem;
         border: none;
     }
 }
 
+@media screen and (min-width: 1200px) {
+    
+    .navbar-brand {
+        font-size: 2rem;
+    }
 
-.btn-cart {
-    color: black;
-    border-radius: 30px;
-    border: 2px solid black;
+    .nav-link {
+        margin: 0 1rem;
+    }
+
+    .btn {
+        margin: 0 0.3rem;
+    }
 }
 
-.dropdown-toggle {
-    margin-left: 0;
+.navbar, .dropdown-item {
+    font-family: 'Raleway', sans-serif;
 }
 
-.nav-link-desktop {
-    font-size: 1.2rem;
-    text-align: center;
-}
 
-.navbar-toggler {
-    border: none;
+
+
+.dropdown-item, .dropdown-toggle {
+    cursor: pointer;
 }

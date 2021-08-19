@@ -1,3 +1,11 @@
 <div class="wrapper">
-    <app-navbar></app-navbar>
+    <ngx-spinner>Đang tải</ngx-spinner>
+    <app-navbar (showSearchBar)="showSearchBarMobile($event)" (navBarOpen)="hideContent($event)"></app-navbar>
+
+    <div class="container" *ngIf="showContent">
+        <app-search *ngIf="searchMode"></app-search>
+        <router-outlet></router-outlet>
+    </div>
+
+    <app-footer *ngIf="showContent"></app-footer>
 </div>

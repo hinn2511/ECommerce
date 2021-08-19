@@ -1,0 +1,56 @@
+<div class="login-card container row col-lg-12 justify-content-center">
+  <!--Login card with 9/12 screen width-->
+  <div class="col-lg-9">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <!--Login card image-->
+          <div class="col-lg-6 d-none d-lg-block">
+            <div class="text-center">
+              <img class="login-img" src="../../assets/login-cover.jpg" alt="">
+            </div>
+          </div>
+          <!--Login card text-->
+          <div class="col-lg-6 login-text">
+            <div class="d-none d-lg-block desktop-padding"></div>
+            <h2 class="card-title text-center font-secondary">Đăng nhập</h2>
+            <!--Login input-->
+            <form #loginForm="ngForm" (ngSubmit)="login()">
+              <div class="form-group">
+                <label for="username" class="label font-secondary">Tên đăng nhập</label>
+                <input 
+                  name="username"
+                  [(ngModel)]="model.username"
+                  type="text" 
+                  class="form-control" 
+                  id="username" 
+                  aria-describedby="Username"
+                  placeholder="Tên đăng nhập">
+                <label for="password" class="label font-secondary">Mật khẩu</label>
+                <input 
+                  name="password"
+                  [(ngModel)]="model.password"
+                  type="password" 
+                  class="form-control" 
+                  id="password" 
+                  placeholder="Mật khẩu">
+                <div class="form-check">
+                  <input
+                    type="checkbox" 
+                    class="form-check-input" 
+                    id="savePassword">
+                  <label class="form-check-label" for="savePassword">Lưu thông tin đăng nhập</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-login">Đăng nhập</button>
+                <div class="forgot-passwd text-center">
+                  <a href="/forgotpassword" class="text-muted">Quên mật khẩu</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

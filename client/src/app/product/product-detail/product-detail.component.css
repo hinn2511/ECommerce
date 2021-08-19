@@ -1,0 +1,89 @@
+@media screen and (min-width: 1200px) {
+    
+
+    .ngx-gallery {
+        margin-left: 1rem;
+    }
+
+    
+
+    
+
+
+    .product-detail {
+        padding: 3rem 4rem;
+    }
+
+    .product-specification {
+        padding-left: 2rem;
+    }
+    
+}
+
+@media screen and (min-width: 480px) and (max-width: 1200px) { 
+    .product-gallery {
+        margin-top: 5rem;
+    } 
+}
+
+@media screen and (max-width: 480px) { 
+    .product-gallery {
+        margin-top: 1rem;
+    } 
+
+}
+
+@media screen and (max-width: 1200px) {
+    
+
+    
+
+    .row
+    {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+  
+
+    .ngx-gallery {
+        margin-bottom: 2rem;
+    }
+
+    
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+.fa-color {
+    font-size: 2rem;
+}
+
+
+.btn-material {
+    background-color: rgb(212, 212, 212);
+}
+
+.quantity {
+    height: 2.5rem;
+    max-width: 5rem;
+    background: none;
+    border: none;
+    border-radius: 99rem;
+    font-size: 1.5rem;
+}
+
+
+.product-detail {
+    background-color: rgb(235, 238, 241);
+}
+

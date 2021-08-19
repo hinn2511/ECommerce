@@ -1,0 +1,17 @@
+@media screen and (max-width: 1200px) {
+    .container {
+        margin-top: 3.5rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        margin-top: 0rem;
+    }
+
+}
+
+.container {
+    z-index: 0;
+    width: 100vw;
+}

@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-body">
+        <div class="product-info" (click)="showDetail(product.productCode, product.productName)">
+            <div class="img-wrapper text-center">
+                <img class="product-img" src="{{product.photoUrl}}" alt="">
+            </div>
+            <h5 class="text-dark text-decoration-none product-detail">{{product.brand | titlecase}}</h5>
+            <h4 class="product-name mt-3 font-secondary">{{product.productName | titlecase}}</h4>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-7 pt-3 justify-content-start">
+                <p class="product-price">{{product.price | currency:'VND':'symbol':'3.2-2'}}</p>
+            </div>
+            <div class="col-lg-6 col-md-5 d-flex justify-content-end">
+                <button class="btn btn-like">
+                    <i class="fa fa-heart-o"></i>
+                </button>
+                <button class="btn btn-cart" (click)="addToCart(product)">
+                    <i class="fa fa-cart-plus"></i>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div *ngIf="product">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-decoration-none text-muted" routerLink="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-muted"
+                    routerLink="/category/{{product.category | titlecase}}">{{product.category | titlecase}}</a></li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">{{product.productName | titlecase}}</li>
+        </ol>
+    </nav>
+    <div class="container  product-overview col-12 row justify-content-center">
+        <div class="col-lg-7 col-md-7">
+            <div class="product-gallery">
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"
+                    style="display: inline-block;"></ngx-gallery>
+            </div>
+        </div>
+        <div class="col-lg-4 mt-5 col-md-5">
+            <h1 class="product-name font-secondary">{{product.productName | titlecase}}</h1>
+            <h6 class="brand-name mb-5">Nhãn hàng : {{product.brand | titlecase}}</h6>
+
+            <p class="color mt-4">Chất liệu :</p>
+            <button class="btn btn-material px-3 py-2">
+                <div class="material-container">
+                    {{product.material | titlecase}}
+                </div>
+            </button>
+            <div *ngIf="colors.length > 0" class="mt-4">
+                <p class="color">Màu sắc : {{colorChoosen | titlecase}}</p>
+                    <button class="btn" *ngFor="let color of colors">
+                        <div class="color-container" (click)="chooseColor(color)">
+                            <i *ngIf="color.colorName !== colorChoosen; else choosen" class="fa fa-circle fa-color"
+                                [ngStyle]="{ 'color': '#' + color.hexCode}"></i>
+                            <ng-template #choosen>
+                                <i class="fa fa-check-circle fa-color" [ngStyle]="{ 'color': 'black'}"></i>
+                            </ng-template>
+
+                        </div>
+                    </button>
+            </div>
+
+            <p class="quantity-label mt-4">Số lượng :</p>
+            <div class="form-inline quantity-form">
+                <button class="btn"><i class="fa fa-minus"></i></button>
+                <input type="number" class="form-control quantity" value="1">
+                <button class="btn"><i class="fa fa-plus"></i></button>
+            </div>
+            <hr class="dropdown-divider mt-4">
+            <h2 class="product-price mt-4 ml-4 ml-lg-2">{{product.price | currency:'VND'}}</h2>
+            <div class="row btn-action col-12 mt-4 d-flex justify-content-between">
+                <button class="btn bg-dark text-light mb-4 mb-lg-0 px-2 py-3 col-12 col-md-12 col-lg-6">
+                    <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                </button>
+                <button class="btn bg-light text-dark border-dark px-2 py-3 col-12 col-md-12 col-lg-5">
+                    <i class="fa fa-heart"></i> Yêu thích
+                </button>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    <div class="col-12 product-detail mt-5">
+        <div class="p-3">
+            <div class="py-4 px-3">
+                <h3>Giới thiệu sản phẩm</h3>
+                <p>{{product.introduction}}</p>
+            </div>
+            <div class="py-4 px-3">
+                <h3>Đặc điểm nổi bật</h3>
+                <div class="row col-12 product-specification">
+                    <div class="col-12 col-md-6 col-lg-4 mt-4">
+                        <h5>Kích thước</h5>
+                        <p>Chiều dài: {{product.length}} mm</p>
+                        <p>Chiều rộng: {{product.width}} mm</p>
+                        <p>Chiều cao: {{product.height}} mm</p>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mt-4">
+                        <h5>Chất liệu</h5>
+                        <p>{{product.material | titlecase}}</p>
+                        <h5>Màu sắc:</h5>
+                        <p>{{colorList }}</p>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mt-4">
+                        <h5>Nhãn hàng</h5>
+                        <p>{{product.brand | titlecase}}</p>
+                        <h5>Bộ sưu tập</h5>
+                        <p>{{product.collection | titlecase}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

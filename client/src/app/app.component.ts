@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -7,21 +10,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'Minimalist Closet';
-  products: any;
+  title = 'Green food';
+  searchMode = false;
+  showContent: boolean;
+  template = "<img src='../../assets/loading.gif'/>"
   
-  constructor(private http: HttpClient) {
+  constructor(private accountService : AccountService, public router: Router) {
 
   }
-  ngOnInit(): void {
-    this.getProducts();
+
+  ngOnInit() {
+    this.showContent = true;
+    this.setCurrentUser();
   }
 
-  getProducts() {
-    this.http.get('https://localhost:5001/api/products').subscribe(response => {
-      this.products = response;
-    }, error => {
-      console.log(error);
-    })
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    if(user){
+      this.accountService.setCurrentUser(user);
+    }
+    
   }
+
+  showSearchBarMobile(event: boolean){
+    this.searchMode = event;
+  }
+
+  hideContent(event: boolean){
+    this.showContent = event;
+  }
+
+  
 }
