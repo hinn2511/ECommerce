@@ -48,6 +48,13 @@ namespace API.Data
             return null;
         }
         
+        public async Task<Product> FindProductByCodeAsync(string productCode)
+        {
+            return await _context.Products
+                .Include(x => x.ProductPhotos)
+                .FirstAsync(x => x.ProductCode == productCode);
+        }
+        
         public async Task<ProductDto> GetProductAsync(string productCode)
         {
             return await _context.Products
@@ -69,12 +76,7 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Product> FindProductByCodeAsync(string productCode)
-        {
-            return await _context.Products
-                .Include(x => x.ProductPhotos)
-                .FirstAsync(x => x.ProductCode == productCode);
-        }
+        
 
 
 

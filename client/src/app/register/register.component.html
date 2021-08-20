@@ -1,67 +1,78 @@
-<div class="register-card container row col-lg-12 justify-content-center">
-  <!--Login card with 8/12 screen width-->
+<div class="container row col-lg-12 justify-content-center">
   <div class="col-lg-9">
     <div class="card">
       <div class="card-body">
         <div class="row">
           <!--Login card image-->
-          <div class="col-lg-5 d-none d-lg-block">
-            <div class="text-center">
-              <img class="register-img" src="../../assets/register-cover.jpg" alt="">
-            </div>
+          <div class="col-lg-5 fill d-none d-lg-block">
+            <img src="../../assets/register-cover.jpg" alt="">
           </div>
           <!--Login card text-->
-          <div class="col-lg-7 row register-text justify-content-center">
+          <div class="col-lg-7 register-form row mt-4 ml-2 justify-content-center">
             <!--Login input-->
             <div class="col-lg-8">
-              <h2 class="card-title text-center font-secondary">Đăng ký</h2>
+              <h2 class="title text-center font-secondary mb-5">Đăng ký</h2>
 
-              <form #registerForm="ngForm" (ngSubmit)="register()">
+              <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
                 <div class="form-group">
 
-                              
-
                   <label for="username" class="label font-secondary">Tên đăng nhập</label>
-                  <input 
-                    name="username"
-                    [(ngModel)]="model.username"
-                    type="text" 
-                    class="form-control" 
-                    id="username" 
-                    aria-describedby="Username"
-                    placeholder="Tên đăng nhập">
+                  <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Tên đăng nhập"'>
+                  </app-text-input>
 
                   <label for="password" class="label font-secondary">Mật khẩu</label>
-                  <input 
-                    name="password"
-                    [(ngModel)]="model.password"
-                    type="password" 
-                    class="form-control" 
-                    id="password" 
-                    placeholder="Mật khẩu">
+                  <app-text-input [formControl]='registerForm.controls["password"]' [type]='"password"'
+                    [label]='"Mật khẩu"'>
+                  </app-text-input>
 
-                  <label for="rênterPassword" class="label font-secondary">Xác nhận mật khẩu</label>
-                  <input 
-                    name="reEnterPassword"
-                    [(ngModel)]="model.reEtnerpassword"
-                    type="reEnterPassword" 
-                    class="form-control" 
-                    id="reEnterPassword" 
-                    placeholder="Xác nhận mật khẩu">
-  
-                  
-              
-                  <div class="divider"></div>
-                  <div class="form-check">
-                    <input
-                      type="checkbox" 
-                      class="form-check-input" 
-                      id="savePassword">
-                    <label class="form-check-label" for="savePassword">Đồng ý với <a href="">Điều khoản người dùng</a></label>                    
+                  <label for="confirmPassword" class="label font-secondary">Xác nhận mật khẩu</label>
+                  <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [type]='"password"'
+                    [label]='"Xác nhận mật khẩu"'>
+                  </app-text-input>
+
+                  <label for="lastName" class="label font-secondary">Họ</label>
+                  <app-text-input [formControl]='registerForm.controls["lastName"]' [label]='"Họ"'>
+                  </app-text-input>
+
+                  <label for="firstName" class="label font-secondary">Tên</label>
+                  <app-text-input [formControl]='registerForm.controls["firstName"]' [label]='"Tên"'>
+                  </app-text-input>
+
+                  <div class="form-group">
+                    <label class="control-label mr-3 font-secondary">Giới tính: </label>
+                    <div class="col-12">
+                      <label class="radio-inline mr-3">
+                        <input type="radio" value='nam' formControlName='gender' class="mr-2">Nam
+                      </label>
+                      <label class="radio-inline mr-3">
+                        <input type="radio" value='nữ' formControlName='gender' class="mr-2">Nữ
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" value='khác' formControlName='gender' class="mr-2">Khác
+                      </label>
+
+                    </div>
                   </div>
-                  <div class="divider"></div>
-                  <button type="submit" class="btn btn-primary btn-register">Đăng ký</button>
-                  
+
+                  <label for="dateOfBirth" class="label font-secondary">Ngày sinh</label>
+                  <app-date-input [formControl]='registerForm.controls["dateOfBirth"]'
+                    [label]='"Ngày sinh"' [maxDate]='maxDate'>
+                  </app-date-input>
+
+                  <label for="email" class="label font-secondary">Email</label>
+                  <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Email"'>
+                  </app-text-input>
+
+                  <label for="phoneNumber" class="label font-secondary">Số điện thoại</label>
+                  <app-text-input [formControl]='registerForm.controls["phoneNumber"]' [label]='"Số điện thoại"'>
+                  </app-text-input>
+
+                  <div class="form-check mt-4">
+                    <input type="checkbox" class="form-check-input" formControlName='userAgreement' value="agree" id="savePassword">
+                    <label class="form-check-label" for="savePassword">Đồng ý với <a href="">Điều khoản người
+                        dùng</a></label>
+                  </div>
+                  <button [disabled]='!registerForm.valid || registerForm.controls.userAgreement.value == false' type="submit" class="btn btn-register text-light mt-4">Đăng ký</button>
                 </div>
               </form>
             </div>

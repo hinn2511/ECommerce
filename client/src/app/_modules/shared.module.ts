@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ngx-toastr';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { RatingModule } from 'ngx-bootstrap/rating';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { viLocale } from 'ngx-bootstrap/locale';
+ defineLocale('vi', viLocale);
 
 
 @NgModule({
@@ -17,8 +20,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       positionClass: 'toast-bottom-center'
     }),
     TabsModule.forRoot(),
-    RatingModule.forRoot(),
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     NgxSpinnerModule,
     NgxGalleryModule,
     CommonModule,
@@ -28,10 +31,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   exports: [
     ToastrModule,
     TabsModule,
-    RatingModule,
     NgxGalleryModule,
     NgxSpinnerModule,
     BsDropdownModule,
+    BsDatepickerModule,
     CommonModule,
     LayoutModule,
     FormsModule   

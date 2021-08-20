@@ -148,7 +148,7 @@
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) as user">
                     <div class="btn-group" dropdown placement="bottom right" dropdown>
                         <button class="btn dropdown-toggle" dropdownToggle>
-                            <span>Xin chào, {{user.username | titlecase}}</span>
+                            <span>Xin chào, {{user.name | titlecase}}</span>
                         </button>
                         
                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"

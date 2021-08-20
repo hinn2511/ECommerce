@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -34,10 +35,11 @@ namespace API.Controllers
         }
 
         [HttpGet("{productCode}/{productName}")]
-        public async Task<ActionResult<ProductToCustomerDto>> GetProduct(string productCode, string productName)
+        public async Task<ActionResult<ProductToCustomerDto>> GetProductForCustomer(string productCode, string productName)
         {
             return await _productRepository.GetProductCustomerAsync(productCode, productName);
         }
+
 
         [HttpGet("category/{categoryName}")]
         public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsByCategory(string categoryName)
@@ -46,6 +48,12 @@ namespace API.Controllers
             return Ok(products);
         }
 
+        [Authorize]
+        [HttpGet("{productCode}", Name = "GetProduct")]
+        public async Task<ActionResult<ProductDto>> GetProduct(string productCode)
+        {
+            return await _productRepository.GetProductAsync(productCode);
+        }
 
         [Authorize]
         [HttpPost("add-product-photo/{productCode}")]
@@ -71,10 +79,65 @@ namespace API.Controllers
             product.ProductPhotos.Add(productPhoto);
 
             if (await _productRepository.SaveAllAsync())
-                return _mapper.Map<ProductPhotoDto>(productPhoto);
+            {
+                return CreatedAtRoute("GetProduct", new {productCode = productCode}, _mapper.Map<ProductPhotoDto>(productPhoto));
+            }
 
-            return BadRequest("Adding product photo error");
+            return BadRequest("Đã có lỗi xảy ra khi thêm hình ảnh sản phẩm");
         }
+
+        [Authorize]
+        [HttpPut("set-main-product-photo/{productCode}/{photoId}")]
+        public async Task<ActionResult> SetMainProductPhoto(string productCode, int photoId) 
+        {
+            var product = await _productRepository.FindProductByCodeAsync(productCode);
+
+            var productPhoto = product.ProductPhotos.FirstOrDefault(x => x.Id == photoId);
+
+            if (productPhoto.IsMain) return BadRequest("Hình ảnh sản phẩm chọn đã là hình ảnh chính");
+
+            var currentMain = product.ProductPhotos.FirstOrDefault(x => x.IsMain);
+
+            if (currentMain != null) currentMain.IsMain = false;
+
+            productPhoto.IsMain = true;
+
+            if (await _productRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Đã có lỗi xảy ra khi chọn hình ảnh sản phẩm chính");
+        }
+
+
+        [Authorize]
+        [HttpDelete("delete-product-photo/{productCode}/{photoId}")]
+        public async Task<ActionResult> DeleteProductPhoto(string productCode, int photoId)
+        {
+            var product = await _productRepository.FindProductByCodeAsync(productCode);
+
+            var productPhoto = product.ProductPhotos.FirstOrDefault(x => x.Id == photoId);
+
+            if (productPhoto == null) return NotFound();
+
+            if (productPhoto.IsMain) return BadRequest("Không thể xóa hình ảnh sản phẩm chính");
+
+            if (productPhoto.PublicId != null)
+            {
+                var result = await _productPhotoService.DeleteProductPhotoAsync(productPhoto.PublicId);
+
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            } 
+
+            product.ProductPhotos.Remove(productPhoto);
+
+            if (await _productRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("Đã có lỗi xảy ra khi xóa hình ảnh sản phẩm");
+
+        }
+
+
+
+
 
         // [HttpPut]
         // public async Task<ActionResult> UpdateProduct(ProductUpdateDto productUpdateDto)

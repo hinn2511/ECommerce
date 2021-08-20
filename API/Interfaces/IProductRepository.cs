@@ -13,6 +13,7 @@ namespace API.Interfaces
         Task<IEnumerable<ProductToCustomerDto>> GetProductsByCategoryCustomerAsync(string category);
         /////////////////////////////////////
         Task<Product> FindProductByCodeAsync(string productCode);
+        Task<ProductDto> GetProductAsync(string productCode);
         void Add(Product product);
         void Update(Product product);
         Task<bool> SaveAllAsync();

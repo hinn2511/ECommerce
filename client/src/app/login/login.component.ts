@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.model).subscribe(response => {
        this.router.navigateByUrl('/');
       }, error => {
-        this.toastr.error(error.error);
+        this.toastr.error('Tên đăng nhập hoặc mật khẩu không chính xác');
       }
     );
   }

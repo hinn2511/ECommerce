@@ -1,0 +1,28 @@
+<div class="form-group">
+    <input 
+        [class.is-invalid]='ngControl.touched && ngControl.invalid'
+        type={{type}}
+        class="form-control" 
+        [formControl]="ngControl.control"
+        placeholder={{label}}>
+        <div *ngIf="ngControl.control.errors?.required"
+            class="invalid-feedback">
+            Vui lòng nhập {{ label }}
+        </div>
+        <div *ngIf="ngControl.control.errors?.minlength"
+            class="invalid-feedback">
+            {{label}} phải có ít nhất {{ngControl.control.errors.minlength['requiredLength']}} ký tự
+        </div>
+        <div *ngIf="ngControl.control.errors?.maxlength"
+            class="invalid-feedback">
+            {{label}} chỉ tối đa {{ngControl.control.errors.maxlength['requiredLength']}} ký tự
+        </div>
+        <div *ngIf="ngControl.control.errors?.pattern"
+            class="invalid-feedback">
+            {{label}} không hợp lệ
+        </div>
+        <div *ngIf="ngControl.control.errors?.isMatching"
+            class="invalid-feedback">
+            Mật khẩu không trùng khớp
+        </div>
+</div>

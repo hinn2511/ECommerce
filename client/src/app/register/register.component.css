@@ -1,120 +1,58 @@
-@media screen and (max-width: 768px) {
-    .register-img {
-        margin-top: 3rem;
-        max-width: 100%;
-        max-height: 100%;
-    }
-
+@media screen and (max-width: 1200px) {
     .row {
         width: 100%;
         margin: 0;
-    }
-
-    .register-text {
-        margin-top: 2rem;
-    }
-
-    .card-body {
-        margin-bottom: 1rem;
-    }
-
-    .card-title {
-        font-size: 2rem;
-        padding-bottom: 2rem;
-    }
-
-    .label {
-        font-size: 1.3rem;
-    }
-    
-    .btn {
-        font-size: 1.2rem;
-    }
-
-    .forgot-passwd, .form-check-label, .form-check-input {
-        font-size: 1.2rem;
-    }
-
-    .forgot-passwd {
-        margin-top: 1.5rem;
         padding: 0;
     }
 
-    .form-control, .form-check {
-        margin-bottom: 2rem;
-    }
-}
-
-@media screen and (max-width: 1000px) {
     .card {
-        max-width: 30rem;
         margin: 0 auto;
     }
-}
 
+    .register-form {
+        margin-left: 0!important;
+    }
+}
 
 .container {
     padding-top: 4rem;
     padding-bottom: 4rem;
-}
-
-.register-card {
     background-color: rgb(69, 98, 116);
-    min-height: 35rem;
-    z-index: 0;
 }
 
-.register-img-container {
-    margin: 0 auto;
-}
-
-.register-text {
-    margin-top: 3rem;
-}
 
 .card {
     border-radius: 1rem;
 }
 
-.card-title {
-    font-size: 2rem;
-    padding-bottom: 1rem;
-    color: rgb(169, 101, 101);
-}
 
-.register-img {
-    max-width: 100%;
-    min-height: 100%;
-    object-fit: contain;
-    border-radius: 0.5rem 0rem 0rem 0.5rem;
-    margin: auto 0;
+.title {
+    color: rgb(169, 101, 101);
 }
 
 .btn-register {
     width: 100%;
-    color: rgb(255, 255, 255);
     background-color: rgb(169, 101, 101);
     border: none;
     padding: 1rem 0;
-    border-radius: 0.5rem;
 }
 
 .btn-register:hover {
     background-color: rgb(131, 78, 78);
 }
 
-.forgot-passwd {
-    padding-top: 1rem;
+.fill {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
 }
 
-.forgot-passwd {
-    margin-top: 1.5rem;
-}
-
-.form-control, .form-check {
-    margin-bottom: 1rem;
-}
-
-.divider {
-    padding: 1rem 0;
+.fill img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+    border-radius: 1rem 0 0 1rem;
+    max-height: 1000px;
 }

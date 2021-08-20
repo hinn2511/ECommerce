@@ -64,12 +64,12 @@
     <div class="col-12 product-detail mt-5">
         <div class="p-3">
             <div class="py-4 px-3">
-                <h3>Giới thiệu sản phẩm</h3>
+                <h3 class="mb-3">Giới thiệu sản phẩm</h3>
                 <p>{{product.introduction}}</p>
             </div>
             <div class="py-4 px-3">
                 <h3>Đặc điểm nổi bật</h3>
-                <div class="row col-12 product-specification">
+                <div class="row col-12 product-specification justify-content-between">
                     <div class="col-12 col-md-6 col-lg-4 mt-4">
                         <h5>Kích thước</h5>
                         <p>Chiều dài: {{product.length}} mm</p>
@@ -79,7 +79,7 @@
                     <div class="col-12 col-md-6 col-lg-4 mt-4">
                         <h5>Chất liệu</h5>
                         <p>{{product.material | titlecase}}</p>
-                        <h5>Màu sắc:</h5>
+                        <h5>Màu sắc</h5>
                         <p>{{colorList }}</p>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mt-4">

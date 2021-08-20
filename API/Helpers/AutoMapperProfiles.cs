@@ -47,7 +47,7 @@ namespace API.Helpers
             CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(
                            src => src.DateOfBirth.CalculateAge()));
-        
+            CreateMap<RegisterDto, AppUser>();
         //Category
             CreateMap<Category, CategoryDto>();
         }
