@@ -1,4 +1,16 @@
 @media screen and (max-width: 480px) {
+
+    .list-head {
+        margin: 0;
+    }
+    .list-head col-12 {
+        margin: 0;
+    }
+
+    .sort {
+        margin: 0;
+    }
+
     .product-list {
         min-width: 100vw;
     }
@@ -10,14 +22,17 @@
 
     .category-name {
         text-align: center;
-        margin-right: 1rem;
-        font-size: 3rem;
     }
 
     .dropdown-divider {
         margin-left: 0rem;
         margin-right: 1rem;
     }
+
+    .btn-sort {
+        text-align: center!important;
+    }
+    
 }
 
 .container {
@@ -29,7 +44,7 @@
     margin-top: 3rem;
 }
 
-@media screen and (min-width: 992px) and (max-width: 1400px){
+@media screen and (min-width: 992px) and (max-width: 1200px){
     .col-lg-3 {
         flex: 0 0 33%;
         max-width: 33%;
@@ -39,4 +54,22 @@
         font-size: 0.7rem;
     }
 
+    
+
+}
+
+.form-group {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+}
+
+.filter-btn-group {
+    width: 100%;
+}
+
+.btn-sort {
+    background-color: none;
 }

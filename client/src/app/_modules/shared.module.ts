@@ -4,6 +4,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
@@ -22,6 +24,8 @@ import { viLocale } from 'ngx-bootstrap/locale';
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     NgxSpinnerModule,
     NgxGalleryModule,
     CommonModule,
@@ -31,6 +35,8 @@ import { viLocale } from 'ngx-bootstrap/locale';
   exports: [
     ToastrModule,
     TabsModule,
+    PaginationModule,
+    ButtonsModule,
     NgxGalleryModule,
     NgxSpinnerModule,
     BsDropdownModule,

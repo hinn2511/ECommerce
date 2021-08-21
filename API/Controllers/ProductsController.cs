@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -25,10 +27,14 @@ namespace API.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProducts()
+        [HttpGet("categories/{categoryName}")]
+        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProducts([FromQuery]UserParams userParams, string categoryName)
         {
-            var products = await _productRepository.GetAllProductsCustomerAsync();
+            userParams.Category = categoryName;
+
+            var products = await _productRepository.GetAllProductsCustomerAsync(userParams);
+
+            Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
 
             return Ok(products);
 
@@ -41,12 +47,12 @@ namespace API.Controllers
         }
 
 
-        [HttpGet("category/{categoryName}")]
-        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsByCategory(string categoryName)
-        {
-            var products = await _productRepository.GetProductsByCategoryCustomerAsync(categoryName.ToLower());
-            return Ok(products);
-        }
+        // [HttpGet("category/{categoryName}")]
+        // public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsByCategory(string categoryName)
+        // {
+        //     var products = await _productRepository.GetProductsByCategoryCustomerAsync(categoryName.ToLower());
+        //     return Ok(products);
+        // }
 
         [Authorize]
         [HttpGet("{productCode}", Name = "GetProduct")]

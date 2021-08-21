@@ -10,7 +10,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-        //Customer
+            //Customer
             //Product
             CreateMap<Product, ProductToCustomerDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
@@ -22,11 +22,18 @@ namespace API.Helpers
                 .ForMember(dest => dest.Collection, opt => opt.MapFrom(
                            src => src.Collection.CollectionName))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(
-                           src => src.ProductColors.Select(c => c.Color)));
-            CreateMap<Color, ProductColorToCustomerDto>();
+                           src => src.ProductColors));
+            CreateMap<ProductColor, ProductColorToCustomerDto>()
+                .ForMember(dest => dest.ColorCode, opt => opt.MapFrom(
+                           src => src.Color.ColorCode))
+                .ForMember(dest => dest.HexCode, opt => opt.MapFrom(
+                           src => src.Color.HexCode))
+                .ForMember(dest => dest.ColorName, opt => opt.MapFrom(
+                           src => src.Color.ColorName))
+                .ForMember(dest => dest.ProductStockState, opt => opt.MapFrom(
+                           src => src.Quantity.GetProductColorState()));
 
-
-        //Business
+            //Business
             //Product
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
@@ -38,17 +45,25 @@ namespace API.Helpers
                 .ForMember(dest => dest.Collection, opt => opt.MapFrom(
                            src => src.Collection.CollectionName))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(
-                           src => src.ProductColors.Select(c => c.Color)));
-                CreateMap<Color, ProductColorDto>();
+                           src => src.ProductColors));
+            CreateMap<ProductColor, ProductColorDto>()
+                .ForMember(dest => dest.ColorCode, opt => opt.MapFrom(
+                           src => src.Color.ColorCode))
+                .ForMember(dest => dest.HexCode, opt => opt.MapFrom(
+                           src => src.Color.HexCode))
+                .ForMember(dest => dest.ColorName, opt => opt.MapFrom(
+                           src => src.Color.ColorName))
+                .ForMember(dest => dest.ProductStockState, opt => opt.MapFrom(
+                           src => src.Quantity.GetProductColorState()));
 
-            
+
             CreateMap<ProductPhoto, ProductPhotoDto>();
-        //User
+            //User
             CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(
                            src => src.DateOfBirth.CalculateAge()));
             CreateMap<RegisterDto, AppUser>();
-        //Category
+            //Category
             CreateMap<Category, CategoryDto>();
         }
     }

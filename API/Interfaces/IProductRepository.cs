@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 
 namespace API.Interfaces
 {
@@ -9,7 +10,7 @@ namespace API.Interfaces
     {
         //Customer 
         Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode,string productName);
-        Task<IEnumerable<ProductToCustomerDto>> GetAllProductsCustomerAsync();
+        Task<PagedList<ProductToCustomerDto>> GetAllProductsCustomerAsync(UserParams userParams);
         Task<IEnumerable<ProductToCustomerDto>> GetProductsByCategoryCustomerAsync(string category);
         /////////////////////////////////////
         Task<Product> FindProductByCodeAsync(string productCode);

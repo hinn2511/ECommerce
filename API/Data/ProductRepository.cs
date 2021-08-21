@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -23,12 +24,34 @@ namespace API.Data
         }
 
 
-        public async Task<IEnumerable<ProductToCustomerDto>> GetAllProductsCustomerAsync()
+        public async Task<PagedList<ProductToCustomerDto>> GetAllProductsCustomerAsync(UserParams userParams)
         {
-            return await _context.Products
-             .ProjectTo<ProductToCustomerDto>(_mapper.ConfigurationProvider)
-             .ToListAsync();
+            var query =  _context.Products.AsQueryable();
+
+            var minPrice = 0.0;
+            var maxPrice = 1000000000.0;
+            if (userParams.MinPrice > 0.0) 
+                minPrice = userParams.MinPrice;
+            if (userParams.MaxPrice > 0.0) 
+                maxPrice = userParams.MaxPrice;
+            query = query.Where(p => p.Category.CategoryName == userParams.Category);
+            query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice); 
+
+            query = userParams.OrderBy switch
+            {
+                "newest" => query.OrderByDescending(u => u.Created),
+                "oldest" => query.OrderBy(u => u.Created),
+                "highestPrice" => query.OrderByDescending(u => u.Price),
+                "lowestPrice" => query.OrderBy(u => u.Price),
+                _ => query.OrderByDescending(u => u.Created)
+            };
+
+            return await PagedList<ProductToCustomerDto>
+                .CreateAsync(query.ProjectTo<ProductToCustomerDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+                    userParams.PageNumber, userParams.PageSize);
+
         }
+
         public async Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode, string productName)
         {
             return await _context.Products
@@ -47,14 +70,14 @@ namespace API.Data
                     .ToListAsync();
             return null;
         }
-        
+
         public async Task<Product> FindProductByCodeAsync(string productCode)
         {
             return await _context.Products
                 .Include(x => x.ProductPhotos)
                 .FirstAsync(x => x.ProductCode == productCode);
         }
-        
+
         public async Task<ProductDto> GetProductAsync(string productCode)
         {
             return await _context.Products
@@ -65,7 +88,7 @@ namespace API.Data
 
         public void Add(Product product)
         {
-            _context.Products.Add(product); 
+            _context.Products.Add(product);
         }
         public void Update(Product product)
         {
@@ -76,7 +99,7 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        
+
 
 
 

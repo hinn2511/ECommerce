@@ -5,5 +5,6 @@ namespace API.DTOs
         public string ColorCode { get; set; }
         public string HexCode { get; set; }
         public string ColorName { get; set; }
+        public string ProductStockState { get; set; }
     }
 }
