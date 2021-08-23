@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210822145135_IdentityAdded")]
-    partial class IdentityAdded
+    [Migration("20210823131041_Initital")]
+    partial class Initital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -247,6 +247,9 @@ namespace API.Migrations
                     b.Property<string>("ProductName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Weight")
                         .HasColumnType("INTEGER");
 
@@ -260,6 +263,8 @@ namespace API.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CollectionId");
+
+                    b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
                 });
@@ -305,6 +310,25 @@ namespace API.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductPhotos");
+                });
+
+            modelBuilder.Entity("API.Entities.SubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SubCategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -430,11 +454,19 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("API.Entities.SubCategory", "SubCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
 
                     b.Navigation("Collection");
+
+                    b.Navigation("SubCategory");
                 });
 
             modelBuilder.Entity("API.Entities.ProductColor", b =>
@@ -465,6 +497,17 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("API.Entities.SubCategory", b =>
+                {
+                    b.HasOne("API.Entities.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -521,6 +564,8 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("API.Entities.Collection", b =>
@@ -538,6 +583,11 @@ namespace API.Migrations
                     b.Navigation("ProductColors");
 
                     b.Navigation("ProductPhotos");
+                });
+
+            modelBuilder.Entity("API.Entities.SubCategory", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

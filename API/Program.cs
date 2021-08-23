@@ -26,6 +26,7 @@ namespace API
                 await context.Database.MigrateAsync();
                 await Seed.SeedBrands(context);
                 await Seed.SeedCategories(context);
+                await Seed.SeedSubCategories(context);
                 await Seed.SeedCollections(context);
                 await Seed.SeedColors(context);
                 await Seed.SeedUsers(userManager, roleManager);

@@ -136,6 +136,24 @@ namespace API.Entities
             await context.SaveChangesAsync();
         }
 
+        public static async Task SeedSubCategories(DataContext context)
+        {
+            if (await context.SubCategories.AnyAsync()) return;
+
+            var subCategoryData = await System.IO.File.ReadAllTextAsync("Data/SubCategorySeedData.json");
+
+            var subCategories = JsonSerializer.Deserialize<List<SubCategory>>(subCategoryData);
+
+            foreach ( var subCategory in subCategories)
+            {
+                subCategory.SubCategoryName = subCategory.SubCategoryName.ToLower();
+
+                await context.SubCategories.AddAsync(subCategory);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
         public static async Task SeedColors(DataContext context)
         {
             if (await context.Colors.AnyAsync()) return;

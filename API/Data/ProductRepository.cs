@@ -84,10 +84,7 @@ namespace API.Data
         {
             _context.Entry(product).State = EntityState.Modified;
         }
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
+        
 
         public void Delete(Product product)
         {

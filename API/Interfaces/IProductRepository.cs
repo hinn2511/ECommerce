@@ -20,6 +20,5 @@ namespace API.Interfaces
         void Add(Product product);
         void Update(Product product);
         void Delete(Product product);
-        Task<bool> SaveAllAsync();
     }
 }

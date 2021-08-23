@@ -17,11 +17,13 @@ namespace API.Entities
         public int Width { get; set; }
         public int Weight { get; set; }
         public string Introduction { get; set; }
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Created { get; set; } = DateTime.UtcNow;
         public int CategoryId { get; set; }
+        public int SubCategoryId { get; set; }
         public int BrandId { get; set; }
         public int CollectionId { get; set; }
         public Category Category { get; set; }
+        public SubCategory SubCategory { get; set; }
         public Collection Collection { get; set; }
         public Brand Brand { get; set; }
         

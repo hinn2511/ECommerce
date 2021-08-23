@@ -10,13 +10,13 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            //Customer
-            //Product
             CreateMap<Product, ProductToCustomerDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
                            src => src.ProductPhotos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(
                            src => src.Category.CategoryName))
+                .ForMember(dest => dest.SubCategory, opt => opt.MapFrom(
+                           src => src.SubCategory.SubCategoryName))
                 .ForMember(dest => dest.Brand, opt => opt.MapFrom(
                            src => src.Brand.BrandName))
                 .ForMember(dest => dest.Collection, opt => opt.MapFrom(
@@ -33,8 +33,7 @@ namespace API.Helpers
                 .ForMember(dest => dest.ProductStockState, opt => opt.MapFrom(
                            src => src.Quantity.GetProductColorState()));
 
-            //Business
-            //Product
+            
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
                            src => src.ProductPhotos.FirstOrDefault(x => x.IsMain).Url))
@@ -58,12 +57,15 @@ namespace API.Helpers
 
 
             CreateMap<ProductPhoto, ProductPhotoDto>();
-            //User
+            
+            
             CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(
                            src => src.DateOfBirth.CalculateAge()));
+
             CreateMap<RegisterDto, AppUser>();
-            //Category
+            
+            
             CreateMap<Category, CategoryDto>();
         }
     }

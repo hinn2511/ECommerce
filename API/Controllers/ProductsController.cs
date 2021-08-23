@@ -16,21 +16,20 @@ namespace API.Controllers
 
     public class ProductsController : BaseApiController
     {
-        private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
         private readonly IProductPhotoService _productPhotoService;
-        public ProductsController(IProductRepository productRepository, IMapper mapper, IProductPhotoService productPhotoService)
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductsController(IUnitOfWork unitOfWork, IProductPhotoService productPhotoService)
         {
+            _unitOfWork = unitOfWork;
             _productPhotoService = productPhotoService;
-            _mapper = mapper;
-            _productRepository = productRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsForCustomer([FromQuery]UserParams userParams)
+        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsForCustomer([FromQuery] UserParams userParams)
         {
 
-            var products = await _productRepository.GetAllProductsCustomerAsync(userParams);
+            var products = await _unitOfWork.ProductRepository.GetAllProductsCustomerAsync(userParams);
 
             Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
 
@@ -41,7 +40,7 @@ namespace API.Controllers
         [HttpGet("{productCode}")]
         public async Task<ActionResult<ProductToCustomerDto>> GetProductForCustomer(string productCode)
         {
-            return await _productRepository.GetProductCustomerAsync(productCode);
+            return await _unitOfWork.ProductRepository.GetProductCustomerAsync(productCode);
         }
 
 
@@ -49,14 +48,14 @@ namespace API.Controllers
         [HttpGet("business/{productCode}", Name = "GetProduct")]
         public async Task<ActionResult<ProductDto>> GetProduct(string productCode)
         {
-            return await _productRepository.GetProductAsync(productCode);
+            return await _unitOfWork.ProductRepository.GetProductAsync(productCode);
         }
 
         [Authorize(Policy = "PurchasingOnly")]
         [HttpPost("add-product-photo/{productCode}")]
         public async Task<ActionResult<ProductPhotoDto>> AddProductPhoto(IFormFile file, string productCode)
         {
-            var product = await _productRepository.FindProductByCodeAsync(productCode);
+            var product = await _unitOfWork.ProductRepository.FindProductByCodeAsync(productCode);
 
             var result = await _productPhotoService.AddProductPhotoAsync(file);
 
@@ -68,16 +67,16 @@ namespace API.Controllers
                 PublicId = result.PublicId
             };
 
-            if(product.ProductPhotos.Count == 0)
+            if (product.ProductPhotos.Count == 0)
             {
                 productPhoto.IsMain = true;
             }
 
             product.ProductPhotos.Add(productPhoto);
 
-            if (await _productRepository.SaveAllAsync())
+            if (await _unitOfWork.Complete())
             {
-                return CreatedAtRoute("GetProduct", new {productCode = productCode}, _mapper.Map<ProductPhotoDto>(productPhoto));
+                return CreatedAtRoute("GetProduct", new { productCode = productCode }, _mapper.Map<ProductPhotoDto>(productPhoto));
             }
 
             return BadRequest("Đã có lỗi xảy ra khi thêm hình ảnh sản phẩm");
@@ -85,9 +84,9 @@ namespace API.Controllers
 
         [Authorize(Policy = "PurchasingOnly")]
         [HttpPut("set-main-product-photo/{productCode}/{photoId}")]
-        public async Task<ActionResult> SetMainProductPhoto(string productCode, int photoId) 
+        public async Task<ActionResult> SetMainProductPhoto(string productCode, int photoId)
         {
-            var product = await _productRepository.FindProductByCodeAsync(productCode);
+            var product = await _unitOfWork.ProductRepository.FindProductByCodeAsync(productCode);
 
             var productPhoto = product.ProductPhotos.FirstOrDefault(x => x.Id == photoId);
 
@@ -99,7 +98,7 @@ namespace API.Controllers
 
             productPhoto.IsMain = true;
 
-            if (await _productRepository.SaveAllAsync()) return NoContent();
+            if (await _unitOfWork.Complete()) return NoContent();
 
             return BadRequest("Đã có lỗi xảy ra khi chọn hình ảnh sản phẩm chính");
         }
@@ -109,7 +108,7 @@ namespace API.Controllers
         [HttpDelete("delete-product-photo/{productCode}/{photoId}")]
         public async Task<ActionResult> DeleteProductPhoto(string productCode, int photoId)
         {
-            var product = await _productRepository.FindProductByCodeAsync(productCode);
+            var product = await _unitOfWork.ProductRepository.FindProductByCodeAsync(productCode);
 
             var productPhoto = product.ProductPhotos.FirstOrDefault(x => x.Id == photoId);
 
@@ -122,11 +121,11 @@ namespace API.Controllers
                 var result = await _productPhotoService.DeleteProductPhotoAsync(productPhoto.PublicId);
 
                 if (result.Error != null) return BadRequest(result.Error.Message);
-            } 
+            }
 
             product.ProductPhotos.Remove(productPhoto);
 
-            if (await _productRepository.SaveAllAsync()) return Ok();
+            if (await _unitOfWork.Complete()) return Ok();
 
             return BadRequest("Đã có lỗi xảy ra khi xóa hình ảnh sản phẩm");
 
@@ -139,15 +138,15 @@ namespace API.Controllers
         // [HttpPut]
         // public async Task<ActionResult> UpdateProduct(ProductUpdateDto productUpdateDto)
         // {
-        //     var product = await _productRepository.GetProductByIdAsync(productUpdateDto.Id);
+        //     var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productUpdateDto.Id);
 
         //     if(product == null) return BadRequest("Product not found");
 
         //     _mapper.Map(productUpdateDto, product);
 
-        //     _productRepository.Update(product);
+        //     _unitOfWork.ProductRepository.Update(product);
 
-        //     if(await _productRepository.SaveAllAsync()) return NoContent();
+        //     if(await _unitOfWork.Complete()) return NoContent();
 
         //     return BadRequest("Failed to update product");
         // }
@@ -155,7 +154,7 @@ namespace API.Controllers
         // [HttpPost]
         // public async Task<ActionResult> AddProduct(ProductUpdateDto productUpdateDto)
         // {
-        //     var productCreate = await _productRepository.GetProductByProductNameAsync(productUpdateDto.ProductName);
+        //     var productCreate = await _unitOfWork.ProductRepository.GetProductByProductNameAsync(productUpdateDto.ProductName);
 
         //     if( productCreate != null) return BadRequest("Product already exist");
 
@@ -167,12 +166,12 @@ namespace API.Controllers
         //         Introduction = productUpdateDto.Introduction,
         //         CategoryId = productUpdateDto.CategoryId,
         //         CollectionId = productUpdateDto.CollectionId,
-        //         Created = DateTime.Now
+        //         Created = DateTime.UtcNow
         //     };
 
-        //     _productRepository.Add(newProduct);
+        //     _unitOfWork.ProductRepository.Add(newProduct);
 
-        //     if(await _productRepository.SaveAllAsync()) return NoContent();
+        //     if(await _unitOfWork.Complete()) return NoContent();
 
         //     return BadRequest("Failed to add product");
 

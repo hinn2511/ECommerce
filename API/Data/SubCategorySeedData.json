@@ -1,0 +1,26 @@
+[
+    {
+        "SubCategoryName": "Bàn ăn",
+        "CategoryId": 5
+    },
+    {
+        "SubCategoryName": "Bàn làm việc",
+        "CategoryId": 5
+    },
+    {
+        "SubCategoryName": "Ghế sofa",
+        "CategoryId": 4
+    },
+    {
+        "SubCategoryName": "Ghế ăn",
+        "CategoryId": 4
+    },
+    {
+        "SubCategoryName": "Đèn trần",
+        "CategoryId": 3
+    },
+    {
+        "SubCategoryName": "Đèn ngủ",
+        "CategoryId": 3
+    }
+]

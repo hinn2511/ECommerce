@@ -2,6 +2,7 @@
   {
     "ProductName": "Ball",
     "CategoryId": 1,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "B111",
     "Height": 1200,
@@ -23,6 +24,7 @@
   {
     "ProductName": "Haynes",
     "CategoryId": 1,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "H111",
     "Height": 1200,
@@ -44,6 +46,7 @@
   {
     "ProductName": "Spencer",
     "CategoryId": 1,
+    "SubCategoryId": 2,
     "CollectionId": 2,
     "ProductCode": "S111",
     "Height": 1200,
@@ -65,6 +68,7 @@
   {
     "ProductName": "Sawyer",
     "CategoryId": 3,
+    "SubCategoryId": 4,
     "CollectionId": 2,
     "ProductCode": "S222",
     "Height": 1200,
@@ -86,6 +90,7 @@
   {
     "ProductName": "Kinney",
     "CategoryId": 3,
+    "SubCategoryId": 4,
     "CollectionId": 2,
     "ProductCode": "K111",
     "Height": 1200,
@@ -107,6 +112,7 @@
   {
     "ProductName": "Allison",
     "CategoryId": 3,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "A111",
     "Height": 1200,
@@ -128,6 +134,7 @@
   {
     "ProductName": "Welch",
     "CategoryId": 1,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "W111",
     "Height": 1200,
@@ -149,6 +156,7 @@
   {
     "ProductName": "Clemons",
     "CategoryId": 3,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "C111",
     "Height": 1200,
@@ -170,6 +178,7 @@
   {
     "ProductName": "Jacobson",
     "CategoryId": 4,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "J111",
     "Height": 1200,
@@ -191,6 +200,7 @@
   {
     "ProductName": "Faulkner",
     "CategoryId": 3,
+    "SubCategoryId": 1,
     "CollectionId": 2,
     "ProductCode": "F111",
     "Height": 1200,
