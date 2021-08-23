@@ -26,16 +26,16 @@ namespace API.Data
 
         public async Task<PagedList<ProductToCustomerDto>> GetAllProductsCustomerAsync(UserParams userParams)
         {
-            var query =  _context.Products.AsQueryable();
+            var query = _context.Products.AsQueryable();
 
             var minPrice = 0.0;
             var maxPrice = 1000000000.0;
-            if (userParams.MinPrice > 0.0) 
+            if (userParams.MinPrice > 0.0)
                 minPrice = userParams.MinPrice;
-            if (userParams.MaxPrice > 0.0) 
+            if (userParams.MaxPrice > 0.0)
                 maxPrice = userParams.MaxPrice;
-            query = query.Where(p => p.Category.CategoryName == userParams.Category);
-            query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice); 
+            query = query.Where(p => p.Category.CategoryName == userParams.Categories);
+            query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
             query = userParams.OrderBy switch
             {
@@ -52,24 +52,14 @@ namespace API.Data
 
         }
 
-        public async Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode, string productName)
+        public async Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode)
         {
             return await _context.Products
-             .Where(p => p.ProductName == productName && p.ProductCode == productCode)
+             .Where(p => p.ProductCode == productCode)
              .ProjectTo<ProductToCustomerDto>(_mapper.ConfigurationProvider)
              .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<ProductToCustomerDto>> GetProductsByCategoryCustomerAsync(string category)
-        {
-            var productCategory = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryName == category);
-            if (productCategory != null)
-                return await _context.Products
-                    .Where(p => p.CategoryId == productCategory.Id)
-                    .ProjectTo<ProductToCustomerDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync();
-            return null;
-        }
 
         public async Task<Product> FindProductByCodeAsync(string productCode)
         {
@@ -97,6 +87,11 @@ namespace API.Data
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public void Delete(Product product)
+        {
+            _context.Products.Remove(product);
         }
 
 

@@ -13,9 +13,26 @@ import { UserParams } from '../_models/userParams';
 export class ProductService {
   baseUrl = environment.apiUrl;
   products: Product[] = [];
-  
+  productCache = new Map();
+  userParams: UserParams;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+    this.userParams = new UserParams();
+  }
+
+  getUserParams() {
+    return this.userParams;
+  }
+
+  setUserParams(params: UserParams) {
+    this.userParams = params;
+  }
+
+  resetUserParams() {
+    this.userParams = new UserParams();
+    return this.userParams;
+  }
 
   getProducts() {
     if (this.products.length > 0) return of(this.products);
@@ -27,29 +44,22 @@ export class ProductService {
     );
   }
 
-  getProductsByCategory(userParams: UserParams, category: string) {
-    // let params = new HttpParams();
-
-    // if (page !== null && itemsPerPage !== null) {
-    //   params = params.append('pageNumber', page.toString());
-    //   params = params.append('pageSize', itemsPerPage.toString());
-    // }
-
-    // return this.http.get<Product[]>(this.baseUrl + 'products/categories/' + category, { observe: 'response', params }).pipe(
-    //   map(response => {
-    //     this.paginatedResult.result = response.body;
-    //     if (response.headers.get('Pagination') != null) {
-    //       this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-    //     }
-    //     return this.paginatedResult;
-    //   })
-    // );
-
+  getProductsByCategory(userParams: UserParams) {
+    var response = this.productCache.get(Object.values(userParams).join('-'));
+    if (response) {
+      return of(response);
+    }
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
+    params = params.append('categories', userParams.categories);
     params = params.append('minPrice', userParams.minPrice.toString());
     params = params.append('maxPrice', userParams.maxPrice.toString());
     params = params.append('orderBy', userParams.orderBy);
-    return this.getPaginatedResult<Product[]>(this.baseUrl + 'products/categories/' + category, params);
+    return this.getPaginatedResult<Product[]>(this.baseUrl + 'products', params).pipe(
+      map(response => {
+        this.productCache.set(Object.values(userParams).join('-'), response);
+        return response;
+      })
+    );
   }
 
 
@@ -74,8 +84,12 @@ export class ProductService {
   }
 
   getProduct(productCode: string, productName: string) {
-    const product = this.products.find(x => x.productCode === productCode && x.productName === productName);
-    if (product !== undefined) return of(product);
-    return this.http.get<Product>(this.baseUrl + 'products/' + productCode + '/' + productName);
+    const product = [...this.productCache.values()]
+      .reduce((arr, elm) => arr.concat(elm.result), [])
+      .find((product: Product) => product.productCode === productCode);
+    if (product) {
+      return of(product);
+    }
+    return this.http.get<Product>(this.baseUrl + 'products/' + productCode);
   }
 }

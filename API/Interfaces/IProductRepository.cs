@@ -9,18 +9,17 @@ namespace API.Interfaces
     public interface IProductRepository
     {
         //Customer 
-        Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode,string productName);
+        Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode);
         Task<PagedList<ProductToCustomerDto>> GetAllProductsCustomerAsync(UserParams userParams);
-        Task<IEnumerable<ProductToCustomerDto>> GetProductsByCategoryCustomerAsync(string category);
-        /////////////////////////////////////
+
+        //Business
         Task<Product> FindProductByCodeAsync(string productCode);
         Task<ProductDto> GetProductAsync(string productCode);
+
+        //CRUD
         void Add(Product product);
         void Update(Product product);
+        void Delete(Product product);
         Task<bool> SaveAllAsync();
-        //Task<IEnumerable<Product>> GetProductsAsync();
-        //Task<Product> GetProductByIdAsync(int id);
-        //Task<Product> GetProductByProductNameAsync(string productName);
-        //Task<ProductDto> GetProductForCustomerAsync(string productName);
     }
 }

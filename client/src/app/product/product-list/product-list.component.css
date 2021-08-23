@@ -1,5 +1,8 @@
 @media screen and (max-width: 480px) {
-
+    .btn, label, input {
+        font-size: 1.2rem;
+    }
+    
     .list-head {
         margin: 0;
     }
@@ -24,10 +27,7 @@
         text-align: center;
     }
 
-    .dropdown-divider {
-        margin-left: 0rem;
-        margin-right: 1rem;
-    }
+    
 
     .btn-sort {
         text-align: center!important;
@@ -35,9 +35,7 @@
     
 }
 
-.container {
-    z-index: 0;
-}
+
 
 .category-header {
     margin-left: 1rem;
@@ -58,6 +56,7 @@
 
 }
 
+
 .form-group {
     width: 100%;
 }
@@ -71,5 +70,5 @@
 }
 
 .btn-sort {
-    background-color: none;
+    text-align: right;
 }

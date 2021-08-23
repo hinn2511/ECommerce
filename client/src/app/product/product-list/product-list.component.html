@@ -3,7 +3,7 @@
     <div class="col-lg-2">
         <h4 class="mt-5">Bộ lọc</h4>
         <div class="container mt-3">
-            <form #form="ngForm" class="form-inline" (ngSubmit)="loadProducts(category)" autocomplete="off">
+            <form #form="ngForm" class="form-inline" (ngSubmit)="loadProducts()" autocomplete="off">
                 <div class="form-group">
                     <label>Giá thấp nhất</label>
                     <input type="number" class="form-control col-12 mt-2" name="minPrice"
@@ -37,7 +37,7 @@
                 <div class="row sort col-12 justify-content-end">
                     <div class="btn-group col-12 col-lg-6" dropdown>
                         <button id="button-basic" dropdownToggle type="button"
-                            class="btn btn-sort dropdown-toggle text-dark text-right" aria-controls="dropdown-basic">
+                            class="btn btn-sort dropdown-toggle text-dark" aria-controls="dropdown-basic">
                             {{sort}}
                         </button>
                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"

@@ -4,32 +4,84 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Entities
 {
     public class Seed
     {
-        public static async Task SeedUsers(DataContext context)
+        public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
-            if (await context.Users.AnyAsync()) return;
+            if (await userManager.Users.AnyAsync()) return;
 
             var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
 
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+            
+            if (users == null) return;
 
-            foreach ( var user in users)
+            var roles = new List<AppRole>
             {
-                using var hmac = new HMACSHA512();
+                new AppRole{Name = "Customer"},
+                new AppRole{Name = "Logistic"},
+                new AppRole{Name = "Sales"},
+                new AppRole{Name = "Purchasing"},
+                new AppRole{Name = "Manager"},
+                new AppRole{Name = "Admin"}
+            };
 
-                user.UserName = user.UserName.ToLower();
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-                user.PasswordSalt = hmac.Key;
-
-                context.Users.Add(user);
+            foreach(var role in roles)
+            {
+                await roleManager.CreateAsync(role);
             }
 
-            await context.SaveChangesAsync();
+            foreach( var user in users)
+            {
+                user.UserName = user.UserName.ToLower();
+                await userManager.CreateAsync(user, "Pa$$w0rd");
+                await userManager.AddToRoleAsync(user, "Customer");
+            }
+
+            var admin = new AppUser
+            {
+                UserName = "admin"
+            };
+
+            await userManager.CreateAsync(admin, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(admin, new[] {"Admin"});
+
+            var manager = new AppUser
+            {
+                UserName = "manager"
+            };
+
+            await userManager.CreateAsync(manager, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(manager, new[] {"Manager"});
+
+            var purchasing = new AppUser
+            {
+                UserName = "purchasing"
+            };
+
+            await userManager.CreateAsync(purchasing, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(purchasing, new[] {"Purchasing"});
+
+            var sales = new AppUser
+            {
+                UserName = "sales"
+            };
+
+            await userManager.CreateAsync(sales, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(sales, new[] {"Sales"});
+
+            var logistic = new AppUser
+            {
+                UserName = "logistic"
+            };
+
+            await userManager.CreateAsync(logistic, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(logistic, new[] {"Logistic"});
         }
 
         public static async Task SeedProducts(DataContext context)
@@ -60,7 +112,7 @@ namespace API.Entities
 
             foreach ( var productColor in productColors)
             {
-                context.ProductColors.Add(productColor);
+                await context.ProductColors.AddAsync(productColor);
             }
 
             await context.SaveChangesAsync();
@@ -78,7 +130,7 @@ namespace API.Entities
             {
                 category.CategoryName = category.CategoryName.ToLower();
 
-                context.Categories.Add(category);
+                await context.Categories.AddAsync(category);
             }
 
             await context.SaveChangesAsync();
@@ -96,7 +148,7 @@ namespace API.Entities
             {
                 color.ColorName = color.ColorName.ToLower();
                 color.HexCode = color.HexCode.ToLower();
-                context.Colors.Add(color);
+                await context.Colors.AddAsync(color);
             }
 
             await context.SaveChangesAsync();
@@ -114,7 +166,7 @@ namespace API.Entities
             {
                 brand.BrandName = brand.BrandName.ToLower();
 
-                context.Brands.Add(brand);
+                await context.Brands.AddAsync(brand);
             }
 
             await context.SaveChangesAsync();
@@ -132,7 +184,7 @@ namespace API.Entities
             {
                 collection.CollectionName = collection.CollectionName.ToLower();
 
-                context.Collections.Add(collection);
+                await context.Collections.AddAsync(collection);
             }
 
             await context.SaveChangesAsync();

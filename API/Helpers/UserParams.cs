@@ -10,7 +10,7 @@ namespace API.Helpers
             get => _pageSize;
             set => _pageSize = ( value > MaxPageSize ) ? MaxPageSize : value;
         }
-        public string Category { get; set; }
+        public string Categories { get; set; }
         public double MinPrice { get; set; }
         public double MaxPrice { get; set; }
         public string OrderBy { get; set; } = "newest";

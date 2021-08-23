@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -27,10 +26,9 @@ namespace API.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet("categories/{categoryName}")]
-        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProducts([FromQuery]UserParams userParams, string categoryName)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsForCustomer([FromQuery]UserParams userParams)
         {
-            userParams.Category = categoryName;
 
             var products = await _productRepository.GetAllProductsCustomerAsync(userParams);
 
@@ -40,28 +38,21 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("{productCode}/{productName}")]
-        public async Task<ActionResult<ProductToCustomerDto>> GetProductForCustomer(string productCode, string productName)
+        [HttpGet("{productCode}")]
+        public async Task<ActionResult<ProductToCustomerDto>> GetProductForCustomer(string productCode)
         {
-            return await _productRepository.GetProductCustomerAsync(productCode, productName);
+            return await _productRepository.GetProductCustomerAsync(productCode);
         }
 
 
-        // [HttpGet("category/{categoryName}")]
-        // public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsByCategory(string categoryName)
-        // {
-        //     var products = await _productRepository.GetProductsByCategoryCustomerAsync(categoryName.ToLower());
-        //     return Ok(products);
-        // }
-
-        [Authorize]
-        [HttpGet("{productCode}", Name = "GetProduct")]
+        [Authorize(Policy = "BusinessOnly")]
+        [HttpGet("business/{productCode}", Name = "GetProduct")]
         public async Task<ActionResult<ProductDto>> GetProduct(string productCode)
         {
             return await _productRepository.GetProductAsync(productCode);
         }
 
-        [Authorize]
+        [Authorize(Policy = "PurchasingOnly")]
         [HttpPost("add-product-photo/{productCode}")]
         public async Task<ActionResult<ProductPhotoDto>> AddProductPhoto(IFormFile file, string productCode)
         {
@@ -92,7 +83,7 @@ namespace API.Controllers
             return BadRequest("Đã có lỗi xảy ra khi thêm hình ảnh sản phẩm");
         }
 
-        [Authorize]
+        [Authorize(Policy = "PurchasingOnly")]
         [HttpPut("set-main-product-photo/{productCode}/{photoId}")]
         public async Task<ActionResult> SetMainProductPhoto(string productCode, int photoId) 
         {
@@ -114,7 +105,7 @@ namespace API.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Policy = "PurchasingOnly")]
         [HttpDelete("delete-product-photo/{productCode}/{photoId}")]
         public async Task<ActionResult> DeleteProductPhoto(string productCode, int photoId)
         {
