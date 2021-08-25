@@ -1,4 +1,4 @@
-export class UserParams {
+export class CustomerParams {
     categories = "";
     minPrice = 0;
     maxPrice = 1000000000;

@@ -1,0 +1,29 @@
+.row, .container, .product-list {
+    width: 100%;
+}
+
+.product-list, .empty-list {
+    margin: 0;
+}
+
+
+@media screen and (max-width: 1200px) {
+    h3 {
+        margin-top: 2rem;
+        
+    }
+
+    .empty-list {
+        margin-top: 10rem;
+        min-height: 40rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    
+    .empty-list {
+        margin-top: 10rem;
+        min-height: 20rem;
+    }
+}
+

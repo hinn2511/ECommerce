@@ -1,14 +1,11 @@
 @media screen and (min-width: 1200px) {
-    
-
     .ngx-gallery {
         margin-left: 1rem;
     }
 
-    
-
-    
-
+    .breadcrumb {
+        padding-left: 2rem;
+    }
 
     .product-detail {
         padding: 3rem 4rem;
@@ -34,35 +31,16 @@
 }
 
 @media screen and (max-width: 1200px) {
-    
-
-    
-
     .row
     {
         margin-right: 0;
         margin-left: 0;
     }
 
-  
-
     .ngx-gallery {
         margin-bottom: 2rem;
     }
-
-    
-
-    
 }
-
-
-
-
-
-
-
-
-
 
 .fa-color {
     font-size: 2rem;
@@ -79,11 +57,22 @@
     background: none;
     border: none;
     border-radius: 99rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
-
 
 .product-detail {
     background-color: rgb(235, 238, 241);
 }
 
+.breadcrumb {
+    background-color: white;
+}
+
+.breadcrumb>li+li:before { 
+    padding-right: 5px;
+    color: #ccc; 
+    content: ">"; }
+
+.active {
+    font-weight: bold;
+}

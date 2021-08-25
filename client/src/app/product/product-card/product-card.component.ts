@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/_models/product';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
   selector: 'app-product-card',
@@ -10,7 +12,7 @@ import { Product } from 'src/app/_models/product';
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private productService: ProductService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +22,12 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToCart(product: any) {
+  }
+
+  addToFavorite(product: Product) {
+    this.productService.addToFavorite(product.productCode).subscribe(() => {
+      this.toastr.success('Đã thêm ' + product.productName +' vào yêu thích');
+    })
   }
 
 }

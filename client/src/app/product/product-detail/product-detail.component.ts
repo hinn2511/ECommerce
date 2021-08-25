@@ -28,7 +28,7 @@ export class ProductDetailComponent implements OnInit {
     this.galleryOptions = [
       {
         width: '45rem',
-        height: '45rem',
+        height: '30rem',
         imagePercent: 100,
         imageSize: 'contain',
         thumbnailsColumns: 5,
@@ -59,18 +59,19 @@ export class ProductDetailComponent implements OnInit {
 
   getProduct() {
     this.productCode = this.route.snapshot.paramMap.get('code');
-    this.productName = this.route.snapshot.paramMap.get('name');
-    this.productService.getProduct(this.productCode, this.productName).subscribe(product => {
+    this.productService.getProduct(this.productCode).subscribe(product => {
       this.product = product;
-      this.colors = this.getProductColors();
       this.galleryImages = this.getImages();
-      console.log(this.colors);
+    })
+    this.productService.getProductColors(this.productCode).subscribe(colors => {
+      this.colors = colors;
+      this.getProductColors();
     })
   }
 
   getProductColors(): Color[] {
     const productColors = [];
-    for (const color of this.product.colors) {
+    for (const color of this.colors) {
       productColors.push({
         hexCode: color?.hexCode,
         colorCode: color?.colorCode,

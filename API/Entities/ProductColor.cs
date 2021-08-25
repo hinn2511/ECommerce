@@ -6,7 +6,7 @@ namespace API.Entities
     public class ProductColor
     {
         public int ProductId { get; set; }
-        
+
         [JsonIgnore]
         public Product Product { get; set; }
         public int ColorId { get; set; }

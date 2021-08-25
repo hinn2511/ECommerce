@@ -24,10 +24,11 @@ namespace API.Data
         }
 
 
-        public async Task<PagedList<ProductToCustomerDto>> GetAllProductsCustomerAsync(UserParams userParams)
+        public async Task<PagedList<ProductDto>> GetAllProductsAsync(UserParams userParams)
         {
             var query = _context.Products.AsQueryable();
-
+            query = query.Include(p => p.ProductColors);
+            
             var minPrice = 0.0;
             var maxPrice = 1000000000.0;
             if (userParams.MinPrice > 0.0)
@@ -45,18 +46,19 @@ namespace API.Data
                 "lowestPrice" => query.OrderBy(u => u.Price),
                 _ => query.OrderByDescending(u => u.Created)
             };
+            query = query.Include(p => p.ProductColors);
 
-            return await PagedList<ProductToCustomerDto>
-                .CreateAsync(query.ProjectTo<ProductToCustomerDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+            return await PagedList<ProductDto>
+                .CreateAsync(query.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
                     userParams.PageNumber, userParams.PageSize);
 
         }
 
-        public async Task<ProductToCustomerDto> GetProductCustomerAsync(string productCode)
+        public async Task<ProductDto> GetProductAsync(string productCode)
         {
             return await _context.Products
              .Where(p => p.ProductCode == productCode)
-             .ProjectTo<ProductToCustomerDto>(_mapper.ConfigurationProvider)
+             .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
              .SingleOrDefaultAsync();
         }
 
@@ -68,13 +70,14 @@ namespace API.Data
                 .FirstAsync(x => x.ProductCode == productCode);
         }
 
-        public async Task<ProductDto> GetProductAsync(string productCode)
+        public async Task<Product> GetProductByCodeAsync(string productCode)
         {
             return await _context.Products
-             .Where(p => p.ProductCode == productCode)
-             .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
-             .SingleOrDefaultAsync();
+                .Include(x => x.ProductPhotos)
+                .SingleOrDefaultAsync(x => x.ProductCode == productCode);
         }
+
+
 
         public void Add(Product product)
         {
@@ -84,14 +87,30 @@ namespace API.Data
         {
             _context.Entry(product).State = EntityState.Modified;
         }
-        
+
 
         public void Delete(Product product)
         {
             _context.Products.Remove(product);
         }
 
-
+        public async Task<IEnumerable<ProductColorDto>> GetProductColor(string productCode)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductCode == productCode);
+            if (product != null) 
+            {
+                return await _context.ProductColors
+                .Where(p => p.ProductId == product.Id)
+                .Select(pc => new ProductColorDto
+                {
+                    Quantity = pc.Quantity,
+                    ColorCode = pc.Color.ColorCode,
+                    HexCode = pc.Color.HexCode,
+                    ColorName = pc.Color.ColorName
+                }).ToListAsync();
+            }
+            return null;
+        }
 
 
 

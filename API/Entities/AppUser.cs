@@ -13,6 +13,7 @@ namespace API.Entities
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime LastActive { get; set; } = DateTime.UtcNow;
         public ICollection<AppUserRole> UserRoles { get; set; }
+        public ICollection<CustomerFavorite> FavoriteProducts { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@
                 <p class="product-price">{{product.price | currency:'VND'}}</p>
             </div>
             <div class="col-lg-6 col-md-5 d-flex justify-content-end">
-                <button class="btn btn-like">
+                <button class="btn btn-like" (click)="addToFavorite(product)">
                     <i class="fa fa-heart-o"></i>
                 </button>
                 <button class="btn btn-cart" (click)="addToCart(product)">

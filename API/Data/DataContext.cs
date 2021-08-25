@@ -18,12 +18,13 @@ namespace API.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<CustomerFavorite> Favorites { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Color> Colors { get; set; }
-        public DbSet<ProductColor> ProductColors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -76,7 +77,20 @@ namespace API.Data
                 .HasOne(p => p.Category)
                 .WithMany(l => l.SubCategories);
 
+            builder.Entity<CustomerFavorite>()
+                .HasKey(k => new { k.ProductId, k.CustomerId});
 
+            builder.Entity<CustomerFavorite>()
+                .HasOne(pc => pc.Product)
+                .WithMany(p => p.FavoriteByCustomers)
+                .HasForeignKey(pc => pc.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<CustomerFavorite>()
+                .HasOne(pc => pc.Customer)
+                .WithMany(p => p.FavoriteProducts)
+                .HasForeignKey(pc => pc.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.ApplyUtcDateTimeConverter();
 

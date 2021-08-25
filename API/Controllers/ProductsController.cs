@@ -19,17 +19,18 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IProductPhotoService _productPhotoService;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductsController(IUnitOfWork unitOfWork, IProductPhotoService productPhotoService)
+        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper, IProductPhotoService productPhotoService)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _productPhotoService = productPhotoService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductToCustomerDto>>> GetProductsForCustomer([FromQuery] UserParams userParams)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] UserParams userParams)
         {
 
-            var products = await _unitOfWork.ProductRepository.GetAllProductsCustomerAsync(userParams);
+            var products = await _unitOfWork.ProductRepository.GetAllProductsAsync(userParams);
 
             Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
 
@@ -38,15 +39,24 @@ namespace API.Controllers
         }
 
         [HttpGet("{productCode}")]
-        public async Task<ActionResult<ProductToCustomerDto>> GetProductForCustomer(string productCode)
+        public async Task<ActionResult<ProductDto>> GetProduct(string productCode)
         {
-            return await _unitOfWork.ProductRepository.GetProductCustomerAsync(productCode);
+            var productColors = await _unitOfWork.ProductRepository.GetProductAsync(productCode);
+            if (productColors == null) return BadRequest("Không tìm thấy sản phẩm");
+            return Ok(productColors);
+        }
+
+        [HttpGet("color/{productCode}")]
+        public async Task<ActionResult<ProductColorDto>> GetProductColors(string productCode)
+        {
+            var productColors = await _unitOfWork.ProductRepository.GetProductColor(productCode);
+            return Ok(productColors);
         }
 
 
         [Authorize(Policy = "BusinessOnly")]
         [HttpGet("business/{productCode}", Name = "GetProduct")]
-        public async Task<ActionResult<ProductDto>> GetProduct(string productCode)
+        public async Task<ActionResult<ProductDto>> GetProductForBusiness(string productCode)
         {
             return await _unitOfWork.ProductRepository.GetProductAsync(productCode);
         }

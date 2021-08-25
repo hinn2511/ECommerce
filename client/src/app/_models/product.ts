@@ -5,7 +5,6 @@ export interface Product {
     id: number;
     productCode: string;
     productName: string;
-    colors: Color[];
     material: string;
     height: number;
     length: number;

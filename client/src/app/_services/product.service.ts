@@ -1,11 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { PaginatedResult } from '../_models/pagination';
+import { Color } from '../_models/color';
 import { Product } from '../_models/product';
-import { UserParams } from '../_models/userParams';
+import { CustomerParams } from '../_models/customerParams';
+import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -14,76 +15,45 @@ export class ProductService {
   baseUrl = environment.apiUrl;
   products: Product[] = [];
   productCache = new Map();
-  userParams: UserParams;
+  customerParams: CustomerParams;
 
 
   constructor(private http: HttpClient) {
-    this.userParams = new UserParams();
+    this.customerParams = new CustomerParams();
   }
 
-  getUserParams() {
-    return this.userParams;
+  getCustomerParams() {
+    return this.customerParams;
   }
 
-  setUserParams(params: UserParams) {
-    this.userParams = params;
+  setCustomerParams(params: CustomerParams) {
+    this.customerParams = params;
   }
 
-  resetUserParams() {
-    this.userParams = new UserParams();
-    return this.userParams;
+  resetCustomerParams() {
+    this.customerParams = new CustomerParams();
+    return this.customerParams;
   }
 
-  getProducts() {
-    if (this.products.length > 0) return of(this.products);
-    return this.http.get<Product[]>(this.baseUrl + 'products').pipe(
-      map(products => {
-        this.products = products;
-        return products;
-      })
-    );
-  }
-
-  getProductsByCategory(userParams: UserParams) {
-    var response = this.productCache.get(Object.values(userParams).join('-'));
+  getProductsByCategory(customerParams: CustomerParams) {
+    var response = this.productCache.get(Object.values(customerParams).join('-'));
     if (response) {
       return of(response);
     }
-    let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
-    params = params.append('categories', userParams.categories);
-    params = params.append('minPrice', userParams.minPrice.toString());
-    params = params.append('maxPrice', userParams.maxPrice.toString());
-    params = params.append('orderBy', userParams.orderBy);
-    return this.getPaginatedResult<Product[]>(this.baseUrl + 'products', params).pipe(
+    let params = getPaginationHeaders(customerParams.pageNumber, customerParams.pageSize);
+    params = params.append('categories', customerParams.categories);
+    params = params.append('minPrice', customerParams.minPrice.toString());
+    params = params.append('maxPrice', customerParams.maxPrice.toString());
+    params = params.append('orderBy', customerParams.orderBy);
+    return getPaginatedResult<Product[]>(this.baseUrl + 'products', params, this.http).pipe(
       map(response => {
-        this.productCache.set(Object.values(userParams).join('-'), response);
+        this.productCache.set(Object.values(customerParams).join('-'), response);
         return response;
       })
     );
   }
 
-
-  getPaginatedResult<T>(url, params) {
-    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
-    return this.http.get<T>(url, { observe: 'response', params }).pipe(
-      map(response => {
-        paginatedResult.result = response.body;
-        if (response.headers.get('Pagination') !== null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-        }
-        return paginatedResult;
-      })
-    );
-  }
-
-  getPaginationHeaders(pageNumber: number, pageSize: number) {
-    let params = new HttpParams();
-    params = params.append('pageNumber', pageNumber.toString());
-    params = params.append('pageSize', pageSize.toString());
-    return params;
-  }
-
-  getProduct(productCode: string, productName: string) {
+  getProduct(productCode: string) {
     const product = [...this.productCache.values()]
       .reduce((arr, elm) => arr.concat(elm.result), [])
       .find((product: Product) => product.productCode === productCode);
@@ -91,5 +61,18 @@ export class ProductService {
       return of(product);
     }
     return this.http.get<Product>(this.baseUrl + 'products/' + productCode);
+  }
+
+  getProductColors(productCode: string) {
+    return this.http.get<Color[]>(this.baseUrl + 'products/color/' + productCode);
+  }
+
+  addToFavorite(productCode: string) {
+    return this.http.post(this.baseUrl + 'favorite/add-to-favorite/' + productCode, {});
+  }
+
+  getCustomerFavorite(pageNumber, pageSize) {
+    let params = getPaginationHeaders(pageNumber, pageSize);
+    return getPaginatedResult<Partial<Product[]>>(this.baseUrl + 'favorite', params, this.http);
   }
 }

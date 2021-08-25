@@ -1,1 +1,21 @@
-<p>customer-favorite works!</p>
+<div class="container row col-12 mt-5">
+    <h3 class="font-secondary col-12 text-center">Sản phẩm yêu thích của tôi</h3>
+    <div class="row col-sm-12 product-list" *ngIf="products?.length > 0; else emptyList">
+        <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-3">
+            <app-product-card [product]="product"></app-product-card>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
+            <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+                [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;">
+            </pagination>
+        </div>
+    </div>
+    <ng-template #emptyList>
+        <div class="row col-12 empty-list">
+            <h3 class="text-center text-muted col-12">Bạn chưa yêu thích sản phẩm nào</h3>
+        </div>
+    </ng-template>
+    
+</div>

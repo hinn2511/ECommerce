@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
+import { FormValidationRegex } from '../_validations/form-validation';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup;
   maxDate: Date;
+  regex = FormValidationRegex;
 
   constructor(private accountService: AccountService,
     private route: Router,
@@ -28,20 +30,20 @@ export class RegisterComponent implements OnInit {
 
   initializeForm() {
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.pattern(this.regex.stringNumber)]],
       password: ['', [Validators.required,
       Validators.minLength(8),
       Validators.maxLength(32)]],
       confirmPassword: ['', [Validators.required,
       this.matchValues('password')]],
-      firstName: ['', [Validators.required, Validators.pattern("^[^0-9]+$")]],
-      lastName: ['', [Validators.required, Validators.pattern("^[^0-9]+$")]],
+      firstName: ['', [Validators.required, Validators.pattern(this.regex.string)]],
+      lastName: ['', [Validators.required, Validators.pattern(this.regex.string)]],
       gender: ['Nam'],
       dateOfBirth: ['', Validators.required],
       email: ['', [Validators.required,
-      Validators.pattern("[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}")]],
+      Validators.pattern(this.regex.email)]],
       phoneNumber: ['', [Validators.required,
-      Validators.pattern("0[0-9\s.-]{9,13}")]],
+      Validators.pattern(this.regex.phoneNumber)]],
       userAgreement: ['', Validators.required],
 
     })

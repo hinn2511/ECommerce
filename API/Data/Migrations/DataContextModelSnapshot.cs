@@ -3,16 +3,14 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace API.Migrations
+namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210823131041_Initital")]
-    partial class Initital
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,6 +204,21 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("API.Entities.CustomerFavorite", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductId", "CustomerId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("API.Entities.Product", b =>
@@ -434,6 +447,25 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Entities.CustomerFavorite", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "Customer")
+                        .WithMany("FavoriteProducts")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Product", "Product")
+                        .WithMany("FavoriteByCustomers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
                     b.HasOne("API.Entities.Brand", "Brand")
@@ -553,6 +585,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
+                    b.Navigation("FavoriteProducts");
+
                     b.Navigation("UserRoles");
                 });
 
@@ -580,6 +614,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
+                    b.Navigation("FavoriteByCustomers");
+
                     b.Navigation("ProductColors");
 
                     b.Navigation("ProductPhotos");

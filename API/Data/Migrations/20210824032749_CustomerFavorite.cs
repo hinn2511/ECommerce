@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace API.Migrations
+namespace API.Data.Migrations
 {
-    public partial class Initital : Migration
+    public partial class CustomerFavorite : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -286,6 +286,30 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Favorites",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favorites", x => new { x.ProductId, x.CustomerId });
+                    table.ForeignKey(
+                        name: "FK_Favorites_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Favorites_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductColors",
                 columns: table => new
                 {
@@ -370,6 +394,11 @@ namespace API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favorites_CustomerId",
+                table: "Favorites",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductColors_ColorId",
                 table: "ProductColors",
                 column: "ColorId");
@@ -421,6 +450,9 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Favorites");
 
             migrationBuilder.DropTable(
                 name: "ProductColors");

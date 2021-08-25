@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Pagination } from 'src/app/_models/pagination';
 import { Product } from 'src/app/_models/product';
-import { UserParams } from 'src/app/_models/userParams';
+import { CustomerParams } from 'src/app/_models/customerParams';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -16,11 +16,11 @@ export class ProductListComponent implements OnInit {
   category: string;
   sort: string;
   pagination: Pagination;
-  userParams: UserParams;
+  userParams: CustomerParams;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {
-    //this.userParams = new UserParams();
-    this.userParams = this.productService.getUserParams();
+    //this.userParams = new CustomerParams();
+    this.userParams = this.productService.getCustomerParams();
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts() {
-    this.productService.setUserParams(this.userParams);
+    this.productService.setCustomerParams(this.userParams);
     this.productService.getProductsByCategory(this.userParams).subscribe(response => {
       this.products = response.result;
       this.pagination = response.pagination;
@@ -41,15 +41,15 @@ export class ProductListComponent implements OnInit {
   }
 
   resetFilter() {
-    this.userParams = this.productService.resetUserParams();
+    this.userParams = this.productService.resetCustomerParams();
     this.loadProducts();
   }
 
   pageChanged(event: any) {
     if (this.userParams.pageNumber !== event.page) {
       this.userParams.pageNumber = event.page;
-      this.productService.setUserParams(this.userParams);
-      this.loadProducts()
+      this.productService.setCustomerParams(this.userParams);
+      this.loadProducts();
     }
   }
 
