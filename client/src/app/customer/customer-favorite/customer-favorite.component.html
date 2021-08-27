@@ -1,5 +1,5 @@
 <div class="container row col-12 mt-5">
-    <h3 class="font-secondary col-12 text-center">Sản phẩm yêu thích của tôi</h3>
+    <h3 class="font-secondary col-12 text-center">Yêu thích</h3>
     <div class="row col-sm-12 product-list" *ngIf="products?.length > 0; else emptyList">
         <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-3">
             <app-product-card [product]="product"></app-product-card>

@@ -19,6 +19,7 @@ namespace API.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<Cart> Carts { get; set; }
         public DbSet<CustomerFavorite> Favorites { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
@@ -45,7 +46,7 @@ namespace API.Data
             builder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(l => l.Products);
-            
+
             builder.Entity<Product>()
                 .HasOne(p => p.SubCategory)
                 .WithMany(l => l.Products);
@@ -78,7 +79,7 @@ namespace API.Data
                 .WithMany(l => l.SubCategories);
 
             builder.Entity<CustomerFavorite>()
-                .HasKey(k => new { k.ProductId, k.CustomerId});
+                .HasKey(k => new { k.ProductId, k.CustomerId });
 
             builder.Entity<CustomerFavorite>()
                 .HasOne(pc => pc.Product)
@@ -90,6 +91,21 @@ namespace API.Data
                 .HasOne(pc => pc.Customer)
                 .WithMany(p => p.FavoriteProducts)
                 .HasForeignKey(pc => pc.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Cart>()
+                .HasKey(c => new { c.ProductId, c.CustomerId });
+
+            builder.Entity<Cart>()
+                .HasOne(pc => pc.Customer)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(pc => pc.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Cart>()
+                .HasOne(pc => pc.Product)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(pc => pc.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.ApplyUtcDateTimeConverter();

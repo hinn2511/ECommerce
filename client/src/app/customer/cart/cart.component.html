@@ -1,1 +1,39 @@
-<p>cart works!</p>
+<div class="container">
+    <h2 class="font-secondary">Giỏ hàng của tôi</h2>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <div class="row my-3 cart-item" *ngFor="let cartItem of carts">
+                <div class="square cart-item-img col-4 col-lg-4">
+                    <div class="content">
+                        <img src="{{cartItem.photoUrl}}" alt="">
+                    </div>
+                </div>
+                <div class="col-6 cart-item-info col-lg-5">
+                    <h6>{{cartItem.productCode}}</h6>
+                    <h4>{{cartItem.productName}}</h4>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-minus text-muted"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="{{cartItem.quantity}}">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-plus text-muted"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2 col-lg-3 cart-item-remove">
+                    <button class="btn btn-dark text-light btn-remove" (click)="removeFromCart(cartItem.productCode)">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="dropdown-divider col-12"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

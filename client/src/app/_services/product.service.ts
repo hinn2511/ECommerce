@@ -67,12 +67,7 @@ export class ProductService {
     return this.http.get<Color[]>(this.baseUrl + 'products/color/' + productCode);
   }
 
-  addToFavorite(productCode: string) {
-    return this.http.post(this.baseUrl + 'favorite/add-to-favorite/' + productCode, {});
-  }
 
-  getCustomerFavorite(pageNumber, pageSize) {
-    let params = getPaginationHeaders(pageNumber, pageSize);
-    return getPaginatedResult<Partial<Product[]>>(this.baseUrl + 'favorite', params, this.http);
-  }
+
+
 }

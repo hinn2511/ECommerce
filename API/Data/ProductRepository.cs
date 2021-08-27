@@ -24,21 +24,20 @@ namespace API.Data
         }
 
 
-        public async Task<PagedList<ProductDto>> GetAllProductsAsync(UserParams userParams)
+        public async Task<PagedList<ProductDto>> GetAllProductsAsync(CustomerParams customerParams)
         {
             var query = _context.Products.AsQueryable();
-            query = query.Include(p => p.ProductColors);
             
             var minPrice = 0.0;
             var maxPrice = 1000000000.0;
-            if (userParams.MinPrice > 0.0)
-                minPrice = userParams.MinPrice;
-            if (userParams.MaxPrice > 0.0)
-                maxPrice = userParams.MaxPrice;
-            query = query.Where(p => p.Category.CategoryName == userParams.Categories);
+            if (customerParams.MinPrice > 0.0)
+                minPrice = customerParams.MinPrice;
+            if (customerParams.MaxPrice > 0.0)
+                maxPrice = customerParams.MaxPrice;
+            query = query.Where(p => p.Category.CategoryName == customerParams.Categories);
             query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
-            query = userParams.OrderBy switch
+            query = customerParams.OrderBy switch
             {
                 "newest" => query.OrderByDescending(u => u.Created),
                 "oldest" => query.OrderBy(u => u.Created),
@@ -46,11 +45,10 @@ namespace API.Data
                 "lowestPrice" => query.OrderBy(u => u.Price),
                 _ => query.OrderByDescending(u => u.Created)
             };
-            query = query.Include(p => p.ProductColors);
 
             return await PagedList<ProductDto>
                 .CreateAsync(query.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
-                    userParams.PageNumber, userParams.PageSize);
+                    customerParams.PageNumber, customerParams.PageSize);
 
         }
 
@@ -67,7 +65,7 @@ namespace API.Data
         {
             return await _context.Products
                 .Include(x => x.ProductPhotos)
-                .FirstAsync(x => x.ProductCode == productCode);
+                .FirstOrDefaultAsync(x => x.ProductCode == productCode);
         }
 
         public async Task<Product> GetProductByCodeAsync(string productCode)

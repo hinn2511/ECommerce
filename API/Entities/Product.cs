@@ -30,5 +30,6 @@ namespace API.Entities
         public ICollection<ProductPhoto> ProductPhotos { get; set; }
         public ICollection<ProductColor> ProductColors { get; set; }
         public ICollection<CustomerFavorite> FavoriteByCustomers { get; set; }
+        public ICollection<Cart> Carts { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace API.Entities
         {
             if (await userManager.Users.AnyAsync()) return;
 
-            var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
+            var userData = await System.IO.File.ReadAllTextAsync("Data/SeedData/UserSeedData.json");
 
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
             
@@ -88,7 +88,7 @@ namespace API.Entities
         {
             if (await context.Products.AnyAsync()) return;
 
-            var productData = await System.IO.File.ReadAllTextAsync("Data/ProductSeedData.json");
+            var productData = await System.IO.File.ReadAllTextAsync("Data/SeedData/ProductSeedData.json");
 
             var products = JsonSerializer.Deserialize<List<Product>>(productData);
 
@@ -106,7 +106,7 @@ namespace API.Entities
         {
             if (await context.ProductColors.AnyAsync()) return;
 
-            var productColorData = await System.IO.File.ReadAllTextAsync("Data/ProductColorSeedData.json");
+            var productColorData = await System.IO.File.ReadAllTextAsync("Data/SeedData/ProductColorSeedData.json");
 
             var productColors = JsonSerializer.Deserialize<List<ProductColor>>(productColorData);
 
@@ -122,7 +122,7 @@ namespace API.Entities
         {
             if (await context.Categories.AnyAsync()) return;
 
-            var categoryData = await System.IO.File.ReadAllTextAsync("Data/CategorySeedData.json");
+            var categoryData = await System.IO.File.ReadAllTextAsync("Data/SeedData/CategorySeedData.json");
 
             var categories = JsonSerializer.Deserialize<List<Category>>(categoryData);
 
@@ -140,7 +140,7 @@ namespace API.Entities
         {
             if (await context.SubCategories.AnyAsync()) return;
 
-            var subCategoryData = await System.IO.File.ReadAllTextAsync("Data/SubCategorySeedData.json");
+            var subCategoryData = await System.IO.File.ReadAllTextAsync("Data/SeedData/SubCategorySeedData.json");
 
             var subCategories = JsonSerializer.Deserialize<List<SubCategory>>(subCategoryData);
 
@@ -158,7 +158,7 @@ namespace API.Entities
         {
             if (await context.Colors.AnyAsync()) return;
 
-            var colorData = await System.IO.File.ReadAllTextAsync("Data/ColorSeedData.json");
+            var colorData = await System.IO.File.ReadAllTextAsync("Data/SeedData/ColorSeedData.json");
 
             var colors = JsonSerializer.Deserialize<List<Color>>(colorData);
 
@@ -176,7 +176,7 @@ namespace API.Entities
         {
             if (await context.Brands.AnyAsync()) return;
 
-            var brandData = await System.IO.File.ReadAllTextAsync("Data/BrandSeedData.json");
+            var brandData = await System.IO.File.ReadAllTextAsync("Data/SeedData/BrandSeedData.json");
 
             var brands = JsonSerializer.Deserialize<List<Brand>>(brandData);
 
@@ -194,7 +194,7 @@ namespace API.Entities
         {
             if (await context.Collections.AnyAsync()) return;
 
-            var collectionData = await System.IO.File.ReadAllTextAsync("Data/CollectionSeedData.json");
+            var collectionData = await System.IO.File.ReadAllTextAsync("Data/SeedData/CollectionSeedData.json");
 
             var collections = JsonSerializer.Deserialize<List<Collection>>(collectionData);
 

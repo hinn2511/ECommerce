@@ -31,7 +31,7 @@ namespace API.Controllers
             var favoritedProduct = await _unitOfWork.ProductRepository.FindProductByCodeAsync(productCode);
             if (favoritedProduct == null) return NotFound();
             
-            var customerFavorite = await _unitOfWork.CustomerFavoriteRepository.GetCustomerFavoriteProductAsync(customerId, favoritedProduct.Id);
+            var customerFavorite = await _unitOfWork.FavoriteRepository.FindCustomerFavoriteProductAsync(customerId, favoritedProduct.Id);
             if (customerFavorite != null) return BadRequest("Sản phẩm đã được yêu thích");
 
             customerFavorite = new CustomerFavorite
@@ -40,7 +40,7 @@ namespace API.Controllers
                 ProductId = favoritedProduct.Id
             };
 
-            var customer = await _unitOfWork.CustomerFavoriteRepository.GetUserWithFavorites(customerId);
+            var customer = await _unitOfWork.FavoriteRepository.GetCustomerWithFavoritesAsync(customerId);
             customer.FavoriteProducts.Add(customerFavorite);
 
             if (await _unitOfWork.Complete()) return Ok();
@@ -51,10 +51,10 @@ namespace API.Controllers
 
         [Authorize (Policy = "CustomerOnly")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FavoriteProductDto>>> GetUserLikes([FromQuery] FavoriteParams favoriteParams)
+        public async Task<ActionResult<IEnumerable<FavoriteProductDto>>> GetUserLikes([FromQuery] PaginationParams paginationParams)
         {
-            favoriteParams.CustomerId = User.GetUserId();
-            var users = await _unitOfWork.CustomerFavoriteRepository.GetCustomerFavoriteProductsAsync(favoriteParams);
+            var customerId = User.GetUserId();
+            var users = await _unitOfWork.FavoriteRepository.GetCustomerFavoriteProductsAsync(paginationParams, customerId);
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize,
                 users.TotalCount, users.TotalPages);
             return Ok(users);

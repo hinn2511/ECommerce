@@ -9,30 +9,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class CustomerFavoriteRepository : ICustomerFavoriteRepository
+    public class FavoriteRepository : IFavoriteRepository
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
-        public CustomerFavoriteRepository(DataContext context, IMapper mapper)
+        public FavoriteRepository(DataContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
 
         }
 
-        public async Task<CustomerFavorite> GetCustomerFavoriteProductAsync(int customerId, int productId)
+        public async Task<CustomerFavorite> FindCustomerFavoriteProductAsync(int customerId, int productId)
         {
             return await _context.Favorites.FirstOrDefaultAsync(x => x.CustomerId == customerId && x.ProductId == productId);
         }
 
-        public async Task<PagedList<FavoriteProductDto>> GetCustomerFavoriteProductsAsync(FavoriteParams favoriteParams)
+        public async Task<PagedList<FavoriteProductDto>> GetCustomerFavoriteProductsAsync(PaginationParams paginationParams, int customerId)
         {
             var products = _context.Products.OrderBy(u => u.ProductName).AsQueryable();
             var favorites = _context.Favorites.AsQueryable();
-            favorites = favorites.Where(favorites => favorites.CustomerId == favoriteParams.CustomerId);
+            favorites = favorites.Where(favorites => favorites.CustomerId == customerId);
             products = favorites.Select(favorites => favorites.Product);
 
-            var  favoriteProducts = products.Select(product => new FavoriteProductDto
+            var favoriteProducts = products.Select(product => new FavoriteProductDto
             {
                 ProductCode = product.ProductCode,
                 ProductName = product.ProductName,
@@ -45,14 +45,14 @@ namespace API.Data
             });
 
             return await PagedList<FavoriteProductDto>.CreateAsync(favoriteProducts,
-                 favoriteParams.PageNumber, favoriteParams.PageSize);
+                 paginationParams.PageNumber, paginationParams.PageSize);
 
         }
 
-        public async Task<AppUser> GetUserWithFavorites(int userId)
+        public async Task<AppUser> GetCustomerWithFavoritesAsync(int customerId)
         {
             return await _context.Users.Include(x => x.FavoriteProducts)
-                .FirstOrDefaultAsync(x => x.Id == userId);
+                .FirstOrDefaultAsync(x => x.Id == customerId);
         }
     }
 }

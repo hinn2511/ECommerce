@@ -14,6 +14,7 @@ namespace API.Entities
         public DateTime LastActive { get; set; } = DateTime.UtcNow;
         public ICollection<AppUserRole> UserRoles { get; set; }
         public ICollection<CustomerFavorite> FavoriteProducts { get; set; }
+        public ICollection<Cart> Carts { get; set; }
 
     }
 }

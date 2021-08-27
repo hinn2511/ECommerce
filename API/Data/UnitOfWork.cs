@@ -15,9 +15,9 @@ namespace API.Data
         }
 
         public IUserRepository UserRepository => new UserRepository(_context, _mapper);
-
         public IProductRepository ProductRepository => new ProductRepository(_context, _mapper);
-        public ICustomerFavoriteRepository CustomerFavoriteRepository => new CustomerFavoriteRepository(_context, _mapper);
+        public IFavoriteRepository FavoriteRepository => new FavoriteRepository(_context, _mapper);
+        public ICartRepository CartRepository => new CartRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

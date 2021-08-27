@@ -27,10 +27,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] UserParams userParams)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] CustomerParams customerParams)
         {
 
-            var products = await _unitOfWork.ProductRepository.GetAllProductsAsync(userParams);
+            var products = await _unitOfWork.ProductRepository.GetAllProductsAsync(customerParams);
 
             Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
 

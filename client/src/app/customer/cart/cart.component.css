@@ -1,0 +1,76 @@
+.row, .container {
+    width: 100%;
+    margin: 0;
+}
+
+.square {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+.content {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.content img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media screen and (max-width: 480px) {
+    .square {
+        max-width: 6rem;
+        max-height: 100%;
+    }
+
+    .form-control {
+        max-width: 4rem;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    h2 {
+        text-align: center;
+        margin-top: 5rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    h2 {
+        margin-top: 5rem;
+        text-align: center;
+    }
+
+    .square {
+        max-width: 10rem;
+        max-height: 5rem;
+    }
+
+    .form-control {
+        max-width: 6rem;
+    }
+
+    .cart-item-info {
+        margin-left: 5rem;
+    }
+
+    .cart-item-remove {
+        text-align: center;
+    }
+}
+
+.cart-item-remove {
+    position: relative;
+}
+
+.btn-remove {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}

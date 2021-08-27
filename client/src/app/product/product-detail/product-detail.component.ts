@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { ToastrService } from 'ngx-toastr';
 import { Color } from 'src/app/_models/color';
 import { Product } from 'src/app/_models/product';
+import { FavoriteService } from 'src/app/_services/favorite.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -22,7 +24,9 @@ export class ProductDetailComponent implements OnInit {
 
 
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, 
+    private route: ActivatedRoute, private toastr: ToastrService,
+    private favoriteService: FavoriteService) { }
 
   ngOnInit(): void {
     this.galleryOptions = [
@@ -103,6 +107,12 @@ export class ProductDetailComponent implements OnInit {
 
   chooseColor(color: any) {
     this.colorChoosen = color.colorName;
+  }
+
+  addToFavorite(product: Product) {
+    this.favoriteService.addToFavorite(product.productCode).subscribe(() => {
+      this.toastr.success('Đã thêm ' + product.productName +' vào yêu thích');
+    })
   }
 
 }

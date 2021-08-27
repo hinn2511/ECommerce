@@ -15,6 +15,7 @@
         padding-left: 2rem;
     }
     
+    
 }
 
 @media screen and (min-width: 480px) and (max-width: 1200px) { 
@@ -51,14 +52,7 @@
     background-color: rgb(212, 212, 212);
 }
 
-.quantity {
-    height: 2.5rem;
-    max-width: 5rem;
-    background: none;
-    border: none;
-    border-radius: 99rem;
-    font-size: 1.3rem;
-}
+
 
 .product-detail {
     background-color: rgb(235, 238, 241);
@@ -75,4 +69,8 @@
 
 .active {
     font-weight: bold;
+}
+
+.form-control {
+    max-width: 5rem;
 }

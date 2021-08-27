@@ -10,7 +10,7 @@ namespace API.Interfaces
     {
         //Customer 
         Task<ProductDto> GetProductAsync(string productCode);
-        Task<PagedList<ProductDto>> GetAllProductsAsync(UserParams userParams);
+        Task<PagedList<ProductDto>> GetAllProductsAsync(CustomerParams customerParams);
         Task<IEnumerable<ProductColorDto>> GetProductColor(string productCode);
 
         //Business

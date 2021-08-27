@@ -6,7 +6,8 @@ namespace API.Interfaces
     {
         IUserRepository UserRepository { get; }
         IProductRepository ProductRepository { get; }
-        ICustomerFavoriteRepository CustomerFavoriteRepository { get; }
+        IFavoriteRepository FavoriteRepository { get; }
+        ICartRepository CartRepository { get; }
         Task<bool> Complete();
         bool HasChanges();
 

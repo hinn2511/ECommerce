@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CartItem } from 'src/app/_models/cartItem';
 import { Product } from 'src/app/_models/product';
+import { CartService } from 'src/app/_services/cart.service';
+import { FavoriteService } from 'src/app/_services/favorite.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -11,8 +14,11 @@ import { ProductService } from 'src/app/_services/product.service';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
+  cartItem: CartItem;
 
-  constructor(private router: Router, private productService: ProductService, private toastr: ToastrService) { }
+  constructor(private router: Router, 
+    private favoriteService: FavoriteService, private cartService: CartService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -21,12 +27,22 @@ export class ProductCardComponent implements OnInit {
     this.router.navigateByUrl('/product/' + productCode + '/' + productName);
   }
 
-  addToCart(product: any) {
-  }
 
   addToFavorite(product: Product) {
-    this.productService.addToFavorite(product.productCode).subscribe(() => {
+    this.favoriteService.addToFavorite(product.productCode).subscribe(() => {
       this.toastr.success('Đã thêm ' + product.productName +' vào yêu thích');
+    })
+  }
+
+  addToCart(product: Product) {
+    this.cartItem  = {
+      productCode : product.productCode,
+      quantity: 1
+    }
+    this.cartService.addToCart(this.cartItem).subscribe(() => {
+      this.toastr.success('Đã thêm ' + product.productName +' vào giỏ hàng');
+    }, error => {
+      this.toastr.error('Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');
     })
   }
 
