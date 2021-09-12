@@ -32,17 +32,35 @@ namespace API.Controllers
 
             var cartItem = await _unitOfWork.CartRepository.FindCustomerCartItemAsync(customerId, product.Id);
 
-            if (cartItem == null)
+            if (cartItemDto.ColorCode != "")
             {
-                var newCartItem = new Cart
+                var color = await _unitOfWork.ColorRepository.FindColorByCodeAsyc(cartItemDto.ColorCode);
+
+                if (cartItem == null)
                 {
-                    ProductId = product.Id,
-                    CustomerId = customerId,
-                    Quantity = cartItemDto.Quantity
-                };
-                _unitOfWork.CartRepository.AddCartItem(newCartItem);
-                if (await _unitOfWork.Complete()) return Ok();
+                    var newCartItem = new Cart
+                    {
+                        ProductId = product.Id,
+                        CustomerId = customerId,
+                        Quantity = cartItemDto.Quantity,
+                        ColorId = color.Id
+                    };
+                    _unitOfWork.CartRepository.AddCartItem(newCartItem);
+                    if (await _unitOfWork.Complete()) return Ok();
+                }
+
             }
+
+            var newCartItemNoColor = new Cart
+            {
+                ProductId = product.Id,
+                CustomerId = customerId,
+                Quantity = cartItemDto.Quantity
+            };
+            _unitOfWork.CartRepository.AddCartItem(newCartItemNoColor);
+            
+            if (await _unitOfWork.Complete()) return Ok();
+
             return BadRequest("Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
         }
 
@@ -51,21 +69,25 @@ namespace API.Controllers
         public async Task<ActionResult> AdjustCartItem(CartItemDto cartItemDto)
         {
             if (cartItemDto.Quantity <= 0)
-                return BadRequest("Số lượng không hợp lệ");   
+                return BadRequest("Số lượng không hợp lệ");
+
 
             var customerId = User.GetUserId();
 
             var product = await _unitOfWork.ProductRepository.FindProductByCodeAsync(cartItemDto.ProductCode);
 
+            var color = await _unitOfWork.ColorRepository.FindColorByCodeAsyc(cartItemDto.ColorCode);
+
             var cartItem = await _unitOfWork.CartRepository.FindCustomerCartItemAsync(customerId, product.Id);
 
             if (cartItem == null)
-            {
                 return BadRequest("Sản phẩm không tồn tại trong giỏ hàng");
-            }
-                    
+
+            if (color != null)
+                cartItem.ColorId = color.Id;
+
             cartItem.Quantity = cartItemDto.Quantity;
-            
+
             _unitOfWork.CartRepository.UpdateCartItem(cartItem);
             if (await _unitOfWork.Complete()) return Ok();
 

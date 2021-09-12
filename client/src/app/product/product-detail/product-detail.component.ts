@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { ToastrService } from 'ngx-toastr';
+import { CartItem } from 'src/app/_models/cartItem';
 import { Color } from 'src/app/_models/color';
 import { Product } from 'src/app/_models/product';
+import { CartService } from 'src/app/_services/cart.service';
 import { FavoriteService } from 'src/app/_services/favorite.service';
 import { ProductService } from 'src/app/_services/product.service';
+import { Capitalize } from 'src/app/_services/transformHelper';
 
 @Component({
   selector: 'app-product-detail',
@@ -15,18 +19,22 @@ import { ProductService } from 'src/app/_services/product.service';
 export class ProductDetailComponent implements OnInit {
   product: Product;
   colorChoosen: string;
-  productCode: string = '';
-  productName: string = '';
+  productCode: string;
+  colorCode: string;
+  quantity: number;
   colors: Color[] = [];
-  colorList: string = '';
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  productToCart: CartItem = {
+    productCode: '',
+    colorCode: '',
+    quantity: 1
+  };
 
 
-
-  constructor(private productService: ProductService, 
+  constructor(private productService: ProductService,
     private route: ActivatedRoute, private toastr: ToastrService,
-    private favoriteService: FavoriteService) { }
+    private favoriteService: FavoriteService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.galleryOptions = [
@@ -56,20 +64,25 @@ export class ProductDetailComponent implements OnInit {
 
       }
     ];
+    this.productCode = this.route.snapshot.paramMap.get('code');
+    this.productToCart.productCode = this.productCode;
     this.getProduct();
-
+    this.getProductColors();
 
   }
 
   getProduct() {
-    this.productCode = this.route.snapshot.paramMap.get('code');
+    
     this.productService.getProduct(this.productCode).subscribe(product => {
       this.product = product;
       this.galleryImages = this.getImages();
     })
     this.productService.getProductColors(this.productCode).subscribe(colors => {
       this.colors = colors;
-      this.getProductColors();
+      if (this.colors.length > 0) {
+        this.colorChoosen = this.colors[0].colorName;
+        this.productToCart.colorCode = this.colors[0].colorCode;
+      }
     })
   }
 
@@ -81,16 +94,8 @@ export class ProductDetailComponent implements OnInit {
         colorCode: color?.colorCode,
         colorName: color?.colorName
       })
-      if (this.colorList === '')
-        this.colorList = this.colorList + this.capitalize(color?.colorName);
-      else
-        this.colorList = this.colorList + ', ' + this.capitalize(color?.colorName);
     }
     return productColors;
-  }
-
-  capitalize(s: string) {
-    return s[0].toUpperCase() + s.slice(1);
   }
 
   getImages(): NgxGalleryImage[] {
@@ -107,12 +112,33 @@ export class ProductDetailComponent implements OnInit {
 
   chooseColor(color: any) {
     this.colorChoosen = color.colorName;
+    this.colorCode = color.colorCode;
+    this.productToCart.colorCode = this.colorCode;
   }
 
   addToFavorite(product: Product) {
     this.favoriteService.addToFavorite(product.productCode).subscribe(() => {
-      this.toastr.success('Đã thêm ' + product.productName +' vào yêu thích');
+      this.toastr.success('Đã thêm ' + product.productName + ' vào yêu thích');
     })
   }
+
+  decreaseQuantity() {
+    this.productToCart.quantity = this.productToCart.quantity - 1;
+  }
+
+  increaseQuantity() {
+    this.productToCart.quantity = this.productToCart.quantity + 1;
+  }
+
+  addToCart() {
+    this.cartService.addToCart(this.productToCart).subscribe(() => {
+      this.toastr.success('Đã thêm ' + this.product.productName + ' vào giỏ hàng');
+    }, error => {
+      this.toastr.error('Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');
+    });
+  }
+
+
+
 
 }

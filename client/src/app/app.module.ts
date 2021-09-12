@@ -33,6 +33,8 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { NumberInputComponent } from './_forms/number-input/number-input.component';
+import { NumberOnlyDirective } from './_directives/number-only.directive';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     ServerErrorComponent,
     TextInputComponent,
     DateInputComponent,
+    NumberInputComponent,
+    NumberOnlyDirective,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ namespace API.Entities
         public string ColorCode { get; set; }
         public string ColorName { get; set; }
         public ICollection<ProductColor> ProductColors { get; set; }
+        public ICollection<Cart> Carts { get; set; }
         
     }
 }

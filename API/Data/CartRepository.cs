@@ -21,7 +21,9 @@ namespace API.Data
 
         public async Task<Cart> FindCustomerCartItemAsync(int customerId, int productId)
         {
-            return await _context.Carts.FirstOrDefaultAsync(x => x.CustomerId == customerId && x.ProductId == productId);
+            return await _context.Carts
+                .FirstOrDefaultAsync(x => x.CustomerId == customerId
+                 && x.ProductId == productId);
         }
 
         public async Task<PagedList<CartDto>> GetCustomerCartItems(PaginationParams paginationParams, int customerId)
@@ -37,7 +39,9 @@ namespace API.Data
                 ProductName = product.ProductName,
                 Price = product.Price,
                 PhotoUrl = product.ProductPhotos.FirstOrDefault(p => p.IsMain).Url,
-                Quantity = product.Carts.FirstOrDefault(p => p.ProductId == product.Id && p.CustomerId == customerId).Quantity
+                Quantity = product.Carts.FirstOrDefault(p => p.ProductId == product.Id && p.CustomerId == customerId).Quantity,
+                ColorCode = product.Carts.FirstOrDefault(p => p.ProductId == product.Id && p.CustomerId == customerId).Color.ColorCode,
+                ColorName = product.Carts.FirstOrDefault(p => p.ProductId == product.Id && p.CustomerId == customerId).Color.ColorName
             });
 
             return await PagedList<CartDto>.CreateAsync(cartLists,

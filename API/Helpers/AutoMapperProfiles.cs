@@ -27,9 +27,13 @@ namespace API.Helpers
 
             CreateMap<ProductColor, ProductColorDto>();
                 
-            CreateMap<Cart, CartDto>()
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(
-                           src => src.Quantity));
+            CreateMap<Cart, CartDto>();
+
+            CreateMap<Color, CartDto>()
+                .ForMember(dest => dest.ColorCode, opt => opt.MapFrom(
+                           src => src.ColorCode))
+                .ForMember(dest => dest.ColorName, opt => opt.MapFrom(
+                           src => src.ColorName));
 
             CreateMap<ProductPhoto, ProductPhotoDto>();
 

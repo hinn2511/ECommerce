@@ -49,13 +49,13 @@
 
 
 .btn-material {
-    background-color: rgb(212, 212, 212);
+    background-color: rgb(243, 243, 243);
 }
 
 
 
 .product-detail {
-    background-color: rgb(235, 238, 241);
+    background-color: rgb(246, 246, 246);
 }
 
 .breadcrumb {
@@ -74,3 +74,4 @@
 .form-control {
     max-width: 5rem;
 }
+

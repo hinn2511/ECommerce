@@ -3,5 +3,7 @@ export interface Cart {
     productName: string;
     photoUrl: string;
     price: number;
+    colorName: string;
+    colorCode: string;
     quantity: number;
 }

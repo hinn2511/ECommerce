@@ -18,6 +18,7 @@ namespace API.Data
         public IProductRepository ProductRepository => new ProductRepository(_context, _mapper);
         public IFavoriteRepository FavoriteRepository => new FavoriteRepository(_context, _mapper);
         public ICartRepository CartRepository => new CartRepository(_context, _mapper);
+        public IColorRepository ColorRepository => new ColorRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

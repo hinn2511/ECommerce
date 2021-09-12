@@ -108,6 +108,13 @@ namespace API.Data
                 .HasForeignKey(pc => pc.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Cart>()
+                .HasOne(pc => pc.Color)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(pc => pc.ColorId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
             builder.ApplyUtcDateTimeConverter();
 
         }
