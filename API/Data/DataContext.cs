@@ -26,6 +26,11 @@ namespace API.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<ShippingMethod> ShippingMethods { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -112,8 +117,48 @@ namespace API.Data
                 .HasOne(pc => pc.Color)
                 .WithMany(p => p.Carts)
                 .HasForeignKey(pc => pc.ColorId)
-                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+                
+
+            builder.Entity<Order>()
+                .HasOne(p => p.Customer)
+                .WithMany(l => l.Orders);
+            
+            builder.Entity<Order>()
+                .HasOne(p => p.ShippingMethod)
+                .WithMany(l => l.Orders);
+
+            builder.Entity<Order>()
+                .HasOne(p => p.Promotion)
+                .WithMany(l => l.Orders)
                 .IsRequired(false);
+            
+            builder.Entity<Order>()
+                .HasOne(p => p.PaymentMethod)
+                .WithMany(l => l.Orders);
+
+            builder.Entity<OrderDetail>()
+                .HasKey(k => new { k.ProductId, k.OrderId });
+
+            builder.Entity<OrderDetail>()
+                .HasOne(od => od.Order)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(od => od.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<OrderDetail>()
+                .HasOne(od => od.Product)
+                .WithMany(o => o.OrderDetail)
+                .HasForeignKey(od => od.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<OrderDetail>()
+                .HasOne(od => od.Color)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(od => od.ColorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.ApplyUtcDateTimeConverter();
 

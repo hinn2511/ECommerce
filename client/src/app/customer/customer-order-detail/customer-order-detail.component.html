@@ -1,0 +1,184 @@
+<div class="containe my-4" *ngIf="order">
+    <div class="col-12 text-center">
+        <h2 class="font-secondary py-2">Đơn đặt hàng</h2>
+        <h5 class="font-secondary text-muted">Mã đơn hàng: {{order.id}}</h5>
+    </div>
+    <div class="row col-12 justify-content-center">
+        <div class="col-12 col-lg-5 mb-4">
+            <h4 class="col-12 text-center">Thông tin đơn hàng</h4>
+            <div class="mt-4 px-lg-4">
+                <div class="row">
+                    <div class="col-12 col-lg-6 px-0">
+                        <p>Ngày đặt</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 text-sm-right">
+                        <p class="fw-bolder">{{order.date | date:'short'}}</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0">
+                        <p>Trạng thái</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 text-sm-right">
+                        <p class="fw-bolder">{{order.state | orderState}}</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 mt-lg-4">
+                        <p>Họ và tên người nhận</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 mt-lg-4 text-sm-right">
+                        <p class="fw-bolder">{{order.fullName | titlecase}}</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0">
+                        <p>Số điện thoại</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 text-sm-right">
+                        <p class="fw-bolder">{{order.phoneNumber | titlecase}}</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0">
+                        <p>Địa chỉ người nhận</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 text-sm-right">
+                        <p class="fw-bolder">{{order.destination}}</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 mt-lg-4">
+                        <p>Hình thức vận chuyển</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 mt-lg-4 text-sm-right">
+                        <p class="fw-bolder">{{order.shippingMethod.name | titlecase}}</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 mt-lg-4">
+                        <p>Hình thức thanh toán</p>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0 mt-lg-4 text-sm-right">
+                        <p class="fw-bolder">{{order.paymentMethod.name | titlecase}}</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0 mt-lg-4">
+                        <p>Số lượng sản phẩm</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0 mt-lg-4 text-right">
+                        <p class="fw-bolder">{{quantity}}</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0">
+                        <p>Tổng tiền</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0 text-right">
+                        <p class="fw-bolder">{{order.subTotal | currency:"VND"}}</p>
+                    </div>
+                    <div *ngIf="order.promotion" class="col-6 col-lg-6 px-0">
+                        <p>Giảm giá</p>
+                    </div>
+                    <div *ngIf="order.promotion" class="col-6 col-lg-6 px-0 text-right">
+                        <p class="fw-bolder">-&nbsp;{{order.discount | currency:"VND"}}</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0">
+                        <p>Phí vận chuyển</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0 text-right">
+                        <p class="fw-bolder">+&nbsp;{{order.shippingMethod.price | currency:"VND"}}</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0">
+                        <p>Tổng tiền thanh toán</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0 text-right">
+                        <p class="fw-bolder">{{order.subTotal - order.discount + order.shippingMethod.price |
+                            currency:"VND"}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 col-lg-5">
+            <h4 class="col-12 text-center mb-4">Danh sách sản phẩm</h4>
+            <div class="d-none d-lg-block">
+                <table class="table">
+                    <thead class="bg-light-grey">
+                        <tr>
+                            <th scope="col" class="text-center">Sản phẩm</th>
+                            <th scope="col" class="text-center">Tùy chọn</th>
+                            <th scope="col" class="text-center">Số lượng</th>
+                            <th scope="col" class="text-center">Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="order">
+                        <tr *ngFor="let item of order.orderDetails">
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-4 pt-2">
+                                        <div class="img-container">
+                                            <img src="{{item.photoUrl}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="pt-lg-3">{{item.productName | titlecase}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td *ngIf="item.colorName;else default" class="text-center">
+                                <p class="pt-lg-3">{{item.colorName | titlecase}}</p>
+                            </td>
+                            <ng-template #default>
+                                <td class="text-center">
+                                    <p class="pt-lg-3">Mặc định</p>
+                                </td>
+                            </ng-template>
+                            <td class="text-center">
+                                <p class="pt-lg-3">{{item.quantity}}</p>
+                            </td>
+                            <td class="text-center">
+                                <p class="pt-lg-3">{{item.price | currency:"VND"}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-lg-none">
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let item of order.orderDetails">
+                            <td class="row">
+                                <div class="col-4 px-0">
+                                    <div class="img-container pt-5">
+                                        <img src="{{item.photoUrl}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <p>{{item.productName | titlecase}}</p>
+                                    <p *ngIf="item.colorName;else default">Tùy chọn: {{item.colorName | titlecase}}</p>
+                                    <ng-template #default>
+                                        <p>Tùy chọn: Mặc định</p>
+                                    </ng-template>
+                                    <p>Số lượng: {{item.quantity}}</p>
+                                    <p>Đơn giá: {{item.price | currency:"VND"}}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-12 text-center">
+        <div class="row justify-content-center">
+            <ng-container *ngIf="order.state == 1">
+                <div class="col-12 col-lg-2 ">
+                    <button class="btn border btn-light mx-2" (click)="cancelOrder(order)">
+                        <i class="fa fa-trash"></i>&nbsp;&nbsp;Hủy đơn hàng</button>
+                </div>
+            </ng-container>
+            
+            <div *ngIf="returnHome" class="col-12 col-lg-2">
+                <button class="btn border btn-light mt-sm-1r mx-2" routerLink='/'>
+                    <i class="fa fa-home"></i>&nbsp;&nbsp;Trở về trang chủ</button>
+            </div>
+            <div class="col-12 col-lg-3 ">
+                <button class="btn border btn-light mt-sm-1r mx-2" routerLink='/order'>
+                    <i class="fa fa-list"></i>&nbsp;&nbsp;Trở về danh sách đơn đặt hàng</button>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

@@ -23,7 +23,7 @@ namespace API.Controllers
         }
 
         [Authorize (Policy = "CustomerOnly")]
-        [HttpPost("add-to-favorite/{productCode}")]
+        [HttpPost("add/{productCode}")]
         public async Task<ActionResult> AddLike(string productCode)
         {
             var customerId = User.GetUserId();

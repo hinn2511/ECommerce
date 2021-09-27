@@ -44,8 +44,40 @@ namespace API.Helpers
 
             CreateMap<RegisterDto, AppUser>();
 
-
             CreateMap<Category, CategoryDto>();
+
+            CreateMap<SubCategory, SubCategoryDto>();
+
+            CreateMap<Cart, CartDetailDto>();
+
+            CreateMap<Promotion, PromotionDto>();
+
+            CreateMap<ShippingMethod, ShippingMethodDto>();
+
+            CreateMap<PaymentMethod, PaymentMethodDto>();
+
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.ShippingMethod, opt => opt.MapFrom(
+                           src => src.ShippingMethod))
+                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(
+                           src => src.PaymentMethod))
+                .ForMember(dest => dest.Promotion, opt => opt.MapFrom(
+                           src => src.Promotion));
+                //.ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(
+                           //src => src.OrderDetails));
+            CreateMap<OrderDetail, OrderDetailDto>()
+                .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(
+                           src => src.Product.ProductCode))
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(
+                           src => src.Product.ProductName))
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
+                           src => src.Product.ProductPhotos.FirstOrDefault(x => x.IsMain).Url))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(
+                           src => src.Product.Price))
+                .ForMember(dest => dest.ColorCode, opt => opt.MapFrom(
+                           src => src.Color.ColorCode))
+                .ForMember(dest => dest.ColorName, opt => opt.MapFrom(
+                           src => src.Color.ColorName));
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -5,6 +7,7 @@ using API.Entities;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -68,6 +71,13 @@ namespace API.Data
         public void UpdateCartItem(Cart cart)
         {
             _context.Entry(cart).State = EntityState.Modified;
+        }
+
+        public async Task<IEnumerable<Cart>> GetCustomerCart(int customerId)
+        {
+            return await _context.Carts
+             .Where( x => x.CustomerId == customerId)
+             .ToListAsync();
         }
     }
 }

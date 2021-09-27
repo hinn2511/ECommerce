@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [Authorize(Policy = "CustomerOnly")]
-        [HttpPost("add-to-cart")]
+        [HttpPost("add")]
         public async Task<ActionResult> AddToCart(CartItemDto cartItemDto)
         {
             if (cartItemDto.Quantity <= 0)
@@ -65,7 +65,7 @@ namespace API.Controllers
         }
 
         [Authorize(Policy = "CustomerOnly")]
-        [HttpPut("adjust-cart-item")]
+        [HttpPut("adjust")]
         public async Task<ActionResult> AdjustCartItem(CartItemDto cartItemDto)
         {
             if (cartItemDto.Quantity <= 0)
@@ -95,7 +95,7 @@ namespace API.Controllers
         }
 
         [Authorize(Policy = "CustomerOnly")]
-        [HttpDelete("remove-from-cart/{productCode}")]
+        [HttpDelete("remove/{productCode}")]
         public async Task<ActionResult> RemoveFromCart(string productCode)
         {
             var customerId = User.GetUserId();

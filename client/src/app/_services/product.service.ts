@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Color } from '../_models/color';
 import { Product } from '../_models/product';
-import { CustomerParams } from '../_models/customerParams';
+import { ProductParams } from '../_models/productParams';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 @Injectable({
@@ -15,27 +15,27 @@ export class ProductService {
   baseUrl = environment.apiUrl;
   products: Product[] = [];
   productCache = new Map();
-  customerParams: CustomerParams;
+  customerParams: ProductParams;
 
 
   constructor(private http: HttpClient) {
-    this.customerParams = new CustomerParams();
+    this.customerParams = new ProductParams();
   }
 
-  getCustomerParams() {
+  getProductParams() {
     return this.customerParams;
   }
 
-  setCustomerParams(params: CustomerParams) {
+  setProductParams(params: ProductParams) {
     this.customerParams = params;
   }
 
-  resetCustomerParams() {
-    this.customerParams = new CustomerParams();
+  resetProductParams() {
+    this.customerParams = new ProductParams();
     return this.customerParams;
   }
 
-  getProductsByCategory(customerParams: CustomerParams) {
+  getProductsByCategory(customerParams: ProductParams) {
     var response = this.productCache.get(Object.values(customerParams).join('-'));
     if (response) {
       return of(response);

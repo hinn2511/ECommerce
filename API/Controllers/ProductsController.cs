@@ -27,10 +27,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] CustomerParams customerParams)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] ProductParams productParams)
         {
 
-            var products = await _unitOfWork.ProductRepository.GetAllProductsAsync(customerParams);
+            var products = await _unitOfWork.ProductRepository.GetAllProductsAsync(productParams);
 
             Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
 
@@ -54,12 +54,12 @@ namespace API.Controllers
         }
 
 
-        [Authorize(Policy = "BusinessOnly")]
-        [HttpGet("business/{productCode}", Name = "GetProduct")]
-        public async Task<ActionResult<ProductDto>> GetProductForBusiness(string productCode)
-        {
-            return await _unitOfWork.ProductRepository.GetProductAsync(productCode);
-        }
+        // [Authorize(Policy = "BusinessOnly")]
+        // [HttpGet("business/{productCode}", Name = "GetProduct")]
+        // public async Task<ActionResult<ProductDto>> GetProductForBusiness(string productCode)
+        // {
+        //     return await _unitOfWork.ProductRepository.GetProductAsync(productCode);
+        // }
 
         [Authorize(Policy = "PurchasingOnly")]
         [HttpPost("add-product-photo/{productCode}")]
@@ -140,10 +140,6 @@ namespace API.Controllers
             return BadRequest("Đã có lỗi xảy ra khi xóa hình ảnh sản phẩm");
 
         }
-
-
-
-
 
         // [HttpPut]
         // public async Task<ActionResult> UpdateProduct(ProductUpdateDto productUpdateDto)

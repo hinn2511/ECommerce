@@ -1,0 +1,38 @@
+[
+    {
+        "PromotionCode": "ABCXYZ",
+        "DiscountPercent": 10,
+        "DiscountAmount": 0,
+        "MaxDiscountAmount": 300000,
+        "MinOrderTotal": 100000,
+        "Start": "2021-09-01",
+        "End": "2021-09-29"
+    },
+    {
+        "PromotionCode": "ABCDEF",
+        "DiscountPercent": 20,
+        "DiscountAmount": 0,
+        "MaxDiscountAmount": 400000,
+        "MinOrderTotal": 10000000,
+        "Start": "2021-09-01",
+        "End": "2021-09-29"
+    },
+    {
+        "PromotionCode": "ABCGHI",
+        "DiscountPercent": 15,
+        "DiscountAmount": 0,
+        "MaxDiscountAmount": 200000,
+        "MinOrderTotal": 1000000,
+        "Start": "2021-09-01",
+        "End": "2021-09-29"
+    },
+    {
+        "PromotionCode": "ABCJKL",
+        "DiscountPercent": 0,
+        "DiscountAmount": 100000,
+        "MaxDiscountAmount": 100000,
+        "MinOrderTotal": 1000000,
+        "Start": "2021-09-01",
+        "End": "2021-09-29"
+    }
+]

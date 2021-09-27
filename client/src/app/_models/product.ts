@@ -1,4 +1,3 @@
-import { Color } from "./color";
 import { ProductPhoto } from "./productPhoto";
 
 export interface Product {

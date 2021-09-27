@@ -8,7 +8,36 @@
 
 @media screen and (max-width: 480px) {
     
+    .w-sm-100 {
+        width: 100%;
+    }
+
+    .mt-sm-1r {
+        margin-top: 1rem;
+    }
+
+    .mb-sm-1r {
+        margin-bottom: 1rem;
+    }
+
+    .mb-sm-3r {
+        margin-bottom: 3rem;
+    }
+
+    .pt-sm-4 {
+        padding-top: 4rem;
+    }
+
+    .pt-sm-2 {
+        padding-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 1200px) {
     
+    .w-md-100 {
+        width: 100%;
+    }
 }
 
 body { 
@@ -59,4 +88,17 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+
+.fw-bolder {
+    font-weight: bolder;
+}
+
+.bg-light-grey {
+    background-color: rgb(238, 238, 238);
+}
+
+.cs-pointer {
+    cursor: pointer;
 }

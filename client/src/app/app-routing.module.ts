@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CollectionsComponent } from './collections/collections.component';
 import { CartComponent } from './customer/cart/cart.component';
+import { CheckOutComponent } from './customer/check-out/check-out.component';
 import { CustomerFavoriteComponent } from './customer/customer-favorite/customer-favorite.component';
 import { CustomerInfoComponent } from './customer/customer-info/customer-info.component';
 import { CustomerNotificationsComponent } from './customer/customer-notifications/customer-notifications.component';
+import { CustomerOrderDetailComponent } from './customer/customer-order-detail/customer-order-detail.component';
+import { CustomerOrderComponent } from './customer/customer-order/customer-order.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
@@ -28,13 +31,16 @@ const routes: Routes = [
     children: [
       { path: 'my-account', component: CustomerInfoComponent },
       { path: 'notifications', component: CustomerNotificationsComponent },
-      { path: 'cart', component: CartComponent },
+      { path: 'check-out', component: CheckOutComponent },
+      { path: 'order', component: CustomerOrderComponent},
+      { path: 'order-detail/:id', component: CustomerOrderDetailComponent},
       { path: 'favorites', component: CustomerFavoriteComponent },
     ]
   },
   //customer
   { path: 'category/:category', component: ProductListComponent },
   { path: 'product/:code/:name', component: ProductDetailComponent },
+  { path: 'cart', component: CartComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'news', component: NewsComponent },

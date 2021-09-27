@@ -7,12 +7,12 @@
                 <div class="form-group">
                     <label>Giá thấp nhất</label>
                     <input type="number" class="form-control col-12 mt-2" name="minPrice"
-                        [(ngModel)]="userParams.minPrice">
+                        [(ngModel)]="productParams.minPrice">
                 </div>
                 <div class="form-group mt-3">
                     <label>Giá cao nhất</label>
                     <input type="number" class="form-control col-12 mt-2" name="maxPrice"
-                        [(ngModel)]="userParams.maxPrice">
+                        [(ngModel)]="productParams.maxPrice">
                 </div>
                 <div class="filter-btn-group mt-3">
                     <button class="btn btn-dark text-light" type="submit">
@@ -43,14 +43,14 @@
                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
                             aria-labelledby="button-basic">
                             <div class="btn-group row text-center">
-                                <button class="btn col-12" [(ngModel)]="userParams.orderBy" name='orderBy'
-                                    btnRadio='newest' (click)="loadProducts(category)" (click)="selectSort('newest')"
+                                <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
+                                    btnRadio='newest' (click)="loadProducts()" (click)="selectSort('newest')"
                                     type="button">Mới nhất</button>
-                                <button class="btn col-12" [(ngModel)]="userParams.orderBy" name='orderBy'
-                                    btnRadio='highestPrice' (click)="loadProducts(category)"
+                                <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
+                                    btnRadio='highestPrice' (click)="loadProducts()"
                                     (click)="selectSort('highestPrice')" type="button">Giá từ cao xuống thấp</button>
-                                <button class="btn col-12" [(ngModel)]="userParams.orderBy" name='orderBy'
-                                    btnRadio='lowestPrice' (click)="loadProducts(category)"
+                                <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
+                                    btnRadio='lowestPrice' (click)="loadProducts()"
                                     (click)="selectSort('lowestPrice')" type="button">Giá từ thấp đến cao</button>
                             </div>
                         </ul>

@@ -1,6 +1,6 @@
 namespace API.Helpers
 {
-    public class CustomerParams : PaginationParams
+    public class ProductParams : PaginationParams
     {
         public string Categories { get; set; }
         public double MinPrice { get; set; } = 0;

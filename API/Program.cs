@@ -29,8 +29,11 @@ namespace API
                 await Seed.SeedSubCategories(context);
                 await Seed.SeedCollections(context);
                 await Seed.SeedColors(context);
+                await Seed.SeedShippingMethods(context);
+                await Seed.SeedPromotions(context);
                 await Seed.SeedUsers(userManager, roleManager);
                 await Seed.SeedProducts(context);
+                await Seed.SeedPaymentMethods(context);
                 await Seed.SeedProductColors(context);
             }
             catch(Exception ex)

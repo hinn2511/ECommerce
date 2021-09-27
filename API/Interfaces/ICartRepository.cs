@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
@@ -10,6 +12,7 @@ namespace API.Interfaces
         Task<Cart> FindCustomerCartItemAsync(int customerId, int productId);
         Task<AppUser> GetCustomerWithCartItems(int customerId);
         Task<PagedList<CartDto>> GetCustomerCartItems(PaginationParams paginationParams, int customerId);
+        Task<IEnumerable<Cart>> GetCustomerCart(int customerId);
         void AddCartItem(Cart cart);
         void RemoveCartItem(Cart cart);
         void UpdateCartItem(Cart cart);

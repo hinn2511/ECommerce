@@ -35,6 +35,11 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { NumberInputComponent } from './_forms/number-input/number-input.component';
 import { NumberOnlyDirective } from './_directives/number-only.directive';
+import { DebounceClickDirective } from './_directives/debounce-click.directive';
+import { CheckOutComponent } from './customer/check-out/check-out.component';
+import { CustomerOrderComponent } from './customer/customer-order/customer-order.component';
+import { CustomerOrderDetailComponent } from './customer/customer-order-detail/customer-order-detail.component';
+import { OrderStatePipe } from './_pipes/order-state.pipe';
 
 @NgModule({
   declarations: [
@@ -64,6 +69,11 @@ import { NumberOnlyDirective } from './_directives/number-only.directive';
     DateInputComponent,
     NumberInputComponent,
     NumberOnlyDirective,
+    DebounceClickDirective,
+    CheckOutComponent,
+    CustomerOrderComponent,
+    CustomerOrderDetailComponent,
+    OrderStatePipe
   ],
   imports: [
     BrowserModule,

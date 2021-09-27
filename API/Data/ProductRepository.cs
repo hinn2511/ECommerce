@@ -24,20 +24,21 @@ namespace API.Data
         }
 
 
-        public async Task<PagedList<ProductDto>> GetAllProductsAsync(CustomerParams customerParams)
+        public async Task<PagedList<ProductDto>> GetAllProductsAsync(ProductParams productParams)
         {
             var query = _context.Products.AsQueryable();
             
             var minPrice = 0.0;
             var maxPrice = 1000000000.0;
-            if (customerParams.MinPrice > 0.0)
-                minPrice = customerParams.MinPrice;
-            if (customerParams.MaxPrice > 0.0)
-                maxPrice = customerParams.MaxPrice;
-            query = query.Where(p => p.Category.CategoryName == customerParams.Categories);
+            if (productParams.MinPrice > 0.0)
+                minPrice = productParams.MinPrice;
+            if (productParams.MaxPrice > 0.0)
+                maxPrice = productParams.MaxPrice;
+            query = query.Where(p => p.SubCategory.SubCategoryName == productParams.Categories
+             || p.Category.CategoryName == productParams.Categories);
             query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
-            query = customerParams.OrderBy switch
+            query = productParams.OrderBy switch
             {
                 "newest" => query.OrderByDescending(u => u.Created),
                 "oldest" => query.OrderBy(u => u.Created),
@@ -48,7 +49,7 @@ namespace API.Data
 
             return await PagedList<ProductDto>
                 .CreateAsync(query.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
-                    customerParams.PageNumber, customerParams.PageSize);
+                    productParams.PageNumber, productParams.PageSize);
 
         }
 
@@ -73,6 +74,12 @@ namespace API.Data
             return await _context.Products
                 .Include(x => x.ProductPhotos)
                 .SingleOrDefaultAsync(x => x.ProductCode == productCode);
+        }
+
+        public async Task<Product> FindProductByIdAsync(int id)
+        {
+            return await _context.Products
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
 

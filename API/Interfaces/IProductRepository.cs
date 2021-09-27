@@ -10,12 +10,13 @@ namespace API.Interfaces
     {
         //Customer 
         Task<ProductDto> GetProductAsync(string productCode);
-        Task<PagedList<ProductDto>> GetAllProductsAsync(CustomerParams customerParams);
+        Task<PagedList<ProductDto>> GetAllProductsAsync(ProductParams productParams);
         Task<IEnumerable<ProductColorDto>> GetProductColor(string productCode);
 
         //Business
         Task<Product> FindProductByCodeAsync(string productCode);
         Task<Product> GetProductByCodeAsync(string productCode);
+        Task<Product> FindProductByIdAsync(int id);
 
         //CRUD
         void Add(Product product);

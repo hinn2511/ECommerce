@@ -15,6 +15,7 @@ namespace API.Entities
         public ICollection<AppUserRole> UserRoles { get; set; }
         public ICollection<CustomerFavorite> FavoriteProducts { get; set; }
         public ICollection<Cart> Carts { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
     }
 }

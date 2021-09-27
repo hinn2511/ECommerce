@@ -1,0 +1,226 @@
+<div class="containe my-4">
+    <div class="col-12 text-center">
+        <h2 class="font-secondary py-4">Thanh toán</h2>
+    </div>
+    <div class="row col-12 justify-content-center">
+
+        <div class="col-12 col-lg-6">
+            <h4 class="col-12 text-center mb-4">Chi tiết đơn hàng</h4>
+            <div class="d-none d-lg-block">
+                <table class="table">
+                    <thead class="bg-light-grey">
+                        <tr>
+                            <th scope="col" class="text-center">Sản phẩm</th>
+                            <th scope="col" class="text-center">Tùy chọn</th>
+                            <th scope="col" class="text-center">Số lượng</th>
+                            <th scope="col" class="text-center">Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of carts">
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="img-container">
+                                            <img src="{{item.photoUrl}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="pt-lg-3">{{item.productName | titlecase}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td *ngIf="item.colorName;else default" class="text-center">
+                                <p class="pt-lg-3">{{item.colorName | titlecase}}</p>
+                            </td>
+                            <ng-template #default>
+                                <td class="text-center">
+                                    <p class="pt-lg-3">Mặc định</p>
+                                </td>
+                            </ng-template>
+                            <td class="text-center">
+                                <p class="pt-lg-3">{{item.quantity}}</p>
+                            </td>
+                            <td class="text-center">
+                                <p class="pt-lg-3">{{item.price | currency:"VND"}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-lg-none">
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let item of carts">
+                            <td class="row">
+                                <div class="col-4 px-0">
+                                    <div class="img-container pt-5">
+                                        <img src="{{item.photoUrl}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <p>{{item.productName | titlecase}}</p>
+                                    <p *ngIf="item.colorName;else default">Tùy chọn: {{item.colorName | titlecase}}</p>
+                                    <ng-template #default>
+                                            <p>Tùy chọn: Mặc định</p>
+                                    </ng-template>
+                                    <p>Số lượng: {{item.quantity}}</p>
+                                    <p>Đơn giá: {{item.price | currency:"VND"}}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="row my-4 pl-lg-3">
+                <div class="col-12 col-lg-6 px-0">
+                    <div class="row">
+                        <div class="col-9">
+                            <h6>Số lượng sản phẩm</h6>
+                        </div>
+                        <div class="col-3 text-right">
+                            <h6>{{quantity}}</h6>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <h6>Tổng tiền</h6>
+                        </div>
+                        <div class="col-6 text-right mt-3">
+                            <h6>{{subTotal | currency:"VND"}}</h6>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <h6>Giảm giá</h6>
+                        </div>
+                        <div class="col-6 text-right mt-3">
+                            <h6>-&nbsp;{{discount | currency:"VND"}}</h6>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <h6>Phí vận chuyển</h6>
+                        </div>
+                        <div class="col-6 text-right mt-3">
+                            <h6 *ngIf="shippingMethod">+&nbsp;{{shippingMethod.price | currency:"VND"}}</h6>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <h6 class="fw-bolder">Tổng tiền thanh toán</h6>
+                        </div>
+                        <div class="col-6 text-right mt-3" *ngIf="shippingMethod">
+                            <h5 class="fw-bolder" >{{subTotal - discount + shippingMethod.price | currency:"VND"}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mt-3 pl-lg-4">
+                    <div class="card">
+                        <h5 class="card-header text-center">Mã giảm giá</h5>
+                        <div class="input-group my-3 px-4">
+                            <input type="text" class="form-control" [(ngModel)]="model.promotionCode" placeholder="{{model.promotionCode}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="redeemPromotion()">
+                                    Áp dụng
+                                </span>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                
+            </div>
+
+        </div>
+        <div class="col-12 col-lg-4">
+            <h4 class="col-12 text-center">Thông tin thanh toán</h4>
+            <div class="mt-4 mx-3">
+                <form [formGroup]='checkoutForm' (ngSubmit)="checkoutForm.valid && order()" autocomplete="off">
+                    <div class="form-group">
+
+                        <label for="fullName" class="label">Họ và tên</label>
+                        <app-text-input [formControl]='checkoutForm.controls["fullName"]' [label]='"Họ và tên"'>
+                        </app-text-input>
+
+                        <label for="phoneNumber" class="label">Số điện thoại</label>
+                        <app-text-input [formControl]='checkoutForm.controls["phoneNumber"]' [label]='"Số điện thoại"'>
+                        </app-text-input>
+
+                        <label for="destination" class="label">Địa chỉ nhận hàng</label>
+                        <app-text-input [formControl]='checkoutForm.controls["destination"]'
+                            [label]='"Địa chỉ nhận hàng"'>
+                        </app-text-input>
+
+                        <label for="shippingMethod" class="label mt-3">Hình thức giao hàng</label>
+
+                        <div class="btn-group col-12" *ngIf="shippingMethod" dropdown [isOpen]='shippingDropdown'>
+
+                            <button dropdownToggle type="button"
+                                class="btn mt-2 dropdown-toggle"
+                                (click)="dropDownClose('payment')">
+                                {{shippingMethod.name | titlecase}}<span class="caret"></span>
+                            </button>
+
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" role="menu"
+                                aria-labelledby="button-basic">
+                                <div *ngFor="let sm of shippingMethods">
+                                    <li>
+                                        <a class="dropdown-item my-3 pt-3" [class.disabled]="!sm.state"
+                                            (click)="chooseShippingMethod(sm)">
+                                            <div class="row col-12">
+                                                <div class="col-12 col-lg-9">
+                                                    <h6 class="ovf-sm-0">{{sm.name | titlecase}}</h6>
+                                                </div>
+                                                <div class="col-12 col-lg-3">
+                                                    <p class="price">{{sm.price | currency:'VND'}}</p>
+                                                </div>
+                                                <div class="col-12 col-lg-12">
+                                                    <p class="ovf-sm-0">Thời gian giao hàng từ {{sm.minTime}} đến {{sm.maxTime}} ngày</p>
+                                                </div>
+                                                <div class="col-12 col-lg-12" *ngIf="!sm.state">
+                                                    <p class="ovf-sm-0">Hình thức vận chuyển không khả dụng</p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <label for="shippingMethod" class="label mt-3">Hình thức thanh toán</label>
+
+                        <div class="btn-group col-12" *ngIf="paymentMethod" dropdown [isOpen]='paymentDropdown'>
+
+                            <button dropdownToggle type="button"
+                                class="btn mt-2 dropdown-toggle"
+                                (click)="dropDownClose('shipping')">
+                                {{paymentMethod.name | titlecase}}<span class="caret"></span>
+                            </button>
+
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" role="menu"
+                                aria-labelledby="button-basic">
+                                <div *ngFor="let pm of paymentMethods">
+                                    <li>
+                                        <a class="dropdown-item my-3 pt-3" [class.disabled]="!pm.state"
+                                            (click)="choosePaymentMethod(pm)">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h6 class="ovf-sm-0">{{pm.name | titlecase}}</h6>
+                                                </div>
+                                                <div class="col-12 col-lg-12 " *ngIf="!pm.state">
+                                                    <p class="ovf-sm-0">Hình thức thanh toán không khả dụng</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <button [disabled]='!checkoutForm.valid' 
+                            type="submit" 
+                            class="btn btn-dark text-light mt-4 pt-3 col-12">
+                            <h5>Đặt hàng</h5>
+                        </button>
+                        <button type="button" routerLink='/cart' class="btn btn-light text-dark mt-4 col-12">Trở về giỏ hàng</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

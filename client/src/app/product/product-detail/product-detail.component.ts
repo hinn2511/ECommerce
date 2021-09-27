@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { ToastrService } from 'ngx-toastr';
-import { CartItem } from 'src/app/_models/cartItem';
+import { CartItemUpdate } from 'src/app/_models/cartItemUpdate';
 import { Color } from 'src/app/_models/color';
 import { Product } from 'src/app/_models/product';
 import { CartService } from 'src/app/_services/cart.service';
 import { FavoriteService } from 'src/app/_services/favorite.service';
 import { ProductService } from 'src/app/_services/product.service';
-import { Capitalize } from 'src/app/_services/transformHelper';
 
 @Component({
   selector: 'app-product-detail',
@@ -25,7 +23,7 @@ export class ProductDetailComponent implements OnInit {
   colors: Color[] = [];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-  productToCart: CartItem = {
+  productToCart: CartItemUpdate = {
     productCode: '',
     colorCode: '',
     quantity: 1
@@ -123,7 +121,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   decreaseQuantity() {
-    this.productToCart.quantity = this.productToCart.quantity - 1;
+    if ( this.productToCart.quantity >= 2)
+      this.productToCart.quantity = this.productToCart.quantity - 1;
   }
 
   increaseQuantity() {
@@ -131,7 +130,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart() {
-    this.cartService.addToCart(this.productToCart).subscribe(() => {
+    this.cartService.addCartItem(this.productToCart).subscribe(() => {
       this.toastr.success('Đã thêm ' + this.product.productName + ' vào giỏ hàng');
     }, error => {
       this.toastr.error('Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');

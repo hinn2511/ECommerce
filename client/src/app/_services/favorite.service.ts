@@ -13,7 +13,7 @@ export class FavoriteService {
   constructor(private http: HttpClient) { }
 
   addToFavorite(productCode: string) {
-    return this.http.post(this.baseUrl + 'favorite/add-to-favorite/' + productCode, {});
+    return this.http.post(this.baseUrl + 'favorite/add/' + productCode, {});
   }
   
   getCustomerFavorite(pageNumber, pageSize) {

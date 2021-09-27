@@ -13,7 +13,6 @@ export class AppComponent implements OnInit{
   title = 'Green food';
   searchMode = false;
   showContent: boolean;
-  template = "<img src='../../assets/loading.gif'/>"
   
   constructor(private accountService : AccountService, public router: Router) {
 

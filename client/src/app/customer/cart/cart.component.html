@@ -1,67 +1,98 @@
 <div class="container">
     <h2 class="font-secondary text-center mb-4">Giỏ hàng của tôi</h2>
-    <div class="row">
-        <div class="col-12 col-lg-8">
-            <div class="row" *ngFor="let item of carts; index as i">
-                <div class="col-3 col-md-4 col-lg-2 pr-lg-1" (click)="showProduct(item)">
-                    <div class="img-wrapper text-center">
-                        <img class="product-img" src="{{item.photoUrl}}" alt="">
+    <div class="row justify-content-lg-center" *ngIf="carts.length > 0; else empty">
+        <div class="col-12 col-lg-10">
+            <div class="d-none d-lg-block">
+                <div class="row pb-2 pt-3 my-4 bg-light-grey">
+                    <div class="col-lg-4 pl-5">
+                       <h6 class="fw-bolder"><i class="fa fa-cube"></i>&nbsp;&nbsp;Sản phẩm</h6>
+                    </div>
+                    <div class="col-lg-2 pl-lg-0">
+                        <h6 class="fw-bolder"><i class="fa fa-tag"></i>&nbsp;&nbsp;Đơn giá</h6>
+                    </div>
+                    <div class="col-lg-2 pl-lg-0">
+                        <h6 class="fw-bolder"><i class="fa fa-navicon"></i>&nbsp;&nbsp;&nbsp;Lựa chọn</h6>
+                    </div>
+                    <div class="col-lg-2 pl-lg-0">
+                        <h6 class="fw-bolder"><i class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Số lượng</h6>
+                    </div>
+                    <div class="col-lg-2 pl-lg-5">
+                        <h6 class="fw-bolder"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;Xóa</h6>
                     </div>
                 </div>
-                <div class="col-6 col-md-6 col-lg-8 mx-lg-2 pt-lg-5">
-                    <div class="row mt-3">
-                        <div class="col-12 col-lg-3" (click)="showProduct(item)">
-                            <h5>{{item.productName | titlecase}}</h5>
+            </div>
+            <div class="row" *ngFor="let item of carts; index as i">
+                <div class="col-3 col-md-4 col-lg-2 pr-lg-1 pt-lg-2 pt-sm-2" (click)="showProduct(item)">
+                    <div class="img-wrapper text-center">
+                        <img class="product-img cs-pointer" src="{{item.photoUrl}}" alt="">
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-8 mx-lg-2 pt-lg-5 mb-sm-1r">
+                    <div class="row">
+
+                        <div class="col-12 col-lg-3 mt-sm-1r cs-pointer" (click)="showProduct(item)">
+                            <h6 class="fs-sm-bigger">{{item.productName | titlecase}}</h6>
                         </div>
+
                         <div class="col-12 col-lg-3">
-                            <h5 class="d-none d-md-block">{{item.price | currency:"VND"}}</h5>
+                            <h6 class="d-none d-md-block">{{item.price | currency:"VND"}}</h6>
                             <p class="d-md-none">{{item.price | currency:"VND"}}</p>
                         </div>
-                        <div class="col-12 col-lg-3">
-                            <div class="btn-group" dropdown>
-                                <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
-                                        aria-controls="dropdown-basic">
-                                        {{item.colorName | titlecase}}<span class="caret"></span>
+
+                        <div class="col-12 col-lg-3 mb-2">
+                            <div class="btn-group" dropdown *ngIf="item.colorName; else default">
+                                <button dropdownToggle type="button" class="btn dropdown-toggle"
+                                    (click)="getProductColor(item.productCode)">
+                                    {{item.colorName | titlecase}}<span class="caret"></span>
                                 </button>
-                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                                    role="menu" aria-labelledby="button-basic">
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                                  <li class="divider dropdown-divider"></li>
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
-                                  </li>
+                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                    aria-labelledby="button-basic">
+                                    <div *ngFor="let color of productColors">
+                                        <li><a class="dropdown-item"
+                                                (click)="changeItemColor(item,color.colorCode)">{{color.colorName |
+                                                titlecase}}</a></li>
+                                    </div>
                                 </ul>
-                              </div>
+                            </div>
+                            <ng-template #default>
+                                <p class="d-none d-lg-block">&nbsp;&nbsp;Mặc định</p>
+                                <p class="d-lg-none">Mặc định</p>
+                            </ng-template>
                         </div>
+
                         <div class="col-12 col-lg-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" (click)="decreaseQuantity()">
+                                    <span class="input-group-text" appDebounceClick (debounceClick)="update('dec')"
+                                        (click)="decreaseQuantity(item)">
                                         <i class="fa fa-minus text-muted"></i>
                                     </span>
                                 </div>
-                                <input type="number" min="1" max="99" pattern="\d*"
-                                    class="form-control" value="{{item.quantity}}" placeholder="{{item.quantity}}">
+                                <input type="number" min="1" max="99" pattern="\d*" class="form-control"
+                                    value="{{item.quantity}}" placeholder="{{item.quantity}}">
                                 <div class="input-group-append">
-                                    <span class="input-group-text" (click)="increaseQuantity()">
+                                    <span class="input-group-text" appDebounceClick (debounceClick)="update('inc')"
+                                        (click)="increaseQuantity(item)">
                                         <i class="fa fa-plus text-muted"></i>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                   
                 </div>
-                <div class="col-2 col-md-2 col-lg-1 pt-lg-5">
-                    <button class="btn btn-light text-dark mt-3" (click)="removeFromCart(item.productCode)">
-                        Xóa
+
+                <div class="col-2 col-md-2 col-lg-1 pt-lg-5 pl-lg-5 pt-sm-4">
+                    <button class="btn btn-light border text-dark mt-1" (click)="removeFromCart(item.productCode)">
+                        <i class="fa fa-times"></i>
                     </button>
                 </div>
-                <div *ngIf="i !== carts.length - 1" class="divider"></div>
+
+                <div *ngIf="i !== carts.length - 1" class="divider mt-lg-4"></div>
             </div>
-            <div class="col-12 d-flex justify-content-center mt-3" *ngIf="pagination">
+
+            <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
                 <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
                     [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
                     (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
@@ -69,51 +100,28 @@
                 </pagination>
             </div>
 
-            
-        </div>
-        <div class="col-12 col-lg-4 mt-5">
-            <div class="col-12 pl-4 pr-5 py-2">
-                <h4>Hình thức giao hàng</h4>
-                    <div class="btn-group col-12" dropdown>
-                        <button dropdownToggle type="button" class="btn btn-shipping dropdown-toggle py-2"
-                                aria-controls="dropdown-basic">
-                                Hình thức giao hàng<span class="caret"></span>
-                        </button>
-                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
-                            role="menu" aria-labelledby="button-basic">
-                          <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                          <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                          <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                          <li class="divider dropdown-divider"></li>
-                          <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
-                          </li>
-                        </ul>
-                      </div>
-                
-                
-            </div>
-            <div class="col-12 px-4 py-2">
-               <div class="card">
-                   <div class="card-header">
-                       Mã giảm giá
-                   </div>
-                   <div class="card-body">
-                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá tại đây">
-                   </div>
-               </div>
-            </div>
-            <div class="row col-12 mt-3 px-4 py-2">
-                <div class="col-6 col-lg-6">
-                    <h4>Tổng giá trị:</h4>
+            <div class="row col-12 d-flex justify-content-lg-around mt-3 px-lg-3 center">
+                <div class="row col-12 col-lg-6 mt-lg-4">
+                    <h5 class="w-sm-100">Tổng giá trị: {{total | currency:"VND"}}</h5>
                 </div>
-                <div class="col-6 col-lg-6">
-                    <h3 class="total text-right">{{total | currency:"VND"}}</h3>
+                <div class="col-12 col-lg-6 btn-right">
+                    <button
+                        class="btn btn-dark btn-checkout text-light pb-lg-2 w-sm-100"
+                        [disabled]="carts.length == 0"
+                        (click)="checkout()">
+                        <h6>
+                            Thanh toán&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                        </h6>
+                    </button>
                 </div>
             </div>
-            <div class="col-12 d-flex justify-content-center">
-                <button class="btn btn-payment btn-dark text-light py-2">Tiến hành thanh toán</button>
-            </div>
+
+
         </div>
-       
-    </div>  
+    </div>
+    <ng-template #empty>
+        <div class="col-12 empty">
+            <h5 class="text-center text-muted px-4">Bạn chưa có sản phẩm nào trong giỏ hàng</h5>
+        </div>
+    </ng-template>
 </div>

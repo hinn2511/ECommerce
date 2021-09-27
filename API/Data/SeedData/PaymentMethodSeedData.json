@@ -1,0 +1,14 @@
+[
+    {
+        "Name": "Ví điện tử Momo",
+        "State": false
+    },
+    {
+        "Name": "Thanh toán khi nhận hàng",
+        "State": true
+    },
+    {
+        "Name": "Thẻ tín dụng",
+        "State": false
+    }
+]

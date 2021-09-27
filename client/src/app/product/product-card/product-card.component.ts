@@ -44,7 +44,7 @@ export class ProductCardComponent implements OnInit {
       productCode: product.productCode,
       quantity: 1
     }
-    this.cartService.addToCart(this.cartItem).subscribe(() => {
+    this.cartService.addCartItem(this.cartItem).subscribe(() => {
       this.toastr.success('Đã thêm ' + product.productName + ' vào giỏ hàng');
     }, error => {
       this.toastr.error('Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');

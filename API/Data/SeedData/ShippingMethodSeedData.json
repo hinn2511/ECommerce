@@ -1,0 +1,23 @@
+[
+    {
+        "Name": "Giao hàng tiêu chuẩn",
+        "MinTime": 3,
+        "MaxTime": 7,
+        "Price": 50000,
+        "State": true
+    },
+    {
+        "Name": "Giao hàng nhanh",
+        "MinTime": 2,
+        "MaxTime": 4,
+        "Price": 100000,
+        "State": true
+    },
+    {
+        "Name": "Giao hàng siêu tốc",
+        "MinTime": 1,
+        "MaxTime": 2,
+        "Price": 150000,
+        "State": true
+    }
+]

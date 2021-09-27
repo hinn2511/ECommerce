@@ -35,10 +35,10 @@
                                     phẩm</a>
                                 <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu" role="menu"
                                     aria-labelledby="basic-link">
-                                    <li *ngFor="let item of categoryItem">
-                                        <a class="dropdown-item" (click)="hideMenuToggle()"
-                                            routerLink='/category/{{item}}'>{{item}}</a>
+                                    <li *ngFor="let item of categories">
+                                        <a class="dropdown-item">{{item.categoryName | titlecase}}</a>
                                     </li>
+                                    
                                 </ul>
                             </span>
                         </li>
@@ -155,13 +155,16 @@
                             aria-labelledby="button-basic">
 
                             <li class="dropdown-item">
-                                <a class="nav-link  " routerLink='/my-account'>Tài khoản của tôi</a>
+                                <a class="nav-link" routerLink='/my-account'>Tài khoản</a>
                             </li>
                             <li class="dropdown-item">
-                                <a class="nav-link  " routerLink='/favorites'>Yêu thích</a>
+                                <a class="nav-link" routerLink='/favorites'>Yêu thích</a>
                             </li>
                             <li class="dropdown-item">
-                                <a class="nav-link  " (click)="logout()">Đăng xuất</a>
+                                <a class="nav-link" routerLink='/order'>Đơn hàng của tôi</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a class="nav-link" (click)="logout()">Đăng xuất</a>
                             </li>
                         </ul>
                     </div>
@@ -172,15 +175,22 @@
     <div class="container row col-md-12 justify-content-center" *ngIf="router.url != '/login' && router.url != '/register'">
         <ul class="navbar-nav me-auto mb-2 ml-1 mb-lg-0 ">
             <li class="nav-item">
-                    <div class="dropdown" dropdown [autoClose]="true">
-                    <a class="nav-link  " dropdownToggle>Danh mục sản phẩm <span><i
+                    <div class="dropdown" dropdown [insideClick]="true" [autoClose]="true">
+                    <a class="nav-link" dropdownToggle>Danh mục sản phẩm <span><i
                                 class="fa fa-caret-down"></i></span></a>
                     <div class="dropdown-menu catalogue" *dropdownMenu>
                         <div class="row">
                             <div class="col-3">
-
-                                <li *ngFor="let item of categoryItem">
-                                    <a class="dropdown-item" routerLink='/category/{{item}}'>{{item}}</a>
+                                <li *ngFor="let item of categories">
+                                    <a class="dropdown-item" (mouseover)="loadSubCategories(item)" >{{item.categoryName | titlecase}}</a>
+                                </li>
+                            </div>
+                            <div class="col-3">
+                                <li *ngFor="let item of subCategories">
+                                    <a class="dropdown-item" routerLink='/category/{{item.subCategoryName}}'>{{item.subCategoryName | titlecase}}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" routerLink='/category/{{hoveredCategory.categoryName}}'>Tất cả sản phẩm</a>
                                 </li>
                             </div>
                             
@@ -191,7 +201,7 @@
 
             <li class="nav-item">
                 <div class="dropdown" dropdown>
-                <a class="nav-link  " dropdownToggle>Không gian sống <span><i
+                <a class="nav-link" dropdownToggle>Không gian sống <span><i
                             class="fa fa-caret-down"></i></span></a>
                 <div class="dropdown-menu catalogue" *dropdownMenu>
                     <div class="row">
@@ -209,18 +219,18 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link  " routerLink='/collections'>Bộ sưu tập</a>
+                <a class="nav-link" routerLink='/collections'>Bộ sưu tập</a>
             </li>
     
             <li class="nav-item">
-                <a class="nav-link  " routerLink='/promotions'>Chương trình khuyến mãi</a>
+                <a class="nav-link" routerLink='/promotions'>Chương trình khuyến mãi</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link  " routerLink='/news'>Tin tức</a>
+                <a class="nav-link" routerLink='/news'>Tin tức</a>
             </li>
             <li class="nav-item">
-                 <a class="nav-link  " routerLink='/help'>Tư vấn - Hỗ trợ</a>
+                 <a class="nav-link" routerLink='/help'>Tư vấn - Hỗ trợ</a>
             </li>
         </ul>
     </div>

@@ -207,5 +207,55 @@ namespace API.Entities
 
             await context.SaveChangesAsync();
         }
+
+        public static async Task SeedShippingMethods(DataContext context)
+        {
+            if (await context.ShippingMethods.AnyAsync()) return;
+
+            var shippingMethodData = await System.IO.File.ReadAllTextAsync("Data/SeedData/ShippingMethodSeedData.json");
+
+            var shippingMethods = JsonSerializer.Deserialize<List<ShippingMethod>>(shippingMethodData);
+
+            foreach ( var shippingMethod in shippingMethods)
+            {
+                shippingMethod.Name = shippingMethod.Name.ToLower();
+
+                context.ShippingMethods.Add(shippingMethod);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task SeedPromotions(DataContext context)
+        {
+            if (await context.Promotions.AnyAsync()) return;
+
+            var promotionData = await System.IO.File.ReadAllTextAsync("Data/SeedData/PromotionSeedData.json");
+
+            var promotions = JsonSerializer.Deserialize<List<Promotion>>(promotionData);
+
+            foreach ( var promotion in promotions)
+            {
+                context.Promotions.Add(promotion);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task SeedPaymentMethods(DataContext context)
+        {
+            if (await context.PaymentMethods.AnyAsync()) return;
+
+            var paymentData = await System.IO.File.ReadAllTextAsync("Data/SeedData/PaymentMethodSeedData.json");
+
+            var payments = JsonSerializer.Deserialize<List<PaymentMethod>>(paymentData);
+
+            foreach ( var payment in payments)
+            {
+                context.PaymentMethods.Add(payment);
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }

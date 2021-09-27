@@ -244,6 +244,98 @@ namespace API.Data.Migrations
                     b.ToTable("Favorites");
                 });
 
+            modelBuilder.Entity("API.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("PromotionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ShippingMethodId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("PromotionId");
+
+                    b.HasIndex("ShippingMethodId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("API.Entities.OrderDetail", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ColorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("API.Entities.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethods");
+                });
+
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -346,6 +438,61 @@ namespace API.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductPhotos");
+                });
+
+            modelBuilder.Entity("API.Entities.Promotion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DiscountPercent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("MaxDiscountAmount")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("MinOrderTotal")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("PromotionCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Promotions");
+                });
+
+            modelBuilder.Entity("API.Entities.ShippingMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MaxTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MinTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShippingMethods");
                 });
 
             modelBuilder.Entity("API.Entities.SubCategory", b =>
@@ -515,6 +662,65 @@ namespace API.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("API.Entities.Order", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.PaymentMethod", "PaymentMethod")
+                        .WithMany("Orders")
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Promotion", "Promotion")
+                        .WithMany("Orders")
+                        .HasForeignKey("PromotionId");
+
+                    b.HasOne("API.Entities.ShippingMethod", "ShippingMethod")
+                        .WithMany("Orders")
+                        .HasForeignKey("ShippingMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("PaymentMethod");
+
+                    b.Navigation("Promotion");
+
+                    b.Navigation("ShippingMethod");
+                });
+
+            modelBuilder.Entity("API.Entities.OrderDetail", b =>
+                {
+                    b.HasOne("API.Entities.Color", "Color")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("API.Entities.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Product", "Product")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
                     b.HasOne("API.Entities.Brand", "Brand")
@@ -638,6 +844,8 @@ namespace API.Data.Migrations
 
                     b.Navigation("FavoriteProducts");
 
+                    b.Navigation("Orders");
+
                     b.Navigation("UserRoles");
                 });
 
@@ -662,7 +870,19 @@ namespace API.Data.Migrations
                 {
                     b.Navigation("Carts");
 
+                    b.Navigation("OrderDetails");
+
                     b.Navigation("ProductColors");
+                });
+
+            modelBuilder.Entity("API.Entities.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("API.Entities.PaymentMethod", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("API.Entities.Product", b =>
@@ -671,9 +891,21 @@ namespace API.Data.Migrations
 
                     b.Navigation("FavoriteByCustomers");
 
+                    b.Navigation("OrderDetail");
+
                     b.Navigation("ProductColors");
 
                     b.Navigation("ProductPhotos");
+                });
+
+            modelBuilder.Entity("API.Entities.Promotion", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("API.Entities.ShippingMethod", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("API.Entities.SubCategory", b =>

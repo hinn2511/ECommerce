@@ -8,7 +8,7 @@ namespace API.Entities
         public Product Product { get; set; }
         public int ProductId { get; set; }
         public Color Color { get; set; }
-        public int ColorId { get; set; }
+        public int? ColorId { get; set; }
         public int Quantity { get; set; }
     }
 }

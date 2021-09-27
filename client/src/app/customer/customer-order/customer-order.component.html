@@ -1,0 +1,88 @@
+<div class="container my-4">
+    <div class="col-12">
+        <h3 class="font-secondary text-center p-2">Danh sách đơn đặt hàng</h3>
+        <div class="tab-container py-1 my-lg-3">
+            <div class="tab">
+                <button class="btn border-2" [(ngModel)]="orderParams.predicate" btnRadio="wfa"
+                    [class.active]="tabActive == 1" (click)="selectPredicate(1)">
+                    Chờ xác nhận
+                </button>
+                <button class="btn" [(ngModel)]="orderParams.predicate" btnRadio="delivering"
+                    [class.active]="tabActive == 2" (click)="selectPredicate(2)">
+                    Đang giao
+                </button>
+                <button class="btn" [(ngModel)]="orderParams.predicate" btnRadio="delivered"
+                    [class.active]="tabActive == 3" (click)="selectPredicate(3)">
+                    Đã giao
+                </button>
+                <button class="btn" [(ngModel)]="orderParams.predicate" btnRadio="cancelled"
+                    [class.active]="tabActive == 4" (click)="selectPredicate(4)">
+                    Đã hủy
+                </button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="d-none d-lg-block">
+                    <table class="table">
+                        <thead class="bg-light-grey">
+                            <tr>
+                                <th scope="col" class="text-center">Mã đơn hàng</th>
+                                <th scope="col" class="text-center">Ngày đặt</th>
+                                <th scope="col" class="text-center">Tổng tiền</th>
+                                <th scope="col" class="text-center">Trạng thái</th>
+                                <th scope="col" class="text-center">Chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of orderList">
+                                <td class="text-center">
+                                    <p class="pt-lg-3">{{item.id}}</p>
+                                </td>
+                                <td class="text-center">
+                                    <p class="pt-lg-3">{{item.date | date:'short'}}</p>
+                                </td>
+                                <td class="text-center">
+                                    <p class="pt-lg-3">{{item.subTotal - item.discount | currency:"VND"}}</p>
+                                </td>
+                                <td class="text-center">
+                                    <p class="pt-lg-3">{{item.state | orderState}}</p>
+                                </td>
+                                <td class="text-center">
+                                    <p class="pt-lg-3 cs-pointer" (click)="getOrderDetail(item.id)">Xem</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-lg-none">
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let item of orderList">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Mã đơn hàng: {{item.id}}</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="text-right">{{item.date | date:'short'}}</p>
+                                        </div>
+                                        <div class="col-7 pr-0">
+                                            <p>Tổng tiền: {{item.subTotal - item.discount | currency:"VND"}}</p>   
+                                        </div>
+                                        <div class="col-5">
+                                            <p class="text-right">{{item.state | orderState}}</p>   
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

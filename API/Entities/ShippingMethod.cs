@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace API.Entities
 {
     public class ShippingMethod
@@ -7,5 +10,7 @@ namespace API.Entities
         public int MinTime { get; set; }
         public int MaxTime { get; set; }
         public double Price { get; set; }
+        public bool State { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

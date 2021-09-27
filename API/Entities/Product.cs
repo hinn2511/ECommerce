@@ -26,7 +26,7 @@ namespace API.Entities
         public SubCategory SubCategory { get; set; }
         public Collection Collection { get; set; }
         public Brand Brand { get; set; }
-        
+        public ICollection<OrderDetail> OrderDetail { get; set; }        
         public ICollection<ProductPhoto> ProductPhotos { get; set; }
         public ICollection<ProductColor> ProductColors { get; set; }
         public ICollection<CustomerFavorite> FavoriteByCustomers { get; set; }
