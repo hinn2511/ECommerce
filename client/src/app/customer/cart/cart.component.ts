@@ -64,7 +64,6 @@ export class CartComponent implements OnInit {
   loadTotal() {
     this.cartService.getAllCustomerCart().subscribe(response => {
       this.total = 0;
-      console.log(response);
       for (let item of response) {
         this.total = this.total + item.price * item.quantity;
       }
@@ -109,7 +108,6 @@ export class CartComponent implements OnInit {
       productCode: this.productCode,
       quantity: action == "inc" ? this.quantity + 1 : this.quantity - 1
     }
-    console.log(updatedItem);
     this.cartService.adjustCartItem(updatedItem).subscribe(() => {
       this.loadCustomerCart();
     })

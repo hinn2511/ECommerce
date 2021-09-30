@@ -4,5 +4,6 @@ namespace API.DTOs
     {
         public int Id { get; set; }
         public string SubCategoryName { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

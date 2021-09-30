@@ -41,7 +41,7 @@ namespace API.Controllers
                 ShippingMethodId = checkoutDto.ShippingMethodId,
                 PaymentMethodId = checkoutDto.PaymentMethodId,
                 PromotionId = checkoutDto.PromotionId,
-                State = 1,
+                State = 0,
                 Discount = 0,
                 SubTotal = 0
             };
@@ -127,7 +127,7 @@ namespace API.Controllers
 
             if (order == null) return BadRequest("Đơn hàng không tồn tại");
 
-            if (order.State == 1)
+            if (order.State == 0)
             {
                 order.State = 4;
                 _unitOfWork.OrderRepository.UpdateOrder(order);

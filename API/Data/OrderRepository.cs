@@ -57,13 +57,14 @@ namespace API.Data
             
             int state =  orderParams.Predicate switch
             {
-                "wfa" => 1,
+                "wfa" => 0,
+                "preparing" => 1,
                 "delivering" => 2,
                 "delivered" => 3,
                 "cancelled" => 4,
-                _ => 1
+                _ => 0
             };
-            query = query.Where(x => x.CustomerId == customerId && x.State == state);
+            query = query.Where(x => x.CustomerId == customerId && x.State == state).OrderByDescending(x => x.Date);
             return await PagedList<OrderDto>.CreateAsync( query.ProjectTo<OrderDto>(_mapper.ConfigurationProvider),
                  orderParams.PageNumber, orderParams.PageSize);
         }

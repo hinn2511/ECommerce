@@ -33,6 +33,10 @@ export class OrderService {
     return this.orderParams;
   }
 
+  clearCache() {
+    this.orderCache.clear();
+  }
+
   checkout(model: any) {
     return this.http.post(this.baseUrl + 'order/checkout', model).pipe(
       map((response: Order) => {

@@ -83,6 +83,7 @@ export class CheckOutComponent implements OnInit {
       this.toastr.success('Đặt hàng thành công');
       this.route.navigateByUrl('order-detail/' + result.id);
       localStorage.setItem('orderId', result.id.toString());
+      this.orderService.clearCache();
     }, error => {
       this.toastr.error('Đã có lỗi xảy ra trong quá trình đặt hàng');
     })
@@ -91,9 +92,8 @@ export class CheckOutComponent implements OnInit {
   loadShipingMethod() {
     this.shippingService.getAllShippingMethods().subscribe(sm => {
       this.shippingMethods = sm;
-      var defaultSM = this.shippingMethods.filter(x => x.state);
-      this.shippingMethod = defaultSM[0];
-      this.model.shippingMethodId = defaultSM[0].id;
+      this.shippingMethod = sm.find(x => x.state);
+      this.model.shippingMethodId = this.shippingMethod.id;
     })
   }
 
@@ -107,9 +107,8 @@ export class CheckOutComponent implements OnInit {
   loadPaymentMethod() {
     this.paymentService.getAllPaymentMethods().subscribe(pm => {
       this.paymentMethods = pm;
-      var defaultPM = this.paymentMethods.filter(x => x.state);
-      this.paymentMethod = defaultPM[0];
-      this.model.paymentMethodId = defaultPM[0].id;
+      this.paymentMethod = pm.find(x => x.state);
+      this.model.paymentMethodId = this.paymentMethod.id;
     })
   }
 

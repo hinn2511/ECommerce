@@ -13,7 +13,7 @@
                             <th scope="col" class="text-center">Sản phẩm</th>
                             <th scope="col" class="text-center">Tùy chọn</th>
                             <th scope="col" class="text-center">Số lượng</th>
-                            <th scope="col" class="text-center">Đơn giá</th>
+                            <th scope="col" class="text-center">Đơn giá&nbsp;*</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +47,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <p class="text-center text-muted">*&nbsp;Giá của sản phẩm đã bao gồm thuế GTGT</p>
             </div>
             <div class="d-lg-none">
                 <table class="table">
@@ -71,6 +72,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <p class="text-center text-muted">Giá của sản phẩm đã bao gồm thuế GTGT</p>
 
             </div>
             <div class="row my-4 pl-lg-3">
@@ -86,7 +88,13 @@
                             <h6>Tổng tiền</h6>
                         </div>
                         <div class="col-6 text-right mt-3">
-                            <h6>{{subTotal | currency:"VND"}}</h6>
+                            <h6>{{subTotal / 110 * 100 | currency:"VND"}}</h6>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <h6>Thuế GTGT</h6>
+                        </div>
+                        <div class="col-6 text-right mt-3">
+                            <h6>{{subTotal - (subTotal / 110 * 100) | currency:"VND"}}</h6>
                         </div>
                         <div class="col-6 mt-3">
                             <h6>Giảm giá</h6>

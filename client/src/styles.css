@@ -102,3 +102,7 @@ input[type=number] {
 .cs-pointer {
     cursor: pointer;
 }
+
+.text-decoration-underline {
+    text-decoration: underline;
+}

@@ -61,22 +61,39 @@
         margin: 0 0.3rem;
     }
 
-    .catalogue {
-        padding: 2rem 3rem;
+    .category-catalogue, .area-catalogue {
+        padding: 2rem 3rem;    
+    }
+
+    .category-catalogue {
+        width: 75vw; 
+    }
+
+    .area-catalogue {
         width: 65vw;
     }
 
-    .catalogue a{
+    .category-catalogue a, .area-catalogue a{
         padding: 1rem;
     }
+
+    .image-container {
+        width: 100%;
+        height: auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 3px;
+    }
+
+    .dropdown-menu > .row{
+        min-height: 30rem;
+    }
+
 }
 
 .navbar, .dropdown-item {
     font-family: 'Raleway', sans-serif;
 }
-
-
-
 
 .dropdown-item, .dropdown-toggle {
     cursor: pointer;

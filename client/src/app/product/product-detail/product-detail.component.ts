@@ -131,6 +131,7 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart() {
     this.cartService.addCartItem(this.productToCart).subscribe(() => {
+      this.productToCart.quantity = 1;
       this.toastr.success('Đã thêm ' + this.product.productName + ' vào giỏ hàng');
     }, error => {
       this.toastr.error('Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');

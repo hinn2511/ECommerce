@@ -1,5 +1,5 @@
 export class OrderParams {
     predicate = "wfa";
     pageNumber = 1;
-    pageSize = 10;
+    pageSize = 5;
 }

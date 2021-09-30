@@ -16,7 +16,9 @@ export class NavbarComponent implements OnInit {
   @Output() navBarOpen = new EventEmitter();
   collapse = false;
   search = false;
-
+  categoryDropDownImage = '';
+  backgroungImage = 'https://images.dunelm.com/30464461.jpg?$standardplayerdefault$&img404=noimagedefault';
+  backgroungImage2 = 'https://thhome.vn/wp-content/uploads/2021/04/industrial-style-living-room-interior-with-furniture-sofa-1.jpg';
   categories: Category[] = [];
   subCategories: SubCategory[] = [];
   categoryItem: string[] = [
@@ -42,7 +44,8 @@ export class NavbarComponent implements OnInit {
   hoveredCategory: Category = {
     id: 0,
     categoryName: '',
-    subCategories: []
+    subCategories: [],
+    photoUrl: ''
   };
 
   constructor(public accountService: AccountService, public router: Router, private categoryService: CategoryService) {
@@ -54,6 +57,7 @@ export class NavbarComponent implements OnInit {
     this.search = false;
     this.loadAllCategories();
     this.hoveredCategory.id = 0;
+    
   }
 
   navigationBarToggle() {
@@ -79,7 +83,6 @@ export class NavbarComponent implements OnInit {
   loadAllCategories() {
     this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = categories;
-      this.getSubCategories(this.categories[0]);
     })
   }
 
@@ -88,7 +91,8 @@ export class NavbarComponent implements OnInit {
     for (const subCategory of category.subCategories) {
       subCategories.push({
         id: subCategory.id,
-        subCategoryName: subCategory.subCategoryName
+        subCategoryName: subCategory.subCategoryName,
+        photoUrl: subCategory.photoUrl
       })
     }
     return subCategories;
@@ -99,6 +103,11 @@ export class NavbarComponent implements OnInit {
       this.subCategories = this.getSubCategories(category);
       this.hoveredCategory = category;
     }
+    this.categoryDropDownImage = this.hoveredCategory.photoUrl;
+  }
+
+  loadSubCategoryImage(subCategory: SubCategory) {
+    this.categoryDropDownImage = subCategory.photoUrl;
   }
 
 }

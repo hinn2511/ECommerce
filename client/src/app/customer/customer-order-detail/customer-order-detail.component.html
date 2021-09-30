@@ -60,7 +60,13 @@
                         <p>Tổng tiền</p>
                     </div>
                     <div class="col-6 col-lg-6 px-0 text-right">
-                        <p class="fw-bolder">{{order.subTotal | currency:"VND"}}</p>
+                        <p class="fw-bolder">{{order.subTotal / 110 * 100 | currency:"VND"}}</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0">
+                        <p>Thuế GTGT</p>
+                    </div>
+                    <div class="col-6 col-lg-6 px-0 text-right">
+                        <p class="fw-bolder">{{order.subTotal - (order.subTotal / 110 * 100) | currency:"VND"}}</p>
                     </div>
                     <div *ngIf="order.promotion" class="col-6 col-lg-6 px-0">
                         <p>Giảm giá</p>
@@ -94,7 +100,7 @@
                             <th scope="col" class="text-center">Sản phẩm</th>
                             <th scope="col" class="text-center">Tùy chọn</th>
                             <th scope="col" class="text-center">Số lượng</th>
-                            <th scope="col" class="text-center">Đơn giá</th>
+                            <th scope="col" class="text-center">Đơn giá&nbsp;*</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="order">
@@ -128,6 +134,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <p class="text-center text-muted">*&nbsp;Giá sản phẩm đã bao gồm thuế GTGT</p>
             </div>
             <div class="d-lg-none">
                 <table class="table">
@@ -152,6 +159,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <p class="text-center text-muted">Giá sản phẩm đã bao gồm thuế GTGT</p>
 
             </div>
 
@@ -161,7 +169,7 @@
 
     <div class="col-12 text-center">
         <div class="row justify-content-center">
-            <ng-container *ngIf="order.state == 1">
+            <ng-container *ngIf="order.state == 0">
                 <div class="col-12 col-lg-2 ">
                     <button class="btn border btn-light mx-2" (click)="cancelOrder(order)">
                         <i class="fa fa-trash"></i>&nbsp;&nbsp;Hủy đơn hàng</button>

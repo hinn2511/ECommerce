@@ -5,7 +5,7 @@
     }
 
     .tab{
-        width: 40rem;
+        width: 50rem;
         padding: 1rem 0;
     }
     
@@ -20,12 +20,114 @@
     .active {
         border-bottom: 2px solid rgb(196, 192, 192);
     }
+
+    .empty, .content{
+        min-height: 25rem;
+    }
+
+    .image-1-1 {
+        top: 0;
+        left: 0;
+        transform: translate( 0, 0);
+    }
+    
+    .image-1-2 {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate( 0, 50%);
+    }
+
+    .image-other {
+        position: absolute;
+        background-color: rgb(74, 78, 80);
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        top: 100%;
+        left: 0;
+        transform: translate(0, 100%);
+        text-align: center;
+    }
+    
+    .image-2-1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(0, 50%);
+    }
+    
+    .image-2-2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(0, 150%);
+    }
+    
+    .image-3-1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(0, 100%);
+    }
+    
+    
     
 }
 
 @media screen and (min-width: 1200px) {
     .active {
         border-bottom: 3px solid rgb(196, 192, 192);
+    }
+
+    .empty, .content {
+        min-height: 25rem;
+    }
+
+    .image-1-1 {
+        top: 50%;
+        left: 50%;
+        transform: translate( 0, 0);
+    }
+    
+    .image-1-2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .image-2-1 {
+        position: absolute;
+        top: 50%;
+        left: 33%;
+        transform: translate(-50%, 0);
+    }
+    
+    .image-2-2 {
+        position: absolute;
+        top: 50%;
+        left: 66%;
+        transform: translate(-50%, 0);
+    }
+    
+    .image-3-1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    
+    .image-other {
+        position: absolute;
+        background-color: rgb(74, 78, 80);
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        top: 100%;
+        left: 100%;
+        transform: translate(-100%, -100%);
+        text-align: center;
     }
 }
 
@@ -48,4 +150,28 @@
 .tab-container {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+.active {
+    font-weight: bold;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+
+
+.image-other > p {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 3rem; 
 }

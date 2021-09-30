@@ -14,14 +14,16 @@ export class CustomerOrderComponent implements OnInit {
   orderParams: OrderParams;
   orderList: Order[];
   pagination: Pagination;
-  tabActive = 1;
+  tabActive = 0;
 
 
-  constructor(private orderService: OrderService, private router: Router) { 
+  constructor(private orderService: OrderService, private router: Router) {
+    
     this.orderParams = this.orderService.getOrderParams();
    }
 
   ngOnInit(): void {
+    this.orderService.clearCache();
     this.loadOrders();
   }
 
@@ -43,6 +45,10 @@ export class CustomerOrderComponent implements OnInit {
 
   selectPredicate(type: number) {
     switch (type) {
+      case 0: {
+        this.selectTab(0);
+        break;
+      } 
       case 1: {
         this.selectTab(1);
         break;

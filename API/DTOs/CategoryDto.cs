@@ -7,5 +7,6 @@ namespace API.DTOs
         public int Id { get; set; }
         public string CategoryName { get; set; }
         public ICollection<SubCategoryDto> SubCategories { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

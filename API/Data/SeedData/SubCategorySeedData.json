@@ -1,26 +1,32 @@
 [
     {
         "SubCategoryName": "Bàn ăn",
-        "CategoryId": 5
+        "CategoryId": 5,
+        "PhotoUrl": "https://product.hstatic.net/1000240719/product/o1cn01vx9qul1xcozxskch2___651072944_9cc83d957a3741ce8e0c791293f10911_master.jpg"
     },
     {
         "SubCategoryName": "Bàn làm việc",
-        "CategoryId": 5
+        "CategoryId": 5,
+        "PhotoUrl": "https://dongianladep.vn/wp-content/uploads/2019/10/ban-lam-viec-mau-trang-nho-xinh-BLV45-1.jpg"
     },
     {
         "SubCategoryName": "Ghế sofa",
-        "CategoryId": 4
+        "CategoryId": 4,
+        "PhotoUrl": "https://bizweb.dktcdn.net/100/153/764/products/001t-a528924a-9821-46b7-9743-3787156bb0e2.jpg?v=1599815164390"
     },
     {
         "SubCategoryName": "Ghế ăn",
-        "CategoryId": 4
+        "CategoryId": 4,
+        "PhotoUrl": "https://badova.net/wp-content/uploads/2020/04/ghe-grace-dep-gia-re.jpg"
     },
     {
         "SubCategoryName": "Đèn trần",
-        "CategoryId": 3
+        "CategoryId": 3,
+        "PhotoUrl": "https://lh3.googleusercontent.com/proxy/gjiTgUFFQupJpUPztDW-aRPqxUBKre1HscROhMrliQRAs-a5y4k-hTm-NfOLJ6rkidCtSGgIWNvvaO9idLqJ8Hmkw4kbEyQLjfqvnwERnNt_z9VJJqR2B-L8yGyxYQQaA-GIFO-n0SdTzEFEP9uLEzE"
     },
     {
         "SubCategoryName": "Đèn ngủ",
-        "CategoryId": 3
+        "CategoryId": 3,
+        "PhotoUrl": "https://cf.shopee.vn/file/03df24620ec70af5b69894dfc4958b72"
     }
 ]
