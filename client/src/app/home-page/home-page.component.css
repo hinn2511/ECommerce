@@ -1,88 +1,72 @@
 
-.container-desktop {
-    width: 100%;
-    padding: 0 3rem;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 35rem;
-}
-
-.row {
-    width: 100%;
-}
-
-
-.cover-box-desktop {
-    margin-top: 5rem;
-    color: rgb(255, 255, 255);
-}
-
-.cover-intro-desktop, .cover-content-desktop {
-    margin-bottom: 2rem;
-}
-
-.cover-intro-desktop {
-    font-size: 2rem;
-    color: beige;
-}
-
-.cover-content-desktop {
-    font-size: 4rem;
-}
 
 .btn {
     border-radius: 3px;
 }
 
-.container-mobile {
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 35rem;
+
+
+@media screen and (max-width: 1280px) {
+    .row > div{
+        margin-top: 6rem;
+    }
+
+    .header {
+        background-position: 20% 27%;
+    }
+
+    .header > div > div > h1 {
+        font-size: 2.5rem;
+    }
+
+    .header > div > div > h1 > strong{
+        font-size: 5rem;
+    }
+
+    .header > div > div > h4 {
+        font-size: 1.3rem;
+    }
+
+    
+    
+
+    
+}
+
+@media screen and (min-width: 1280px) {
+    .row > div{
+        padding-top: 6rem;
+        padding-left: 6rem;
+    }
+
+    .header > div > div > h1 {
+        font-size: 2.5rem;
+    }
+
+    .header > div > div > h1 > strong{
+        font-size: 4rem;
+    }
+
+    .header > div > div > h4 {
+        font-size: 1.3rem;
+    }
+
+    
+}
+
+.header > div > div > button {
+    margin-top: 2rem;
+    background-color: rgb(133, 87, 87);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.high-light {
+    margin-top: 3rem;
 }
 
 
-
-
-
-@media screen and (max-width: 480px) {
-
-    .cover-box-mobile {
-        margin-top: 8rem;
-        color: rgb(255, 255, 255);
-    }
-
-    .cover-intro-mobile, .cover-content-mobile {
-        margin-bottom: 1rem;
-    }
-    
-    .cover-intro-mobile {
-        font-size: 1.5rem;
-        color: beige;
-    }
-    
-    .cover-content-mobile {
-        font-size: 4rem;
-    }
-}
-
-@media screen and (min-width: 480px) {
-    .cover-box-mobile {
-        margin-top: 10rem;
-        text-align: center;
-        color: rgb(255, 255, 255);
-    }
-
-    .cover-intro-mobile, .cover-content-mobile {
-        margin-bottom: 1rem;
-    }
-    
-    .cover-intro-mobile {
-        font-size: 1.5rem;
-        color: beige;
-    }
-    
-    .cover-content-mobile {
-        font-size: 4rem;
-    }
+.high-light > h4, .high-light > .dropdown-divider {
+    margin-left: 3rem;
 }

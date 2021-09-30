@@ -1,22 +1,16 @@
-<div class="container container-mobile d-lg-none"
-  [ngStyle]="{ 'background-image': 'url(' + backgroungImageMobile + ')'}">
-  <div class="row col-12 justify-content-center">
-    <div class="col-12 cover-box-mobile">
-        <h5 class="fw-light font-secondary cover-intro-mobile">{{intro}}</h5>
-        <h1 class="fw-bolder font-cursive cover-content-mobile">{{content}}</h1>
-        <button class="btn btn-warning cover-btn">{{btnContent}}</button>
-    </div>
-  </div>
-</div>
-
-<div class="container container-desktop d-none d-lg-block"
-  [ngStyle]="{ 'background-image': 'url(' + backgroungImageDesktop + ')'}">
-    <div class="row col-12 justify-content-center text-center">
-      <div class="col-8 cover-box-desktop">
-          <h5 class="fw-light font-secondary cover-intro-desktop">{{intro}}</h5>
-          <h1 class="fw-bolder font-cursive cover-content-desktop">{{content}}</h1>
-          <button class="btn btn-warning cover-btn">{{btnContent}}</button>
+<div class="container">
+  <section class="min-vh-100 header" [ngStyle]="{ 'background-image': 'url(' + backgroungImageDesktop + ')'}">
+    <div class="row col-12">
+      <div class="col-12 col-lg-12 text-light">
+          <h4>Thay đổi cuộc sống cùng</h4>
+          <h1 class="font-secondary">Bộ sưu tập mới <br><strong>Minimal Design</strong></h1>
+          <button class="btn btn-header px-5 py-3 ">Tìm hiểu</button>
       </div>
     </div>
+  </section>
+  <section class="min-vh-100 high-light">
+    <h4>Nội thất phòng khách</h4>
+    <hr class="dropdown-divider" style="height: 2px;">
+  </section>
 </div>
 

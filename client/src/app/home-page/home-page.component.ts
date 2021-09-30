@@ -7,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  backgroungImageDesktop = '../../assets/homepage-cover-desktop.jpg';
+  backgroungImageDesktop = '../../assets/cover_1.jpg';
   backgroungImageMobile = '../../assets/homepage-cover-mobile.jpg';
-  intro = 'Bộ sưu mới 2021';
-  content = 'Minimalist Design';
-  btnContent = 'Xem chi tiết';
+  intro = 'Thay đổi cuộc sống của bạn';
+  content = 'Bộ sưu tập nội thất Minimal';
+  btnContent = 'Xem ngay';
 
   constructor() { }
 
