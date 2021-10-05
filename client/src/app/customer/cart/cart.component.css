@@ -1,116 +1,76 @@
-@media screen and (max-width: 480px) {
-    .product-img {
-        max-width: 100%;
-    }
 
-    .fs-sm-bigger {
-        font-size: 1.2rem;
-    }
 
-    .empty {
-        min-height: 30rem;
-    }
-
-    .empty > h5 {
-        padding-top: 10rem;
-    }
+.empty {
+    min-height: 60vh;
 }
 
-@media screen and (max-width: 1200px) {
-    .container {
-        padding-top: 1rem;
+.empty > h5 {
+    padding-top: 20vh;
+}
+
+@media screen and (max-width: 1280px) {
+    .col-12 {
+        padding-right: 0;
     }
 
-    .total {
-        margin-right: 1rem;
+    .row {
+        margin-right: 0;
     }
 
-    .center {
+    tr > .image{
+        vertical-align: middle;
+        width: 4rem;
+    }
+
+    tr > td > div > img {
+        max-height: 3rem;
+    }
+
+    .dropdown-toggle {
+        padding-left: 0;
+    }
+
+    .input-group {
+        width: 50vw;
+    }
+
+    div > .total, div > .check-out {
+        margin-top: 5vh;
+    }
+
+    div > .total > h5 {
         text-align: center;
     }
 
-    .btn-right {
-        margin-top: 2rem;
-    }
-
-    .btn-checkout {
-        width: 80%;
-        font-size: 1.4rem;
-        padding-top: 1rem;
-    }
-
-}
-
-@media screen and (min-width: 480px) {
-    .product-img {
-        max-width: 10rem;
-    }
-
-}
-
-@media screen and (min-width: 1200px) {
-    .btn-group {
-        margin-left: 0.5rem;
-    }
-
-    .container {
-        padding-top: 2rem;
-    }
-
-    
-    .btn-right {
+    div > .check-out {
         text-align: right;
     }
+    
+    
+}
 
-    .btn-checkout {
-        padding: 1rem 2rem 0 2rem;
+@media screen and (min-width: 1280px) {
+    td {
+        height: 15vh;
     }
 
-    .product-img {
-        max-width: 7rem;
+    .dropdown-toggle {
+        padding-top: 0;
     }
 
-    .empty {
-        min-height: 20rem;
+    tr > td > div > img {
+        max-height: 3rem;
     }
     
-    .empty > h5 {
-        padding-top: 7rem;
+    tr > td {
+        text-align: center;
+        min-width: 12vw;
+        vertical-align: middle;
+    }
+
+    
+
+    div > .check-out {
+        text-align: right;
     }
 }
-
-.img-wrapper {
-    min-height: 8rem;
-    object-fit: contain;
-    overflow: hidden;
-    position: relative;
-}
-
-.product-img {
-    position:absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-.dropdown-toggle {
-    padding: 0;
-}
-
-.divider {
-    height: 1px;
-    width: 100%;
-    background-color: rgb(224, 229, 233);
-}
-
-.row {
-    width: 100%;
-    margin: 0;
-}
-
-.col-12 {
-    padding: 0;
-}
-
