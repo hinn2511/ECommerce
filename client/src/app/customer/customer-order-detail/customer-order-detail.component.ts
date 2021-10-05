@@ -58,8 +58,6 @@ export class CustomerOrderDetailComponent implements OnInit, OnDestroy {
   }
 
   returnToOrderList () {
-    if (this.latestOrderId != null) 
-      this.orderService.clearCache();
     this.router.navigateByUrl('/order');
   }
 }

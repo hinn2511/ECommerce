@@ -17,13 +17,13 @@ namespace API.Controllers
     public class ProductsController : BaseApiController
     {
         private readonly IMapper _mapper;
-        private readonly IProductPhotoService _productPhotoService;
+        private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper, IProductPhotoService productPhotoService)
+        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _productPhotoService = productPhotoService;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace API.Controllers
         {
             var product = await _unitOfWork.ProductRepository.FindProductByCodeAsync(productCode);
 
-            var result = await _productPhotoService.AddProductPhotoAsync(file);
+            var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
 
@@ -128,7 +128,7 @@ namespace API.Controllers
 
             if (productPhoto.PublicId != null)
             {
-                var result = await _productPhotoService.DeleteProductPhotoAsync(productPhoto.PublicId);
+                var result = await _photoService.DeletePhotoAsync(productPhoto.PublicId);
 
                 if (result.Error != null) return BadRequest(result.Error.Message);
             }

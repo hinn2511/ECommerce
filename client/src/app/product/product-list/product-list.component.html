@@ -1,75 +1,78 @@
 <!--Desktop-->
-<div class="container row col-12 mt-2">
-    <div class="col-lg-2">
-        <h4 class="mt-5">Bộ lọc</h4>
-        <div class="container mt-3">
-            <form #form="ngForm" class="form-inline" (ngSubmit)="loadProducts()" autocomplete="off">
-                <div class="form-group">
-                    <label>Giá thấp nhất</label>
-                    <input type="number" class="form-control col-12 mt-2" name="minPrice"
-                        [(ngModel)]="productParams.minPrice">
-                </div>
-                <div class="form-group mt-3">
-                    <label>Giá cao nhất</label>
-                    <input type="number" class="form-control col-12 mt-2" name="maxPrice"
-                        [(ngModel)]="productParams.maxPrice">
-                </div>
-                <div class="filter-btn-group mt-3">
-                    <button class="btn btn-dark text-light" type="submit">
-                        Lọc sản phẩm</button>
-                    <button (click)="resetFilter()" class="btn btn-light text-dark mt-2 border-secondary" type="submit">
-                        Đặt lại bộ lọc</button>
-                </div>
-
-            </form>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-2">
+            <h4 class="mt-5">Bộ lọc</h4>
+            <div class="container mt-3">
+                <form #form="ngForm" class="form-inline" (ngSubmit)="loadProducts()" autocomplete="off">
+                    <div class="form-group">
+                        <label>Giá thấp nhất</label>
+                        <input type="number" class="form-control col-12 mt-2" name="minPrice"
+                            [(ngModel)]="productParams.minPrice">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Giá cao nhất</label>
+                        <input type="number" class="form-control col-12 mt-2" name="maxPrice"
+                            [(ngModel)]="productParams.maxPrice">
+                    </div>
+                    <div class="filter-btn-group mt-3">
+                        <button class="btn btn-dark text-light" type="submit">
+                            Lọc sản phẩm</button>
+                        <button (click)="resetFilter()" class="btn btn-light text-dark mt-2 border-secondary" type="submit">
+                            Đặt lại bộ lọc</button>
+                    </div>
+    
+                </form>
+            </div>
+    
         </div>
-
-    </div>
-    <div class="col-lg-10 ">
-        <div class="row list-head col-12 mt-5">
-            <div class="col-12 col-lg-12">
-                <h2 class="category-name font-secondary">{{category | titlecase}}</h2>
-            </div>
-            <div class="col-12 col-lg-6">
-                <h3 class="category-name">{{pagination?.totalItems}} sản phẩm</h3>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="row sort col-12 justify-content-end">
-                    <div class="btn-group col-12 col-lg-6" dropdown>
-                        <button id="button-basic" dropdownToggle type="button"
-                            class="btn btn-sort dropdown-toggle text-dark" aria-controls="dropdown-basic">
-                            {{sort}}
-                        </button>
-                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
-                            aria-labelledby="button-basic">
-                            <div class="btn-group row text-center">
-                                <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
-                                    btnRadio='newest' (click)="loadProducts()" (click)="selectSort('newest')"
-                                    type="button">Mới nhất</button>
-                                <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
-                                    btnRadio='highestPrice' (click)="loadProducts()"
-                                    (click)="selectSort('highestPrice')" type="button">Giá từ cao xuống thấp</button>
-                                <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
-                                    btnRadio='lowestPrice' (click)="loadProducts()"
-                                    (click)="selectSort('lowestPrice')" type="button">Giá từ thấp đến cao</button>
-                            </div>
-                        </ul>
+        <div class="col-lg-10 ">
+            <div class="row list-head col-12 mt-5">
+                <div class="col-12 col-lg-12">
+                    <h2 class="category-name font-brand">{{category | titlecase}}</h2>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <h3 class="category-name">{{pagination?.totalItems}} sản phẩm</h3>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="row sort col-12 justify-content-end">
+                        <div class="btn-group col-12 col-lg-6" dropdown>
+                            <button id="button-basic" dropdownToggle type="button"
+                                class="btn btn-sort dropdown-toggle text-dark" aria-controls="dropdown-basic">
+                                {{sort}}
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                                aria-labelledby="button-basic">
+                                <div class="btn-group row text-center">
+                                    <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
+                                        btnRadio='newest' (click)="loadProducts()" (click)="selectSort('newest')"
+                                        type="button">Mới nhất</button>
+                                    <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
+                                        btnRadio='highestPrice' (click)="loadProducts()"
+                                        (click)="selectSort('highestPrice')" type="button">Giá từ cao xuống thấp</button>
+                                    <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
+                                        btnRadio='lowestPrice' (click)="loadProducts()"
+                                        (click)="selectSort('lowestPrice')" type="button">Giá từ thấp đến cao</button>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr class="dropdown-divider">
-        <div class="row col-sm-12 product-list">
-            <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-3">
-                <app-product-card [product]="product"></app-product-card>
-            </div>
-            <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
-                <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
-                    [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
-                    (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-                    lastText="&raquo;">
-                </pagination>
+            <hr class="dropdown-divider">
+            <div class="row col-sm-12 product-list">
+                <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-3">
+                    <app-product-card [product]="product"></app-product-card>
+                </div>
+                <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
+                    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+                        [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+                        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                        lastText="&raquo;">
+                    </pagination>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>

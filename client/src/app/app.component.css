@@ -1,15 +1,38 @@
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 988px) {
     .container {
         margin-top: 3.5rem;
     }
+
+    .container {
+        z-index: 0;
+        width: 100vw;
+    }
 }
 
-@media screen and (min-width: 1200px) {
-    
+@media screen and (min-width: 988px) {
+
+    .content {
+        position: relative;
+    }
+
+    .content > app-navbar {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .container {
+        z-index: 0;
+        width: 100vw;
+    }
+
+    .padding {
+        padding-top: 7rem;
+    }
 
 }
 
-.container {
-    z-index: 0;
-    width: 100vw;
-}
+
+
+

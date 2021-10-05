@@ -104,17 +104,22 @@
 </nav>
 
 <!--Navbar desktop-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light rounded d-none d-lg-block">
+<nav class="navbar navbar-expand-lg rounded d-none d-lg-block">
     <div class="container row col-sm-12">
         <div class="col-sm-1">
-            <a class="navbar-brand" routerLink='/' (click)="hideMenuToggle()">Furniture</a>
+            <a class="navbar-brand text-light" 
+                [class.text-dark]="router.url != '/' 
+                    && router.url != '/login' 
+                    && router.url != '/register'"
+                 routerLink='/' (click)="hideMenuToggle()">Furniture</a>
         </div>
         <div class="col-sm-10">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
 
                 <ng-container *ngIf="(accountService.currentUser$ | async)">
                     <li class="nav-item">
-                        <button class="btn btn-notification position-relative" routerLink='/notifications'>
+                        <button class="btn btn-notification position-relative text-light" 
+                            [class.text-dark]="router.url != '/'" routerLink='/notifications'>
                             <i class="fa fa-bell" aria-hidden="true"></i>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge bg-danger">
@@ -124,7 +129,10 @@
                     </li>
                 </ng-container>
                 <li class="nav-item">
-                    <button class="btn btn-cart position-relative" routerLink='/cart'>
+                    <button class="btn btn-cart position-relative text-light" 
+                        [class.text-dark]="router.url != '/' && router.url != '/login' 
+                        && router.url != '/register'" 
+                        routerLink='/cart'>
                         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                         <span
                                 class="position-absolute top-0 start-100 translate-middle badge bg-danger">
@@ -133,17 +141,17 @@
                     </button>
                 </li>
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" routerLink='/login' (click)="hideMenuToggle()">Đăng nhập</a>
+                    <a class="nav-link px-0" [class.text-light]="router.url == '/'" [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'"  routerLink='/login' (click)="hideMenuToggle()">Đăng nhập</a>
                 </li>
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" routerLink='/register' (click)="hideMenuToggle()">Đăng ký</a>
+                    <a class="nav-link px-0" [class.text-light]="router.url == '/'" [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'" routerLink='/register' (click)="hideMenuToggle()">Đăng ký</a>
                 </li>
 
 
 
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) as user">
-                    <div class="btn-group" dropdown placement="bottom right" dropdown>
-                        <button class="btn dropdown-toggle" dropdownToggle>
+                    <div class="btn-group"  dropdown placement="bottom right" dropdown>
+                        <button [class.text-dark]="router.url != '/'" class="btn dropdown-toggle text-light" dropdownToggle>
                             <span>Xin chào, {{user.name | titlecase}}</span>
                         </button>
 
@@ -171,9 +179,9 @@
     <div class="container row col-md-12 justify-content-center"
         *ngIf="router.url != '/login' && router.url != '/register'">
         <ul class="navbar-nav me-auto mb-2 ml-1 mb-lg-0 ">
-            <li class="nav-item">
+            <li class="nav-item" >
                 <div class="dropdown" dropdown [insideClick]="true" [autoClose]="true">
-                    <a class="nav-link" dropdownToggle>Danh mục sản phẩm <span><i
+                    <a class="nav-link" [class.text-dark]="router.url != '/'" dropdownToggle>Danh mục sản phẩm <span><i
                                 class="fa fa-caret-down"></i></span></a>
                     <div class="dropdown-menu category-catalogue" *dropdownMenu>
                         <div class="row">
@@ -203,7 +211,7 @@
 
     <li class="nav-item">
         <div class="dropdown" dropdown>
-            <a class="nav-link" dropdownToggle>Không gian sống <span><i class="fa fa-caret-down"></i></span></a>
+            <a class="nav-link"  [class.text-dark]="router.url != '/'" dropdownToggle>Không gian sống <span><i class="fa fa-caret-down"></i></span></a>
             <div class="dropdown-menu area-catalogue" *dropdownMenu>
                 <div class="row">
                     <div class="col-4">
@@ -222,18 +230,18 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" routerLink='/collections'>Bộ sưu tập</a>
+        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/collections'>Bộ sưu tập</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" routerLink='/promotions'>Chương trình khuyến mãi</a>
+        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/promotions'>Chương trình khuyến mãi</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" routerLink='/news'>Tin tức</a>
+        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/news'>Tin tức</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" routerLink='/help'>Tư vấn - Hỗ trợ</a>
+        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/help'>Tư vấn - Hỗ trợ</a>
     </li>
     </ul>
     </div>

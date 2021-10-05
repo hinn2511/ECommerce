@@ -8,10 +8,10 @@ using Microsoft.Extensions.Options;
 
 namespace API.Services
 {
-    public class ProductPhotoService : IProductPhotoService
+    public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
-        public ProductPhotoService(IOptions<CloudinarySettings> config)
+        public PhotoService(IOptions<CloudinarySettings> config)
         {
             var acc = new Account
             (
@@ -23,7 +23,7 @@ namespace API.Services
             _cloudinary = new Cloudinary(acc);
         }
 
-        public async Task<ImageUploadResult> AddProductPhotoAsync(IFormFile file)
+        public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
             var uploadResult = new ImageUploadResult();
             if (file.Length > 0)
@@ -32,14 +32,14 @@ namespace API.Services
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
-                    Transformation = new Transformation().Height(1000).Width(1000).Crop("fill")
+                    Transformation = new Transformation().Height(700).Width(700).Crop("fill")
                 };
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);
             }
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeleteProductPhotoAsync(string publicId)
+        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
         {
             var deleteParams = new DeletionParams(publicId);
 

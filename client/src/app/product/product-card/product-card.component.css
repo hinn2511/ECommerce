@@ -65,20 +65,20 @@
 
 .card:hover img {
     transform: scale(1.1, 1.1);
-    transition-duration: 500ms;
+    transition-duration: 1000ms;
     transition-timing-function: ease-out;
     opacity: 0.7;
 }
 
 .card img {
     transform: scale(1.0, 1.0);
-    transition-duration: 500ms;
+    transition-duration: 1000ms;
     transition-timing-function: ease-out;
 }
 
 .btn-like:hover {
     transform: scale(1.5, 1.5);
-    transition-duration: 500ms;
+    transition-duration: 1000ms;
     transition-timing-function: ease-out;
     color: red;
     border: none;
@@ -87,7 +87,7 @@
 
 .btn-cart:hover {
     transform: scale(1.5, 1.5);
-    transition-duration: 500ms;
+    transition-duration: 1000ms;
     transition-timing-function: ease-out;
     color: rgb(32, 184, 77);
     border: none;

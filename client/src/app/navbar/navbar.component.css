@@ -5,7 +5,7 @@
 }
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 988px) {
     .navbar {
         height: auto;
         position: absolute;
@@ -47,7 +47,7 @@
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 988px) {
     
     .navbar-brand {
         font-size: 2rem;
@@ -56,6 +56,20 @@
     .nav-link {
         margin: 0 1rem;
     }
+
+    .btn-group > ul > li > a {
+        color: black;
+    }
+
+    div > ul > li > a, div > ul > li > div > a {
+        color: white;
+    }
+
+    .text-dark {
+        color: black!important;
+    }
+
+    
 
     .btn {
         margin: 0 0.3rem;

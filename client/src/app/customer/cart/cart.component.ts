@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { delay, takeUntil } from 'rxjs/operators';
+import { delay, take, takeUntil } from 'rxjs/operators';
 import { CartItem } from 'src/app/_models/cartItem';
 import { Color } from 'src/app/_models/color';
 import { Pagination } from 'src/app/_models/pagination';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { CartService } from 'src/app/_services/cart.service';
 import { ProductService } from 'src/app/_services/product.service';
 
@@ -26,11 +28,19 @@ export class CartComponent implements OnInit {
   quantity = 0;
   productCode = "";
   colorCode = "";
+  user: User;
 
-  constructor(private cartService: CartService, private toastr: ToastrService, private route: Router, private productService: ProductService) { }
+  constructor(private cartService: CartService, 
+    private toastr: ToastrService, private route: Router, 
+    private productService: ProductService, private accountService: AccountService) {
+      this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+        this.user = user;
+      })
+     }
 
   ngOnInit(): void {
-    this.loadCustomerCart();
+    if (this.user)
+      this.loadCustomerCart();
 
   }
 
