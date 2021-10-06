@@ -18,12 +18,12 @@ export class CustomerOrderComponent implements OnInit {
 
 
   constructor(private orderService: OrderService, private router: Router) {
+    this.orderService.resetOrderParams();
     this.orderParams = this.orderService.getOrderParams();
    }
 
   ngOnInit(): void {
-    var curentTab = localStorage.getItem('orderTabId')
-    this.tabActive = +curentTab;
+    
     this.loadOrders();
   }
 
@@ -71,7 +71,6 @@ export class CustomerOrderComponent implements OnInit {
 
   selectTab(tabId: number) {
     this.tabActive = tabId;
-    localStorage.setItem('orderTabId', tabId.toString());
     this.loadOrders();
   }
 

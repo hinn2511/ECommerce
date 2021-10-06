@@ -6,6 +6,7 @@ import { of, Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, take, takeUntil } from 'rxjs/operators';
 import { CartItem } from 'src/app/_models/cartItem';
+import { CartItemUpdate } from 'src/app/_models/cartItemUpdate';
 import { Color } from 'src/app/_models/color';
 import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
@@ -20,14 +21,19 @@ import { ProductService } from 'src/app/_services/product.service';
 })
 export class CartComponent implements OnInit {
   carts: CartItem[] = [];
+  productColors: Color[] = [];
+
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination;
+
   total = 0;
-  productColors: Color[] = [];
-  quantity = 0;
-  productCode = "";
-  colorCode = "";
+  cartUpdate: CartItemUpdate = {
+    productCode: '',
+    colorCode: '',
+    quantity: 0
+  }
+
   user: User;
 
   constructor(private cartService: CartService, 
@@ -36,15 +42,14 @@ export class CartComponent implements OnInit {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
         this.user = user;
       })
-     }
+  }
 
   ngOnInit(): void {
     if (this.user)
-      this.loadCustomerCart();
-
+      this.loadLoggedInCustomerCart();
   }
 
-  loadCustomerCart() {
+  loadLoggedInCustomerCart() {
     this.cartService.getCustomerCart(this.pageNumber, this.pageSize).subscribe(response => {
       this.carts = response.result;
       this.pagination = response.pagination;
@@ -55,14 +60,14 @@ export class CartComponent implements OnInit {
   pageChanged(event: any) {
     if (this.pageNumber !== event.page) {
       this.pageNumber = event.page;
-      this.loadCustomerCart();
+      this.loadLoggedInCustomerCart();
     }
   }
 
   removeFromCart(productCode: string) {
     this.cartService.removeCartItem(productCode).subscribe(() => {
       this.toastr.success('Đã xóa sản phẩm khỏi giỏ hàng');
-      this.loadCustomerCart();
+      this.loadLoggedInCustomerCart();
       this.loadTotal();
     })
   }
@@ -81,46 +86,42 @@ export class CartComponent implements OnInit {
   }
 
   getProductColor(productCode: string) {
-    this.productColors = [];
-    this.productService.getProductColors(productCode).subscribe(colors => {
-      this.productColors = colors;
+    this.productService.getProduct(productCode).subscribe(product => {
+      this.productColors = product.productColors;
     })
   }
 
   changeItemColor(item: CartItem, colorCode: string) {
-    var updatedItem = {
-      colorCode: colorCode,
-      productCode: item.productCode,
-      quantity: item.quantity
-    }
-    this.cartService.adjustCartItem(updatedItem).subscribe(() => {
-      this.loadCustomerCart();
+    this.changeCartItem(item.productCode, colorCode, item.quantity);
+    this.cartService.adjustCartItem(this.cartUpdate).subscribe(() => {
+      this.loadLoggedInCustomerCart();
     })
   }
 
   decreaseQuantity(item: CartItem) {
     if (item.quantity >= 2) {
-      this.productCode = item.productCode;
-      this.colorCode = item.colorCode;
-      this.quantity = item.quantity--;
+      this.changeCartItem(item.productCode, item.colorCode, item.quantity--);
     }
   }
 
   increaseQuantity(item: CartItem) {
-      this.productCode = item.productCode;
-      this.colorCode = item.colorCode;
-      this.quantity = item.quantity++;
+    this.changeCartItem(item.productCode, item.colorCode, item.quantity++);
   }
 
   update(action: string) {
-    var updatedItem = {
-      colorCode: this.colorCode,
-      productCode: this.productCode,
-      quantity: action == "inc" ? this.quantity + 1 : this.quantity - 1
-    }
-    this.cartService.adjustCartItem(updatedItem).subscribe(() => {
-      this.loadCustomerCart();
+    this.changeCartItem(this.cartUpdate.productCode, this.cartUpdate.colorCode,
+       action == "inc" ? this.cartUpdate.quantity + 1 : this.cartUpdate.quantity - 1);
+    this.cartService.adjustCartItem(this.cartUpdate).subscribe(() => {
+      this.loadLoggedInCustomerCart();
     })
+  }
+
+  changeCartItem(productCode: string, colorCode: string, quantity: number) {
+    this.cartUpdate = {
+      productCode: productCode,
+      colorCode: colorCode,
+      quantity: quantity
+    };
   }
 
   checkout() {

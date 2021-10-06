@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace API.DTOs
 {
-    public class ProductDto
+    public class ProductDto1
     {
         public int Id { get; set; }
         public string ProductCode { get; set; }
@@ -20,6 +20,7 @@ namespace API.DTOs
         public double Price { get; set; }
         public string Introduction { get; set; }
         public ICollection<ProductPhotoDto> ProductPhotos { get; set; }
-        public ICollection<ProductColorDto> ProductColors { get; set; }
+
+        public ICollection<ProductColor1Dto> ProductColors { get; set; }
     }
 }

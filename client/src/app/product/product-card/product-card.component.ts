@@ -42,6 +42,7 @@ export class ProductCardComponent implements OnInit {
   addToCart(product: Product) {
     this.cartItem = {
       productCode: product.productCode,
+      colorCode: product.productColors[0] != undefined ? product.productColors[0].colorCode : null,
       quantity: 1
     }
     this.cartService.addCartItem(this.cartItem).subscribe(() => {

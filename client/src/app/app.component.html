@@ -1,11 +1,11 @@
 <div class="wrapper">
     <ngx-spinner>Đang tải</ngx-spinner>
-    <div class="content">
+    <div class="content mb-5">
         <app-navbar (showSearchBar)="showSearchBarMobile($event)" (navBarOpen)="hideContent($event)"></app-navbar>
 
         <div class="container" [class.d-none]="!showContent" 
             [class.padding]="router.url != '/' && router.url != '/login' && router.url != '/register'">
-            <app-search *ngIf="searchMode"></app-search>
+            <app-search-bar *ngIf="searchMode"></app-search-bar>
             <router-outlet></router-outlet>
         </div>
 

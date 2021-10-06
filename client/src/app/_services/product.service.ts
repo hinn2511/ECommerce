@@ -58,6 +58,7 @@ export class ProductService {
       .reduce((arr, elm) => arr.concat(elm.result), [])
       .find((product: Product) => product.productCode === productCode);
     if (product) {
+      console.log(product);
       return of(product);
     }
     return this.http.get<Product>(this.baseUrl + 'products/' + productCode);

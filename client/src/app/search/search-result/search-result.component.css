@@ -1,0 +1,83 @@
+@media screen and (max-width: 480px) {
+    .btn, label, input {
+        font-size: 1.2rem;
+    }
+    
+    .list-head {
+        margin: 0;
+    }
+    .list-head col-12 {
+        margin: 0;
+    }
+
+    .sort {
+        margin: 0;
+    }
+
+    .product-list {
+        min-width: 100vw;
+    }
+
+    .category-header {
+        margin-left: 0rem;
+        margin-top: 5rem;
+    }
+
+    .category-name {
+        text-align: center;
+    }
+
+    
+
+    .btn-sort {
+        text-align: center!important;
+    }
+    
+}
+
+
+
+.category-header {
+    margin-left: 1rem;
+    margin-top: 3rem;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .col-lg-3 {
+        flex: 0 0 33%;
+        max-width: 33%;
+    }
+
+    .product-price {
+        font-size: 0.7rem;
+    }
+
+    
+
+}
+
+@media screen and (min-width: 1200px){
+    .container > div {
+        padding: 0 10vh;
+    }
+
+    
+
+}
+
+
+.form-group {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+}
+
+.filter-btn-group {
+    width: 100%;
+}
+
+.btn-sort {
+    text-align: right;
+}

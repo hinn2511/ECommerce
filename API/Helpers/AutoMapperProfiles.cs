@@ -25,8 +25,14 @@ namespace API.Helpers
 
             CreateMap<Color, ProductColorDto>();
 
-            CreateMap<ProductColor, ProductColorDto>();
-                
+            CreateMap<ProductColor, ProductColorDto>()
+               .ForMember(dest => dest.ColorCode, opt => opt.MapFrom(
+                           src => src.Color.ColorCode))
+                .ForMember(dest => dest.ColorName, opt => opt.MapFrom(
+                           src => src.Color.ColorName))
+                .ForMember(dest => dest.HexCode, opt => opt.MapFrom(
+                           src => src.Color.HexCode));
+
             CreateMap<Cart, CartDto>();
 
             CreateMap<Color, CartDto>()
@@ -63,8 +69,8 @@ namespace API.Helpers
                            src => src.PaymentMethod))
                 .ForMember(dest => dest.Promotion, opt => opt.MapFrom(
                            src => src.Promotion));
-                //.ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(
-                           //src => src.OrderDetails));
+            //.ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(
+            //src => src.OrderDetails));
             CreateMap<OrderDetail, OrderDetailDto>()
                 .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(
                            src => src.Product.ProductCode))

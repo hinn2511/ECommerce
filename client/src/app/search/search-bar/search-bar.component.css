@@ -1,0 +1,38 @@
+div > form > div > button {
+    margin-left: 0;
+    border-radius: 0 3px 3px 0;
+    min-width: 6rem;
+}
+
+div > form > div > button, div > form > div > input {
+    min-height: 2rem;
+}
+
+
+form {
+    width: 100%;
+}
+
+@media screen and (max-width: 988px)  {
+    .container {
+        padding: 1rem;
+        background-color: #f8f9fa;
+    }
+
+   
+}
+
+
+@media screen and (min-width: 988px)  {
+    
+}
+
+.input-group {
+    position: relative;
+}
+
+i {
+    position: absolute;
+    right: 7rem;
+    top: 0.7rem;
+}

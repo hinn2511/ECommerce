@@ -19,6 +19,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { PromotionsComponent } from './promotions/promotions.component';
 import { RegisterComponent } from './register/register.component';
+import { SearchResultComponent } from './search/search-result/search-result.component';
 import { AuthenticationGuard } from './_guards/authentication.guard';
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'category/:category', component: ProductListComponent },
   { path: 'product/:code/:name', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'search', component: SearchResultComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'news', component: NewsComponent },

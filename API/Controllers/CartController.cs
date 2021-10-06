@@ -32,7 +32,7 @@ namespace API.Controllers
 
             var cartItem = await _unitOfWork.CartRepository.FindCustomerCartItemAsync(customerId, product.Id);
 
-            if (cartItemDto.ColorCode != "")
+            if (cartItemDto.ColorCode != null)
             {
                 var color = await _unitOfWork.ColorRepository.FindColorByCodeAsyc(cartItemDto.ColorCode);
 
@@ -50,16 +50,18 @@ namespace API.Controllers
                 }
 
             }
-
-            var newCartItemNoColor = new Cart
+            else
             {
-                ProductId = product.Id,
-                CustomerId = customerId,
-                Quantity = cartItemDto.Quantity
-            };
-            _unitOfWork.CartRepository.AddCartItem(newCartItemNoColor);
-            
-            if (await _unitOfWork.Complete()) return Ok();
+                var newCartItemDefault = new Cart
+                {
+                    ProductId = product.Id,
+                    CustomerId = customerId,
+                    Quantity = cartItemDto.Quantity
+                };
+                _unitOfWork.CartRepository.AddCartItem(newCartItemDefault);
+
+                if (await _unitOfWork.Complete()) return Ok();
+            }
 
             return BadRequest("Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
         }

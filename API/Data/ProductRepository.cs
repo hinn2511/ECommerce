@@ -53,9 +53,46 @@ namespace API.Data
 
         }
 
+
+        public async Task<PagedList<ProductDto>> GetProductsByNameAsync(SearchProductParams searchProductParams)
+        {
+            var query = _context.Products.AsQueryable();
+
+            query = query.Where(p => p.ProductName.Contains(searchProductParams.Keyword));
+            
+            var minPrice = 0.0;
+            var maxPrice = 1000000000.0;
+            if (searchProductParams.MinPrice > 0.0)
+                minPrice = searchProductParams.MinPrice;
+            if (searchProductParams.MaxPrice > 0.0)
+                maxPrice = searchProductParams.MaxPrice;
+
+            if (searchProductParams.Categories != null) {
+                query = query.Where(p => p.SubCategory.SubCategoryName == searchProductParams.Categories
+                    || p.Category.CategoryName == searchProductParams.Categories);
+            }
+            
+            query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+
+            query = searchProductParams.OrderBy switch
+            {
+                "newest" => query.OrderByDescending(u => u.Created),
+                "oldest" => query.OrderBy(u => u.Created),
+                "highestPrice" => query.OrderByDescending(u => u.Price),
+                "lowestPrice" => query.OrderBy(u => u.Price),
+                _ => query.OrderByDescending(u => u.Created)
+            };
+
+            return await PagedList<ProductDto>
+                .CreateAsync(query.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+                    searchProductParams.PageNumber, searchProductParams.PageSize);
+
+        }
+
         public async Task<ProductDto> GetProductAsync(string productCode)
         {
             return await _context.Products
+             .Include(x => x.ProductColors)
              .Where(p => p.ProductCode == productCode)
              .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
              .SingleOrDefaultAsync();

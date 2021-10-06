@@ -1,7 +1,7 @@
 <div *ngIf="product">
-    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: &#10094;">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-decoration-none text-muted" routerLink="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-muted" routerLink='/'>Trang chủ</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none text-muted"
                     routerLink="/category/{{product.category | titlecase}}">{{product.category | titlecase}}</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none text-muted"
@@ -27,14 +27,14 @@
                     {{product.material | titlecase}}
                 </div>
             </button>
-            <div *ngIf="colors.length > 0" class="mt-3">
-                <p class="color">Màu sắc : {{colorChoosen | titlecase}}</p>
-                <button class="btn" *ngFor="let color of colors">
+            <div *ngIf="product.productColors.length > 0" class="mt-3">
+                <p class="color">Màu sắc : {{colorChoosen.colorName | titlecase}}</p>
+                <button class="btn" *ngFor="let color of product.productColors">
                     <div class="color-container" (click)="chooseColor(color)">
-                        <i *ngIf="color.colorName !== colorChoosen; else choosen" class="fa fa-circle fa-color"
+                        <i *ngIf="color.colorName !== colorChoosen.colorName; else choosen" class="fa fa-circle fa-color"
                             [ngStyle]="{ 'color': '#' + color.hexCode}"></i>
                         <ng-template #choosen>
-                            <i class="fa fa-check fa-color" [ngStyle]="{ 'color': 'black'}"></i>
+                            <i class="fa fa-check-circle fa-color" [ngStyle]="{ 'color': '#' + color.hexCode}"></i>
                         </ng-template>
 
                     </div>
@@ -92,14 +92,16 @@
                         <p>Chiều cao: {{product.height}} mm</p>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mt-4">
+                        <h5>Trọng lượng</h5>
+                        <p>{{product.weight}} KG</p>
+                        <h5>Chất liệu</h5>
+                        <p>{{product.material | titlecase}}</p>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mt-4">
                         <h5>Nhãn hàng</h5>
                         <p>{{product.brand | titlecase}}</p>
                         <h5>Bộ sưu tập</h5>
                         <p>{{product.collection | titlecase}}</p>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mt-4">
-                        <h5>Chất liệu</h5>
-                        <p>{{product.material | titlecase}}</p>
                     </div>
                 </div>
             </div>

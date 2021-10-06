@@ -14,7 +14,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ProductCardComponent } from './product/product-card/product-card.component';
-import { SearchComponent } from './search/search.component';
 import { PromotionsComponent } from './promotions/promotions.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
@@ -40,6 +39,8 @@ import { CheckOutComponent } from './customer/check-out/check-out.component';
 import { CustomerOrderComponent } from './customer/customer-order/customer-order.component';
 import { CustomerOrderDetailComponent } from './customer/customer-order-detail/customer-order-detail.component';
 import { OrderStatePipe } from './_pipes/order-state.pipe';
+import { SearchBarComponent } from './search/search-bar/search-bar.component';
+import { SearchResultComponent } from './search/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,6 @@ import { OrderStatePipe } from './_pipes/order-state.pipe';
     ProductDetailComponent,
     NotFoundComponent,
     ProductCardComponent,
-    SearchComponent,
     PromotionsComponent,
     CollectionsComponent,
     HelpSupportComponent,
@@ -73,7 +73,9 @@ import { OrderStatePipe } from './_pipes/order-state.pipe';
     CheckOutComponent,
     CustomerOrderComponent,
     CustomerOrderDetailComponent,
-    OrderStatePipe
+    OrderStatePipe,
+    SearchBarComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

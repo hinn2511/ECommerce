@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 class="font-secondary text-center mb-4">Giỏ hàng của tôi</h2>
+    <h3 class="font-secondary mt-5 text-center mb-4">Giỏ hàng của tôi</h3>
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-10" *ngIf="carts.length > 0; else empty">
             <div class="d-none d-lg-block">
@@ -18,12 +18,12 @@
                     <tbody>
                         <tr *ngFor="let item of carts">
                             <td>
-                                <div class="image-container">
+                                <div class="image-container cs-pointer" routerLink='/product/{{item.productCode}}/{{item.productName}}'>
                                     <img src="{{item.photoUrl}}" alt="">
                                 </div>
                             </td>
                             <td>
-                                <p>{{item.productName | titlecase}}</p>
+                                <p class="cs-pointer" routerLink='/product/{{item.productCode}}/{{item.productName}}'>{{item.productName | titlecase}}</p>
                             </td>
                             <td>
                                 <div class="btn-group" dropdown *ngIf="item.colorName; else default">
@@ -82,13 +82,13 @@
                 <table class="table">
                     <tbody>
                         <tr *ngFor="let item of carts">
-                            <td class="image">
+                            <td class="image" routerLink='/product/{{item.productCode}}/{{item.productName}}'>
                                 <div class="image-container">
                                     <img src="{{item.photoUrl}}" alt="">
                                 </div>
                             </td>
                             <td>
-                                <p>{{item.productName | titlecase}}</p>
+                                <p routerLink='/product/{{item.productCode}}/{{item.productName}}'>{{item.productName | titlecase}}</p>
                                 
                                 <div class="btn-group" dropdown *ngIf="item.colorName; else default">
                                     <button dropdownToggle type="button" class="btn dropdown-toggle"

@@ -16,11 +16,8 @@ import { ProductService } from 'src/app/_services/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
-  colorChoosen: string;
-  productCode: string;
-  colorCode: string;
+  colorChoosen: Color;
   quantity: number;
-  colors: Color[] = [];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   productToCart: CartItemUpdate = {
@@ -62,39 +59,23 @@ export class ProductDetailComponent implements OnInit {
 
       }
     ];
-    this.productCode = this.route.snapshot.paramMap.get('code');
-    this.productToCart.productCode = this.productCode;
+    this.productToCart.productCode = this.route.snapshot.paramMap.get('code');
     this.getProduct();
-    this.getProductColors();
 
   }
 
   getProduct() {
-    
-    this.productService.getProduct(this.productCode).subscribe(product => {
+    this.productService.getProduct(this.productToCart.productCode).subscribe(product => {
       this.product = product;
-      this.galleryImages = this.getImages();
-    })
-    this.productService.getProductColors(this.productCode).subscribe(colors => {
-      this.colors = colors;
-      if (this.colors.length > 0) {
-        this.colorChoosen = this.colors[0].colorName;
-        this.productToCart.colorCode = this.colors[0].colorCode;
+      console.log(this.product);
+      if (product.productColors.length > 0) {
+        this.productToCart.colorCode = product.productColors[0].colorCode;
+        this.colorChoosen = product.productColors[0];
       }
+      this.galleryImages = this.getImages();
     })
   }
 
-  getProductColors(): Color[] {
-    const productColors = [];
-    for (const color of this.colors) {
-      productColors.push({
-        hexCode: color?.hexCode,
-        colorCode: color?.colorCode,
-        colorName: color?.colorName
-      })
-    }
-    return productColors;
-  }
 
   getImages(): NgxGalleryImage[] {
     const imageUrls = [];
@@ -108,10 +89,9 @@ export class ProductDetailComponent implements OnInit {
     return imageUrls;
   }
 
-  chooseColor(color: any) {
-    this.colorChoosen = color.colorName;
-    this.colorCode = color.colorCode;
-    this.productToCart.colorCode = this.colorCode;
+  chooseColor(color: Color) {
+    this.colorChoosen = color;
+    this.productToCart.colorCode = color.colorCode;
   }
 
   addToFavorite(product: Product) {
