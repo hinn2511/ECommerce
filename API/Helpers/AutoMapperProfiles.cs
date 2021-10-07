@@ -15,6 +15,8 @@ namespace API.Helpers
                            src => src.ProductPhotos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(
                            src => src.Category.CategoryName))
+                .ForMember(dest => dest.Area, opt => opt.MapFrom(
+                           src => src.Area.Name))
                 .ForMember(dest => dest.SubCategory, opt => opt.MapFrom(
                            src => src.SubCategory.SubCategoryName))
                 .ForMember(dest => dest.Brand, opt => opt.MapFrom(
@@ -49,6 +51,8 @@ namespace API.Helpers
                            src => src.DateOfBirth.CalculateAge()));
 
             CreateMap<RegisterDto, AppUser>();
+
+            CreateMap<Area, AreaDto>();
 
             CreateMap<Category, CategoryDto>();
 

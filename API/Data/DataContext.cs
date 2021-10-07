@@ -21,6 +21,7 @@ namespace API.Data
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CustomerFavorite> Favorites { get; set; }
+        public DbSet<Area> Areas { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -58,6 +59,10 @@ namespace API.Data
 
             builder.Entity<Product>()
                 .HasOne(p => p.Brand)
+                .WithMany(l => l.Products);
+            
+            builder.Entity<Product>()
+                .HasOne(p => p.Area)
                 .WithMany(l => l.Products);
 
             builder.Entity<Product>()

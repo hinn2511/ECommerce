@@ -12,6 +12,7 @@ export interface Product {
     weight: number;
     photoUrl: string;
     category: string;
+    area: string;
     brand: string;
     collection: string;
     price: number;

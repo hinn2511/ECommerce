@@ -257,5 +257,21 @@ namespace API.Entities
 
             await context.SaveChangesAsync();
         }
+
+        public static async Task SeedAreas(DataContext context)
+        {
+            if (await context.Areas.AnyAsync()) return;
+
+            var areaData = await System.IO.File.ReadAllTextAsync("Data/SeedData/AreaSeedData.json");
+
+            var areas = JsonSerializer.Deserialize<List<Area>>(areaData);
+
+            foreach ( var area in areas)
+            {
+                context.Areas.Add(area);
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }

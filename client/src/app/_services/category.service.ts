@@ -25,7 +25,5 @@ export class CategoryService {
     );
   }
 
-  getSubCategories(categoryId: number) {
-    return this.http.get<SubCategory[]>(this.baseUrl + 'categories/sub-categories/' + categoryId);
-  }
+  
 }

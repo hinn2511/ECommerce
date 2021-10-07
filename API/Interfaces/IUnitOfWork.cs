@@ -15,6 +15,7 @@ namespace API.Interfaces
         IPromotionRepository PromotionRepository { get; }
         IShippingMethodRepository ShippingMethodRepository { get; }
         IPaymentMethodRepository PaymentMethodRepository { get; }
+        IAreaRepository AreaRepository { get; }
         Task<bool> Complete();
         bool HasChanges();
 

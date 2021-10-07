@@ -7,8 +7,6 @@ namespace API.Entities
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
-        
-        [JsonIgnore]
         public ICollection<Product> Products { get; set; }
         public ICollection<SubCategory> SubCategories { get; set; }
         public string PhotoUrl { get; set; }

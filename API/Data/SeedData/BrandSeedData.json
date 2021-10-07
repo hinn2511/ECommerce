@@ -1,17 +1,22 @@
 [
     {
-        "BrandName": "Phố xinh"
+        "BrandName": "Birchwood",
+        "LogoUrl": "https://birchwoodfurniture.ca/wp-content/uploads/2020/03/bw.jpg"
     },
     {
-        "BrandName": "Ehome"
+        "BrandName": "RA Design",
+        "LogoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUH77JdcKWnDoBAtoNszVSrmuQzKY3MMv5tw&usqp=CAU"
     },
     {
-        "BrandName": "Funiture"
+        "BrandName": "Bernardaud",
+        "LogoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZRJakBGZF-rVK--QPsKPzIjc_6hfNHJzbXA&usqp=CAU"
     },
     {
-        "BrandName": "Nova"
+        "BrandName": "Hi",
+        "LogoUrl": "https://domainnamewire.com/wp-content/hi-logo.jpg"
     },
     {
-        "BrandName": "Milanos"
+        "BrandName": "Verb",
+        "LogoUrl": "https://assets-global.website-files.com/5fcd2ee8408d2b6c3b0a4413/605d08e9e44482f28bbbd7d8_e6cd7259-6a74-446b-b6a0-d6a506dfe34b.jpeg"
     }
 ]

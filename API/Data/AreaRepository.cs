@@ -8,24 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class CategoryRepository : ICategoryRepository
+    public class AreaRepository : IAreaRepository
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
-        public CategoryRepository(DataContext context, IMapper mapper)
+        public AreaRepository(DataContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetAllCategoryAsync()
+        public async Task<IEnumerable<AreaDto>> GetAllAreaAsync()
         {
-            return await _context.Categories
-                .Include(c => c.SubCategories)
-                .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
+            return await _context.Areas
+                .ProjectTo<AreaDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
-
     }
 }

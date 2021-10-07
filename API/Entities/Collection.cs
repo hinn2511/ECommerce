@@ -9,8 +9,7 @@ namespace API.Entities
         public int Id { get; set; }
         public string CollectionName { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
-
-        [JsonIgnore]
         public ICollection<Product> Products { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

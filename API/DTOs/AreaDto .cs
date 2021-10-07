@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class Area
+    public class AreaDto 
     {
-    public int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
-        public ICollection<Product> Products { get; set; }
     }
 }

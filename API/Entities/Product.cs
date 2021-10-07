@@ -22,10 +22,12 @@ namespace API.Entities
         public int SubCategoryId { get; set; }
         public int BrandId { get; set; }
         public int CollectionId { get; set; }
+        public int AreaId { get; set; }
         public Category Category { get; set; }
         public SubCategory SubCategory { get; set; }
         public Collection Collection { get; set; }
         public Brand Brand { get; set; }
+        public Area Area { get; set; }
         public ICollection<OrderDetail> OrderDetail { get; set; }        
         public ICollection<ProductPhoto> ProductPhotos { get; set; }
         public ICollection<ProductColor> ProductColors { get; set; }

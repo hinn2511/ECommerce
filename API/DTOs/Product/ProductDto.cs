@@ -13,6 +13,7 @@ namespace API.DTOs
         public int Width { get; set; }
         public int Weight { get; set; }
         public string PhotoUrl { get; set; }
+        public string Area { get; set; }
         public string Category { get; set; }
         public string SubCategory { get; set; }
         public string Brand { get; set; }
