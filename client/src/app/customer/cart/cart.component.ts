@@ -50,6 +50,7 @@ export class CartComponent implements OnInit {
   }
 
   loadLoggedInCustomerCart() {
+    ;
     this.cartService.getCustomerCart(this.pageNumber, this.pageSize).subscribe(response => {
       this.carts = response.result;
       this.pagination = response.pagination;
@@ -67,6 +68,10 @@ export class CartComponent implements OnInit {
   removeFromCart(productCode: string) {
     this.cartService.removeCartItem(productCode).subscribe(() => {
       this.toastr.success('Đã xóa sản phẩm khỏi giỏ hàng');
+      if(this.pagination.totalItems % this.pagination.itemsPerPage == 1) {
+       this.pageNumber--;
+      }
+
       this.loadLoggedInCustomerCart();
       this.loadTotal();
     })

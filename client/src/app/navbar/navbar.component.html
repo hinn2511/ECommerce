@@ -106,61 +106,65 @@
 <!--Navbar desktop-->
 <nav class="navbar navbar-expand-lg rounded d-none d-lg-block desktop">
     <div class="container-fluid">
+
+        <!--Brand logo-->
         <div>
-            <a class="navbar-brand text-light" 
-                [class.text-dark]="router.url != '/' 
+            <a class="navbar-brand text-light" [class.text-dark]="router.url != '/' 
                     && router.url != '/login' 
-                    && router.url != '/register'"
-                 routerLink='/' (click)="hideMenuToggle()">Furniture</a>
+                    && router.url != '/register'" routerLink='/' (click)="hideMenuToggle()">Furniture</a>
         </div>
+
+        <!--Search bar-->
         <div>
-            <app-search-bar></app-search-bar>
+            <app-search-bar [class.d-none]="router.url == '/login' || router.url == '/register'"></app-search-bar>
         </div>
+
+        <!--Cart + Login/Register + Customer info-->
         <div>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
 
-                <ng-container *ngIf="(accountService.currentUser$ | async)">
-                    <li class="nav-item">
-                        <button class="btn btn-notification position-relative text-light" 
-                            [class.text-dark]="router.url != '/'" routerLink='/notifications'>
-                            <i class="fa fa-bell" aria-hidden="true"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge bg-danger">
-                                <span class="text-light">1</span>
-                            </span>
-                        </button>
-                    </li>
-                </ng-container>
+                <!--Cart-->
                 <li class="nav-item">
-                    <button class="btn btn-cart position-relative text-light" 
-                        [class.text-dark]="router.url != '/' && router.url != '/login' 
-                        && router.url != '/register'" 
-                        routerLink='/cart'>
+                    <button class="btn btn-cart position-relative text-light" [class.text-dark]="router.url != '/' && router.url != '/login' 
+                        && router.url != '/register'" routerLink='/cart'>
                         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                        <span
-                                class="position-absolute top-0 start-100 translate-middle badge bg-danger">
-                                <span class="text-light">1</span>
+                        <span class="position-absolute top-0 start-100 translate-middle round badge bg-danger">
+                            <span style="font-size: 10px;" *ngIf="(cartService.currentCart$ | async) as totalCartItem"
+                                class="text-light">{{totalCartItem}}
                             </span>
+                        </span>
                     </button>
                 </li>
+
+                <!--Login-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" [class.text-light]="router.url == '/'" [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'"  routerLink='/login' (click)="hideMenuToggle()">Đăng nhập</a>
+                    <a class="nav-link px-0" [class.text-light]="router.url == '/'"
+                        [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'"
+                        routerLink='/login' (click)="hideMenuToggle()">Đăng nhập</a>
                 </li>
+
+                <!--Register-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" [class.text-light]="router.url == '/'" [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'" routerLink='/register' (click)="hideMenuToggle()">Đăng ký</a>
+                    <a class="nav-link px-0" [class.text-light]="router.url == '/'"
+                        [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'"
+                        routerLink='/register' (click)="hideMenuToggle()">Đăng ký</a>
                 </li>
 
-
-
+                <!--Customer info-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) as user">
-                    <div class="btn-group"  dropdown placement="bottom right" dropdown>
-                        <button [class.text-dark]="router.url != '/'" class="btn dropdown-toggle text-light" dropdownToggle>
-                            <span>Xin chào, {{user.name | titlecase}}</span>
+                    <div class="btn-group" dropdown placement="bottom right" dropdown>
+
+                        <!--Customer info button-->
+                        <button [class.text-dark]="router.url != '/'" class="btn dropdown-toggle text-light"
+                            dropdownToggle>
+                            <span>
+                                Xin chào, {{user.name | titlecase}}
+                            </span>
                         </button>
 
+                        <!--Customer info dropdown-->
                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
                             aria-labelledby="button-basic">
-
                             <li class="dropdown-item">
                                 <a class="nav-link" routerLink='/my-account'>Tài khoản</a>
                             </li>
@@ -179,73 +183,89 @@
             </ul>
         </div>
     </div>
+
+    <!--Navigation link-->
     <div class="container row col-md-12 justify-content-center"
         *ngIf="router.url != '/login' && router.url != '/register'">
         <ul class="navbar-nav me-auto mb-2 ml-1 mb-lg-0 ">
-            <li class="nav-item" >
+
+            <!--Category dropdown-->
+            <li class="nav-item">
                 <div class="dropdown" dropdown [insideClick]="true" [autoClose]="true">
                     <a class="nav-link" [class.text-dark]="router.url != '/'" dropdownToggle>Danh mục sản phẩm <span><i
                                 class="fa fa-caret-down"></i></span></a>
                     <div class="dropdown-menu category-catalogue" *dropdownMenu>
                         <div class="row">
                             <div class="col-3">
-            <li *ngFor="let item of categories">
-                <a class="dropdown-item" (mouseover)="loadSubCategories(item)">{{item.categoryName | titlecase}}</a>
-            </li>
-    </div>
-    <div class="col-3">
-        <li *ngFor="let item of subCategories">
-            <a class="dropdown-item" (mouseover)="loadSubCategoryImage(item)" routerLink='/category/{{item.subCategoryName}}'>{{item.subCategoryName |
-                titlecase}}</a>
-        </li>
-        <li>
-            <a class="dropdown-item" (mouseover)="loadSubCategoryImage(hoveredCategory)" routerLink='/category/{{hoveredCategory.categoryName}}'>Tất cả sản phẩm</a>
-        </li>
-    </div>
-    <div class="col-6 image-container" [ngStyle]="{ 'background-image': 'url(' + categoryDropDownImage + ')'}">
-        
-    </div>
+                                <li *ngFor="let item of categories">
+                                    <a class="dropdown-item" (mouseover)="loadSubCategories(item)">{{item.categoryName | titlecase}}</a>
+                                </li>
+                            </div>
 
+                            <div class="col-3">
+                                <li *ngFor="let item of subCategories">
+                                    <a class="dropdown-item" (mouseover)="loadSubCategoryImage(item)"
+                                        routerLink='/category/{{item.subCategoryName}}'>{{item.subCategoryName |
+                                        titlecase}}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" (mouseover)="loadSubCategoryImage(hoveredCategory)"
+                                        routerLink='/category/{{hoveredCategory.categoryName}}'>Tất cả sản phẩm</a>
+                                </li>
+                            </div>
 
-    </div>
-    </div>
-    </div>
-    </li>
+                            <div 
+                                loading="lazy"
+                                class="col-6 image-container" 
+                                [ngStyle]="{ 'background-image': 'url(' + categoryDropDownImage + ')'}">
+                            </div>
 
-    <li class="nav-item">
-        <div class="dropdown" dropdown>
-            <a class="nav-link"  [class.text-dark]="router.url != '/'" dropdownToggle>Không gian sống <span><i class="fa fa-caret-down"></i></span></a>
-            <div class="dropdown-menu area-catalogue" *dropdownMenu>
-                <div class="row">
-                    <div class="col-4">
-
-                        <li *ngFor="let item of spaceItem">
-                            <a class="dropdown-item" routerLink='/area/{{item}}'>{{item}}</a>
-                        </li>
-                    </div>
-                    <div class="col-8 image-container" 
-                        [ngStyle]="{ 'background-image': 'url(' + backgroungImage2 + ')'}">
+                        </div>
                     </div>
                 </div>
+            </li>
 
-    </div>
-    </div>
-    </li>
+            <!--Area dropdown-->
+            <li class="nav-item">
+                <div class="dropdown" dropdown>
+                    <a class="nav-link" [class.text-dark]="router.url != '/'" dropdownToggle>Không gian sống <span><i
+                                class="fa fa-caret-down"></i></span></a>
+                    <div class="dropdown-menu area-catalogue" *dropdownMenu>
+                        <div class="row">
+                            <div class="col-4">
+                                <li *ngFor="let item of spaceItem">
+                                    <a class="dropdown-item" routerLink='/area/{{item}}'>{{item}}</a>
+                                </li>
+                            </div>
 
-    <li class="nav-item">
-        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/collections'>Bộ sưu tập</a>
-    </li>
+                            <div 
+                                class="col-8 image-container" 
+                                [ngStyle]="{ 'background-image': 'url(' + backgroungImage2 + ')'}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
 
-    <li class="nav-item">
-        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/promotions'>Chương trình khuyến mãi</a>
-    </li>
+            <!--Collection-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/collections'>Bộ sưu tập</a>
+            </li>
 
-    <li class="nav-item">
-        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/news'>Tin tức</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/help'>Tư vấn - Hỗ trợ</a>
-    </li>
-    </ul>
+            <!--Promotion-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/promotions'>Chương trình khuyến mãi</a>
+            </li>
+
+            <!--News-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/news'>Tin tức</a>
+            </li>
+
+            <!--Help + support-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/help'>Tư vấn - Hỗ trợ</a>
+            </li>
+        </ul>
     </div>
 </nav>

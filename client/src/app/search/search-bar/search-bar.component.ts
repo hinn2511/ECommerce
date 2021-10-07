@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SearchProductParams } from 'src/app/_models/searchProductParams';
+import { SearchService } from 'src/app/_services/search.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,12 +11,13 @@ import { Router } from '@angular/router';
 export class SearchBarComponent implements OnInit {
   keyWord = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private searchService: SearchService) { }
 
   ngOnInit(): void {
   }
 
   search() {
+    this.searchService.searchProductParams.categories = '';
     this.router.navigate(['/search'], { queryParams: { keyword: this.keyWord } });
   }
 

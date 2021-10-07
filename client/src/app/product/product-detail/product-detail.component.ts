@@ -67,7 +67,6 @@ export class ProductDetailComponent implements OnInit {
   getProduct() {
     this.productService.getProduct(this.productToCart.productCode).subscribe(product => {
       this.product = product;
-      console.log(this.product);
       if (product.productColors.length > 0) {
         this.productToCart.colorCode = product.productColors[0].colorCode;
         this.colorChoosen = product.productColors[0];

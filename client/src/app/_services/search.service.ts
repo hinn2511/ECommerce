@@ -45,7 +45,6 @@ export class SearchService {
     params = params.append('minPrice', searchProductParams.minPrice.toString());
     params = params.append('maxPrice', searchProductParams.maxPrice.toString());
     params = params.append('orderBy', searchProductParams.orderBy);
-    console.log(params);
     return getPaginatedResult<Product[]>(this.baseUrl + 'search/product', params, this.http).pipe(
       map(response => {
         this.productCache.set(Object.values(searchProductParams).join('-'), response);

@@ -42,7 +42,7 @@
                         <tbody>
                             <tr *ngFor="let item of orderList">
                                 <td class="text-center">
-                                    <p class="pt-lg-3">{{item.id}}</p>
+                                    <p class="pt-lg-3">DH000{{item.id}}</p>
                                 </td>
                                 <td class="text-center">
                                     <p class="pt-lg-3">{{item.date | date:'short'}}</p>
@@ -114,7 +114,7 @@
                                             </ng-container>
                                         </div>
                                         <div class="col-9">
-                                            <p>Mã đơn hàng: {{item.id}}</p>
+                                            <p>Mã đơn hàng: DH000{{item.id}}</p>
                                             <p>{{item.date | date:'short'}}</p>
                                             <p>Tổng tiền: {{item.subTotal - item.discount | currency:"VND"}}</p>
                                             <p>{{item.state | orderState}}</p>

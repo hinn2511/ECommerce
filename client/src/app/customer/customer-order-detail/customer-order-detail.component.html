@@ -1,7 +1,7 @@
 <div class="containe my-4" *ngIf="order">
     <div class="col-12 text-center">
         <h2 class="font-secondary py-2">Đơn đặt hàng</h2>
-        <h5 class="font-secondary text-muted">Mã đơn hàng: {{order.id}}</h5>
+        <h5 class="font-secondary text-muted">Mã đơn hàng: DH000{{order.id}}</h5>
     </div>
     <div class="row col-12 justify-content-center">
         <div class="col-12 col-lg-5 mb-4">
@@ -169,21 +169,22 @@
 
     <div class="col-12 text-center">
         <div class="row justify-content-center">
-            <ng-container *ngIf="order.state == 0">
-                <div class="col-12 col-lg-2 ">
-                    <button class="btn border btn-light mx-2" (click)="cancelOrder(order)">
-                        <i class="fa fa-trash"></i>&nbsp;&nbsp;Hủy đơn hàng</button>
-                </div>
-            </ng-container>
+            
             
             <div *ngIf="returnHome" class="col-12 col-lg-2">
                 <button class="btn border btn-light mt-sm-1r mx-2" routerLink='/'>
                     <i class="fa fa-home"></i>&nbsp;&nbsp;Trở về trang chủ</button>
             </div>
-            <div class="col-12 col-lg-3 ">
+            <div class="col-12 col-lg-3">
                 <button class="btn border btn-light mt-sm-1r mx-2" routerLink='/order'>
                     <i class="fa fa-list"></i>&nbsp;&nbsp;Trở về danh sách đơn đặt hàng</button>
             </div>
+            <ng-container *ngIf="order.state == 0">
+                <div class="col-12 col-lg-2 ">
+                    <button class="btn border btn-danger mt-sm-1r mx-2" (click)="cancelOrder(order)">
+                        <i class="fa fa-trash"></i>&nbsp;&nbsp;Hủy đơn hàng</button>
+                </div>
+            </ng-container>
         </div>
 
 

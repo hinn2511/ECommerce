@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
+import { CartService } from '../_services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,14 @@ import { AccountService } from '../_services/account.service';
 export class LoginComponent implements OnInit {
   model: any = {};
 
-  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
+  constructor(public accountService: AccountService, private cartService : CartService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   login() {
     this.accountService.login(this.model).subscribe(response => {
+        this.cartService.getAllCustomerCart().subscribe(() => {});
        this.router.navigateByUrl('/');
       }, error => {
         this.toastr.error('Tên đăng nhập hoặc mật khẩu không chính xác');

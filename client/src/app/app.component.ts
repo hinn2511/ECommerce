@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartItem } from './_models/cartItem';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
+import { CartService } from './_services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +12,17 @@ import { AccountService } from './_services/account.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'Green food';
   searchMode = false;
   showContent: boolean;
+  carts: CartItem[];
   
   constructor(private accountService : AccountService, public router: Router) {
-
   }
 
   ngOnInit() {
     this.showContent = true;
     this.setCurrentUser();
+    
   }
 
   setCurrentUser() {

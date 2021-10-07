@@ -80,6 +80,7 @@ export class CheckOutComponent implements OnInit {
     this.model.destination = this.checkoutForm.controls.destination.value;
     this.model.phoneNumber = this.checkoutForm.controls.phoneNumber.value;
     this.orderService.checkout(this.model).subscribe(result => {
+      this.cartService.refreshCartQuantity();
       this.toastr.success('Đặt hàng thành công');
       this.route.navigateByUrl('order-detail/' + result.id);
       localStorage.setItem('orderId', result.id.toString());

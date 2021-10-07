@@ -50,6 +50,10 @@
 }
 
 @media screen and (min-width: 1280px) {
+    .row {
+        margin: auto 0;
+    }
+
     td {
         height: 15vh;
     }

@@ -1,4 +1,4 @@
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 990px) {
     .btn, label, input {
         font-size: 1.2rem;
     }
@@ -14,25 +14,22 @@
         margin: 0;
     }
 
-    .product-list {
-        min-width: 100vw;
-    }
+    
 
     .category-header {
         margin-left: 0rem;
         margin-top: 5rem;
     }
 
-    .category-name {
-        text-align: center;
-    }
 
-    
 
-    .btn-sort {
-        text-align: center!important;
+    .row {
+        margin: auto 0;
     }
     
+    form > div > div, ul, ul > div, li, a{
+        width: 100%;
+    }
 }
 
 
@@ -57,10 +54,21 @@
 }
 
 @media screen and (min-width: 1200px){
-    .container > div {
-        padding: 0 10vh;
+    .row {
+        margin: auto 0;
+        padding: 0 2vw;
     }
 
+
+    form > div > div, ul, ul > div, li, a{
+        width: 100%;
+    }
+
+    a {
+        padding-left: 1rem;
+    }
+
+    
     
 
 }
@@ -80,4 +88,12 @@
 
 .btn-sort {
     text-align: right;
+}
+
+.container {
+    min-height: 100vh;
+}
+
+.mobile-filter {
+    background-color: rgb(247, 247, 255);
 }

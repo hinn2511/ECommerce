@@ -54,7 +54,7 @@
     }
 
     .header > div {
-        min-height: 45vh;
+        min-height: calc(53vh + 1vw);
     }
 
     .header > .row > div{
@@ -69,6 +69,8 @@
     .header > div > div > h4 {
         font-size: 1.3rem;
     }
+
+    
     
 
 
@@ -92,7 +94,7 @@
     }
 
     .introduce > div > .introduce-image {
-        min-height: calc(140vw + 10vh);
+        min-height: 145vw;
         padding-left: 2.5rem;
     }
 
@@ -143,7 +145,7 @@
     .category > div > div {
         padding: 0.5rem ;
         width: 100%;
-        min-height: 30vh;
+        max-height: 20vh;
         overflow: hidden;
     }
 
@@ -275,7 +277,7 @@
         position: absolute;
         top: 100%;
         left: 0;
-        transform: translate( -10%, 30%);
+        transform: translate( -10%, 20%);
         z-index: 1;
     }
     

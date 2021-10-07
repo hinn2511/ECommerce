@@ -1,41 +1,128 @@
 <!--Desktop-->
-<div class="container mt-2">
+<div class="container mt-lg-5">
     <div class="row">
-        <div class="col-lg-2">
-            <h4 class="mt-5">Bộ lọc</h4>
-            <div class="container mt-3">
+        <div class="col-lg-2 d-none d-lg-block">
+            <div class="row mt-2 px-lg-0">
+                <div class="col-6 px-lg-0">
+                    <h4>Bộ lọc</h4>
+                </div>
+                <div class="col-6 text-right px-lg-0">
+                    <h4 *ngIf="filterToggleDesktop" (click)="resizeFilter()"><i class="fa fa-caret-up"></i></h4>
+                    <h4 *ngIf="!filterToggleDesktop" (click)="resizeFilter()"><i class="fa fa-caret-down"></i></h4>
+                </div>
+            </div>
+            <div class="my-3" *ngIf="filterToggleDesktop">
                 <form #form="ngForm" class="form-inline" (ngSubmit)="loadResult()" autocomplete="off">
                     <div class="form-group">
                         <label>Giá thấp nhất</label>
                         <input type="number" class="form-control col-12 mt-2" name="minPrice"
                             [(ngModel)]="searchProductParams.minPrice">
                     </div>
-                    <div class="form-group mt-3">
+                    <div class="form-group mt-2">
                         <label>Giá cao nhất</label>
                         <input type="number" class="form-control col-12 mt-2" name="maxPrice"
                             [(ngModel)]="searchProductParams.maxPrice">
                     </div>
+
+                    <div class="form-group mt-2">
+                        <label>Danh mục</label>
+                        <div class="btn-group mt-2" dropdown>
+                            <button id="button-basic" dropdownToggle type="button"
+                                class="btn btn-light border dropdown-toggle text-dark" aria-controls="dropdown-basic">
+                                {{category | titlecase}}
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                                aria-labelledby="button-basic">
+                                <li *ngFor="let item of categories">
+                                    <a class="dropdown-item" [(ngModel)]="searchProductParams.categories"
+                                        name='categories' btnRadio='{{item.categoryName}}'
+                                        (click)="chooseCategory(item.categoryName)">{{item.categoryName | titlecase}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="filter-btn-group mt-3">
                         <button class="btn btn-dark text-light" type="submit">
-                            Lọc sản phẩm</button>
-                        <button (click)="resetFilter()" class="btn btn-light text-dark mt-2 border-secondary" type="submit">
-                            Đặt lại bộ lọc</button>
+                            Lọc sản phẩm
+                        </button>
+                        <button (click)="resetFilter()" class="btn btn-light text-dark mt-2 border-secondary"
+                            type="submit">
+                            Đặt lại bộ lọc
+                        </button>
                     </div>
-    
+
                 </form>
             </div>
-    
+
         </div>
-        <div class="col-lg-10 ">
-            <div class="row list-head col-12 mt-5">
-                <div class="col-12 col-lg-12">
-                    <h2 class="category-name font-brand">Kết quả tìm kiếm cho "{{searchProductParams.keyword}}"</h2>
+
+        <div class="col-lg-2 d-lg-none mobile-filter">
+            <div class="row mt-2 px-0">
+                <div class="col-6">
+                    <h4>Bộ lọc</h4>
+                </div>
+                <div class="col-6 text-right px-lg-0">
+                    <h4 *ngIf="filterToggleMobile" (click)="resizeFilter()"><i class="fa fa-caret-up"></i></h4>
+                    <h4 *ngIf="!filterToggleMobile" (click)="resizeFilter()"><i class="fa fa-caret-down"></i></h4>
+                </div>
+            </div>
+            <div class="my-3" *ngIf="filterToggleMobile" >
+                <form #form="ngForm" class="form-inline" (ngSubmit)="loadResult()" autocomplete="off">
+                    <div class="form-group">
+                        <label>Giá thấp nhất</label>
+                        <input type="number" class="form-control col-12 mt-2" name="minPrice"
+                            [(ngModel)]="searchProductParams.minPrice">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label>Giá cao nhất</label>
+                        <input type="number" class="form-control col-12 mt-2" name="maxPrice"
+                            [(ngModel)]="searchProductParams.maxPrice">
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label>Danh mục</label>
+                        <div class="btn-group mt-2" dropdown>
+                            <button id="button-basic" dropdownToggle type="button"
+                                class="btn btn-light border dropdown-toggle text-dark" aria-controls="dropdown-basic">
+                                {{category | titlecase}}
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                                aria-labelledby="button-basic">
+                                <li *ngFor="let item of categories">
+                                    <a class="dropdown-item" [(ngModel)]="searchProductParams.categories"
+                                        name='categories' btnRadio='{{item.categoryName}}'
+                                        (click)="chooseCategory(item.categoryName)">{{item.categoryName | titlecase}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="filter-btn-group mt-3">
+                        <button class="btn btn-dark text-light" type="submit">
+                            Lọc sản phẩm
+                        </button>
+                        <button (click)="resetFilter()" class="btn btn-light text-dark mt-2 border-secondary"
+                            type="submit">
+                            Đặt lại bộ lọc
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+        <div class="col-lg-10">
+            <div class="row mt-2">
+                <div class="col-12">
+                    <h4 class="category-name font-brand">Kết quả tìm kiếm cho "{{searchProductParams.keyword}}"</h4>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <h3 class="category-name">{{pagination?.totalItems}} kết quả</h3>
+                    <h3 class="category-name" *ngIf="pagination?.totalItems > 0">{{pagination?.totalItems}} kết quả</h3>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <div class="row sort col-12 justify-content-end">
+                <div class="col-12 col-lg-6" *ngIf="pagination?.totalItems > 0"> 
+                    <div class="row sort justify-content-end">
                         <div class="btn-group col-12 col-lg-6" dropdown>
                             <button id="button-basic" dropdownToggle type="button"
                                 class="btn btn-sort dropdown-toggle text-dark" aria-controls="dropdown-basic">
@@ -49,7 +136,8 @@
                                         type="button">Mới nhất</button>
                                     <button class="btn col-12" [(ngModel)]="searchProductParams.orderBy" name='orderBy'
                                         btnRadio='highestPrice' (click)="loadResult()"
-                                        (click)="selectSort('highestPrice')" type="button">Giá từ cao xuống thấp</button>
+                                        (click)="selectSort('highestPrice')" type="button">Giá từ cao xuống
+                                        thấp</button>
                                     <button class="btn col-12" [(ngModel)]="searchProductParams.orderBy" name='orderBy'
                                         btnRadio='lowestPrice' (click)="loadResult()"
                                         (click)="selectSort('lowestPrice')" type="button">Giá từ thấp đến cao</button>
@@ -58,21 +146,27 @@
                         </div>
                     </div>
                 </div>
-        </div>
-            <hr class="dropdown-divider">
-            <div class="row col-sm-12 product-list">
+            </div>
+            <hr class="dropdown-divider d-none d-lg-block">
+            <div class="row col-sm-12 product-list" *ngIf="pagination?.totalItems > 0; else empty">
                 <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-3">
                     <app-product-card [product]="product"></app-product-card>
                 </div>
                 <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
                     <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
                         [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
-                        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-                        lastText="&raquo;">
+                        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                        firstText="&laquo;" lastText="&raquo;">
                     </pagination>
                 </div>
             </div>
+
+            <ng-template #empty>
+                <div class="product-list text-center pt-5">
+                    <h4 class="text-muted">Không tìm thấy bất kì kết quả nào</h4>
+                </div>
+            </ng-template>
         </div>
     </div>
-    
+
 </div>

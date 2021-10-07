@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { Category, SubCategory } from '../_models/categories';
 import { AccountService } from '../_services/account.service';
+import { CartService } from '../_services/cart.service';
 import { CategoryService } from '../_services/category.service';
 
 @Component({
@@ -48,7 +49,7 @@ export class NavbarComponent implements OnInit {
     photoUrl: ''
   };
 
-  constructor(public accountService: AccountService, public router: Router, private categoryService: CategoryService) {
+  constructor(public accountService: AccountService, public cartService: CartService, public router: Router, private categoryService: CategoryService) {
 
   }
 
@@ -73,6 +74,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.accountService.logout();
     this.router.navigateByUrl('/');
+    this.cartService.refreshCartQuantity();
   }
 
   showSearchBarToggle() {

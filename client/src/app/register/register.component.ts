@@ -66,7 +66,6 @@ export class RegisterComponent implements OnInit {
         this.toastr.success('Đăng ký thành công');
         this.route.navigateByUrl('/');
       }, error => {
-        console.log(this.registerForm.controls.value);
         this.toastr.error('Đăng ký không thành công');
       })
     }
