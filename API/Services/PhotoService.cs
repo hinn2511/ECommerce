@@ -23,7 +23,7 @@ namespace API.Services
             _cloudinary = new Cloudinary(acc);
         }
 
-        public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
+        public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file, int height, int width)
         {
             var uploadResult = new ImageUploadResult();
             if (file.Length > 0)
@@ -32,7 +32,7 @@ namespace API.Services
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
-                    Transformation = new Transformation().Height(700).Width(700).Crop("fill")
+                    Transformation = new Transformation().Height(height).Width(width).Crop("fill")
                 };
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);
             }

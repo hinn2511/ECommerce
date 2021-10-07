@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Color } from '../_models/color';
 import { Product } from '../_models/product';
 import { ProductParams } from '../_models/productParams';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
@@ -45,7 +44,7 @@ export class ProductService {
     params = params.append('minPrice', customerParams.minPrice.toString());
     params = params.append('maxPrice', customerParams.maxPrice.toString());
     params = params.append('orderBy', customerParams.orderBy);
-    return getPaginatedResult<Product[]>(this.baseUrl + 'products', params, this.http).pipe(
+    return getPaginatedResult<Product[]>(this.baseUrl + 'product', params, this.http).pipe(
       map(response => {
         this.productCache.set(Object.values(customerParams).join('-'), response);
         return response;
@@ -60,12 +59,9 @@ export class ProductService {
     if (product) {
       return of(product);
     }
-    return this.http.get<Product>(this.baseUrl + 'products/' + productCode);
+    return this.http.get<Product>(this.baseUrl + 'product/' + productCode);
   }
 
-  getProductColors(productCode: string) {
-    return this.http.get<Color[]>(this.baseUrl + 'products/color/' + productCode);
-  }
 
 
 

@@ -14,12 +14,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
 
-    public class ProductsController : BaseApiController
+    public class ProductController : BaseApiController
     {
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
+        public ProductController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -67,7 +67,7 @@ namespace API.Controllers
         {
             var product = await _unitOfWork.ProductRepository.FindProductByCodeAsync(productCode);
 
-            var result = await _photoService.AddPhotoAsync(file);
+            var result = await _photoService.AddPhotoAsync(file, 700, 700);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
 
