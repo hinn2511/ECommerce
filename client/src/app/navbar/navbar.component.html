@@ -185,7 +185,7 @@
     </div>
 
     <!--Navigation link-->
-    <div class="container row col-md-12 justify-content-center"
+    <div class="container row col-md-12 justify-content-center navigation"
         *ngIf="router.url != '/login' && router.url != '/register'">
         <ul class="navbar-nav me-auto mb-2 ml-1 mb-lg-0 ">
 
@@ -225,41 +225,49 @@
                 </div>
             </li>
 
-            <!--Area dropdown-->
+            <!--Living room-->
             <li class="nav-item">
-                <div class="dropdown" dropdown>
-                    <a class="nav-link" [class.text-dark]="router.url != '/'" dropdownToggle>Không gian sống <span><i
-                                class="fa fa-caret-down"></i></span></a>
-                    <div class="dropdown-menu area-catalogue" *dropdownMenu>
-                        <div class="row">
-                            <div class="col-4">
-                                <li *ngFor="let item of spaceItem">
-                                    <a class="dropdown-item" routerLink='/area/{{item}}'>{{item}}</a>
-                                </li>
-                            </div>
-
-                            <div 
-                                class="col-8 image-container" 
-                                [ngStyle]="{ 'background-image': 'url(' + backgroungImage2 + ')'}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/phòng khách'>Phòng khách</a>
+            </li>
+            
+            <!--Kitchen room-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/nhà bếp'>Nhà bếp</a>
             </li>
 
-            <!--Collection-->
+            <!--Bedroom-->
             <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/collections'>Bộ sưu tập</a>
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/phòng ngủ'>Phòng ngủ</a>
             </li>
 
-            <!--Promotion-->
+            <!--Bathroom-->
             <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/promotions'>Chương trình khuyến mãi</a>
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/phòng tắm'>Phòng tắm</a>
+            </li>
+
+            <!--Bathroom-->
+             <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/sân vườn'>Sân vườn</a>
+            </li>
+
+            <!--Decoration-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/category/đồ trang trí'>Đồ trang trí</a>
+            </li>
+
+            <!--Light-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/category/đèn'>Đèn</a>
+            </li>
+
+            <!--Sale-->
+            <li class="nav-item">
+                <a class="nav-link" [class.text-danger]="router.url != '/'" routerLink='/sale-off'><strong>Giảm giá</strong></a>
             </li>
 
             <!--News-->
             <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/news'>Tin tức</a>
+                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/news'>Tin tức mới</a>
             </li>
 
             <!--Help + support-->

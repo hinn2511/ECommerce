@@ -120,12 +120,18 @@
                     <div class="card">
                         <h5 class="card-header text-center">Mã giảm giá</h5>
                         <div class="input-group my-3 px-4">
-                            <input type="text" class="form-control" [(ngModel)]="model.promotionCode" placeholder="{{model.promotionCode}}">
-                            <div class="input-group-append">
-                                <span class="input-group-text" (click)="redeemPromotion()">
-                                    Áp dụng
-                                </span>
-                            </div>
+                            <div class="input-group mb-3">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Nhập tại đây"
+                                    [(ngModel)]="model.promotionCode" placeholder="{{model.promotionCode}}">
+                                <button 
+                                    [disabled]="!model.promotionCode"
+                                    class="btn btn-dark" 
+                                    type="button" 
+                                    (click)="redeemPromotion()">Áp dụng</button>
+                              </div>
                         </div>
                       </div>
                 </div>

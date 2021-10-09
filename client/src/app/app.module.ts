@@ -19,7 +19,6 @@ import { CollectionsComponent } from './collections/collections.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { AreaComponent } from './area/area.component';
 import { FooterComponent } from './footer/footer.component';
-import { NewsComponent } from './news/news.component';
 import { CustomerInfoComponent } from './customer/customer-info/customer-info.component';
 import { CustomerFavoriteComponent } from './customer/customer-favorite/customer-favorite.component';
 import { CartComponent } from './customer/cart/cart.component';
@@ -41,6 +40,9 @@ import { CustomerOrderDetailComponent } from './customer/customer-order-detail/c
 import { OrderStatePipe } from './_pipes/order-state.pipe';
 import { SearchBarComponent } from './search/search-bar/search-bar.component';
 import { SearchResultComponent } from './search/search-result/search-result.component';
+import { NewsListComponent } from './news/news-list/news-list.component';
+import { NewsDetailComponent } from './news/news-detail/news-detail.component';
+import { NewsCardComponent } from './news/news-card/news-card.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,6 @@ import { SearchResultComponent } from './search/search-result/search-result.comp
     HelpSupportComponent,
     AreaComponent,
     FooterComponent,
-    NewsComponent,
     CustomerInfoComponent,
     CustomerFavoriteComponent,
     CartComponent,
@@ -75,7 +76,10 @@ import { SearchResultComponent } from './search/search-result/search-result.comp
     CustomerOrderDetailComponent,
     OrderStatePipe,
     SearchBarComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    NewsListComponent,
+    NewsDetailComponent,
+    NewsCardComponent
   ],
   imports: [
     BrowserModule,

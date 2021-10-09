@@ -54,7 +54,11 @@
     }
 
     .nav-link {
-        margin: 0 1rem;
+        margin: 0 0.5rem;
+    }
+
+    .navigation > ul > li > .nav-link, .navigation > ul > li > div > .nav-link {
+        font-size: 0.9rem;
     }
 
     .btn-group > ul > li > a {

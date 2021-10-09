@@ -24,6 +24,8 @@ namespace API.Data
         public DbSet<Area> Areas { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Paragraph> Paragraphs { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Color> Colors { get; set; }
@@ -163,6 +165,11 @@ namespace API.Data
                 .WithMany(o => o.OrderDetails)
                 .HasForeignKey(od => od.ColorId)
                 .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Paragraph>()
+                .HasOne(p => p.Article)
+                .WithMany(l => l.Paragraphs)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.ApplyUtcDateTimeConverter();

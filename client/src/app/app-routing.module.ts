@@ -14,7 +14,8 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
-import { NewsComponent } from './news/news.component';
+import { NewsDetailComponent } from './news/news-detail/news-detail.component';
+import { NewsListComponent } from './news/news-list/news-list.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { PromotionsComponent } from './promotions/promotions.component';
@@ -45,8 +46,9 @@ const routes: Routes = [
   { path: 'search', component: SearchResultComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'news', component: NewsComponent },
   { path: 'promotions', component: PromotionsComponent },
+  { path: 'news', component: NewsListComponent },
+  { path: 'news/:id', component: NewsDetailComponent },
   { path: 'collections', component: CollectionsComponent },
   { path: 'help', component: HelpSupportComponent },
   //errors

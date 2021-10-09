@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header bg-dark text-light">
+        {{article.publishedDate | date:'short'}}
+    </div>
+    <div class="row">
+        <div [class.col-12]="alignment == 'both' || alignment == 'horizontal'" [class.col-lg-4]="alignment == 'both'">
+            <div class="p-3">
+                <img src="{{article.thumbnailPhotoUrl}}" class="card-img-top" alt="...">
+            </div>
+        </div>
+        <div [class.col-12]="alignment == 'both' || alignment == 'horizontal'" [class.col-lg-8]="alignment == 'both'">
+            <div class="card-body">
+                <h5 class="card-title fw-bolder">{{article.title}}</h5>
+                <p class="card-text">{{article.description}}</p>
+                <p class="card-text text-muted">Đăng bởi&nbsp;{{article.publisherName | titlecase}}</p>
+                <p class="card-text col-12 text-right" (click)='viewArticle(article.id)'>Xem chi tiết >></p>
+            </div>
+        </div>
+    </div>
+</div>

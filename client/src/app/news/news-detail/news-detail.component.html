@@ -1,0 +1,54 @@
+<div class="container" *ngIf="artcicle" style="background: url('{{artcicle.thumbnailPhotoUrl}}') no-repeat center center fixed;">
+    <div class="bg-white">
+        <section class="article-detail">
+            <div class="title mt-5">
+                <h1 class="fw-bolder">{{artcicle.title}}</h1>
+        
+                <h5>{{artcicle.publisherName}} &nbsp;&#8226;&nbsp; {{artcicle.publishedDate | date:'short'}}</h5>
+            </div>
+        
+        
+            <div class="description">
+                <hr class="dropdown-diver">
+                <p class="fw-bold">
+                    {{artcicle.description}}
+                </p>
+                <hr class="dropdown-diver">
+            </div>
+        
+            <div class="paragraph mt-5">
+                <div *ngFor="let paragraph of artcicle.paragraphs; let i = index">
+                    
+                    <ng-container *ngIf="paragraph.heading">
+                        <h3 class="text-center fw-bolder" [class.pt-4]="i > 0">{{paragraph.heading}}</h3>   
+                    </ng-container>
+        
+                    <ng-container *ngIf="paragraph.content">
+                        <div class="content my-3">
+                            <p>{{paragraph.content}}</p>
+                        </div>    
+                    </ng-container>
+        
+                    <ng-container *ngIf="paragraph.photoUrl">
+                        <div class="image pt-3">
+                            <img src="{{paragraph.photoUrl}}" alt="">
+                        </div>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="paragraph.url">
+                        <div class="link py-2 text-center">   
+                            <a class="text-dark fw-bold" href="{{paragraph.url}}">{{paragraph.url}}</a>
+                        </div>
+                    </ng-container>
+        
+                    
+                </div>
+            </div>
+        </section>
+        <section class="footer">
+            
+        </section>
+    </div>
+    
+    
+</div>

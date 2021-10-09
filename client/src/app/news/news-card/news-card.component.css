@@ -1,0 +1,10 @@
+div > img {
+    width: 100%;
+    min-height: 13rem;
+    object-fit: cover;
+}
+
+.card > div > div > div {
+    height: 100%;
+    overflow: hidden;
+}

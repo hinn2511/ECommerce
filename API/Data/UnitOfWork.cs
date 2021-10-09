@@ -27,6 +27,7 @@ namespace API.Data
         public IShippingMethodRepository ShippingMethodRepository => new ShippingMethodRepository(_context, _mapper);
         public IPaymentMethodRepository PaymentMethodRepository => new PaymentMethodRepository(_context, _mapper);
         public IAreaRepository AreaRepository => new AreaRepository(_context, _mapper);
+        public IArticleRepository ArticleRepository => new ArticleRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

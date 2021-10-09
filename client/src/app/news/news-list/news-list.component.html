@@ -1,0 +1,34 @@
+<div class="container" *ngIf="articles">
+    <div class="p-5 header" style="background: linear-gradient( 0deg, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.3) 90%), url('{{articles[0].thumbnailPhotoUrl}}') no-repeat center center fixed;">
+        <div class="p-5" >
+          <h1 class="display-5 mt-lg-2 text-light fw-bold">{{articles[0].title}}</h1>
+          <p class="col-md-8 text-light px-0">{{articles[0].description}}</p>
+          <button class="btn btn-outline-light btn-lg" routerLink='/news/{{articles[0].id}}' type="button">Xem chi tiết</button>
+        </div>
+    </div>
+    <div class="bg-dark p-3 pt-4">
+      <div class="row text-center text-light">
+        <div (click)="articleToggle('news')" [class.border-bottom]="articleParams.type == 'news'" class="col-6 cs-pointer">
+          <h5>Tin tức mới</h5>
+        </div>
+        <div (click)="articleToggle('promotions')" [class.border-bottom]="articleParams.type == 'promotions'" class="col-6 cs-pointer">
+          <h5>Khuyến mãi</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 text-center p-4 pt-5">
+        <h3>{{type}}</h3>
+      </div>
+      <div *ngFor="let article of articles" class="col-12 col-lg-8">
+          <app-news-card class="m-3" [alignment]="'both'" [article]="article"></app-news-card>
+      </div>
+      <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
+          <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+              [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+              (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+              lastText="&raquo;">
+          </pagination>
+      </div>
+  </div>
+</div>

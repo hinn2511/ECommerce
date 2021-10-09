@@ -89,6 +89,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.fw-bold {
+    font-weight: bold;
+}
 
 .fw-bolder {
     font-weight: bolder;
@@ -109,4 +112,8 @@ input[type=number] {
 
 .text-decoration-underline {
     text-decoration: underline;
+}
+
+.pagination-page, .page-item {
+    z-index: 0;
 }

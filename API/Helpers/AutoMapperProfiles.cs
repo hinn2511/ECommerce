@@ -88,6 +88,16 @@ namespace API.Helpers
                            src => src.Color.ColorCode))
                 .ForMember(dest => dest.ColorName, opt => opt.MapFrom(
                            src => src.Color.ColorName));
+
+            CreateMap<Article, ArticleDto>()
+                .ForMember(dest => dest.PublisherName, opt => opt.MapFrom(
+                           src => (src.Publisher.FirstName + " " + src.Publisher.LastName)));
+
+            CreateMap<Paragraph, ParagraphDto>();
+
+            CreateMap<NewArticleDto, Article>();
+
+            CreateMap<NewParagraphDto, Paragraph>();
         }
     }
 }
