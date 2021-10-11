@@ -72,7 +72,7 @@
                                     
                                 </td>
                                 <td class="text-center">
-                                    <p class="pt-lg-3">{{item.subTotal - item.discount | currency:"VND"}}</p>
+                                    <p class="pt-lg-3">{{item.subTotal - item.discount + item.shippingMethod.price | currency:"VND"}}</p>
                                 </td>
                                 <td class="text-center">
                                     <p class="pt-lg-3">{{item.state | orderState}}</p>
@@ -116,7 +116,7 @@
                                         <div class="col-9">
                                             <p>Mã đơn hàng: DH000{{item.id}}</p>
                                             <p>{{item.date | date:'short'}}</p>
-                                            <p>Tổng tiền: {{item.subTotal - item.discount | currency:"VND"}}</p>
+                                            <p>Tổng tiền: {{item.subTotal - item.discount + item.shippingMethod.price | currency:"VND"}}</p>
                                             <p>{{item.state | orderState}}</p>
                                         </div>
                                         

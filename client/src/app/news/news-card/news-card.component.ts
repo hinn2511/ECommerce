@@ -14,9 +14,9 @@ export class NewsCardComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    window.scroll(0,0);
   }
 
-  viewArticle(articleId: number ){
-    this.router.navigateByUrl('/news/' + articleId);
-  }
+  
 }

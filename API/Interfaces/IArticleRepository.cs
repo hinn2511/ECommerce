@@ -12,6 +12,8 @@ namespace API.Interfaces
     {
         Task<PagedList<ArticleDto>> GetArticlesAsync(ArticleParams articleParams);
         Task<ArticleDto> GetArticleById(int id);
+        Task<IEnumerable<ArticleDto>> GetRelatedArticles(int type, int id);
+
         void AddArticle(Article article);
         void AddParagraph(Paragraph paragraph);
     }

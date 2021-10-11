@@ -32,10 +32,15 @@ namespace API.Data
             var maxPrice = 1000000000.0;
             if (productParams.MinPrice > 0.0)
                 minPrice = productParams.MinPrice;
-            if (productParams.MaxPrice > 0.0)
+        if (productParams.MaxPrice > 0.0)
                 maxPrice = productParams.MaxPrice;
-            query = query.Where(p => p.SubCategory.SubCategoryName == productParams.Categories
-             || p.Category.CategoryName == productParams.Categories);
+            if (productParams.Categories != null)
+                query = query.Where(p => p.SubCategory.SubCategoryName == productParams.Categories
+                || p.Category.CategoryName == productParams.Categories);
+            
+            if (productParams.Area != null)
+                query = query.Where(p => p.Area.Name == productParams.Area);
+
             query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
             query = productParams.OrderBy switch
@@ -71,6 +76,8 @@ namespace API.Data
                 query = query.Where(p => p.SubCategory.SubCategoryName == searchProductParams.Categories
                     || p.Category.CategoryName == searchProductParams.Categories);
             }
+
+            
             
             query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
@@ -152,6 +159,12 @@ namespace API.Data
                 }).ToListAsync();
             }
             return null;
+        }
+
+        public async Task<ProductColor> GetDefaultProductColorAsync(int productId)
+        {
+            return await _context.ProductColors
+                .FirstOrDefaultAsync(x => x.ProductId == productId);
         }
 
 

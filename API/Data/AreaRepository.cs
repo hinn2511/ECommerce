@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -24,5 +25,6 @@ namespace API.Data
                 .ProjectTo<AreaDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
+
     }
 }

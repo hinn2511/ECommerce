@@ -1,5 +1,5 @@
 export class ArticleParams {
-    type = "news";
+    type = "all";
     pageNumber = 1;
     pageSize = 5;
 }

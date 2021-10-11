@@ -30,38 +30,19 @@ namespace API.Controllers
 
             if (product == null) return BadRequest("Không tìm thấy sản phẩm");
 
-            var cartItem = await _unitOfWork.CartRepository.FindCustomerCartItemAsync(customerId, product.Id);
+            var color = await _unitOfWork.ColorRepository.FindColorByCodeAsyc(cartItemDto.ColorCode);
 
-            if (cartItemDto.ColorCode != null)
+            var productColor = await _unitOfWork.ProductRepository.GetDefaultProductColorAsync(product.Id);
+
+            var newCartItem = new Cart
             {
-                var color = await _unitOfWork.ColorRepository.FindColorByCodeAsyc(cartItemDto.ColorCode);
-
-                if (cartItem == null)
-                {
-                    var newCartItem = new Cart
-                    {
-                        ProductId = product.Id,
-                        CustomerId = customerId,
-                        Quantity = cartItemDto.Quantity,
-                        ColorId = color.Id
-                    };
-                    _unitOfWork.CartRepository.AddCartItem(newCartItem);
-                    if (await _unitOfWork.Complete()) return Ok();
-                }
-
-            }
-            else
-            {
-                var newCartItemDefault = new Cart
-                {
-                    ProductId = product.Id,
-                    CustomerId = customerId,
-                    Quantity = cartItemDto.Quantity
-                };
-                _unitOfWork.CartRepository.AddCartItem(newCartItemDefault);
-
-                if (await _unitOfWork.Complete()) return Ok();
-            }
+                ProductId = product.Id,
+                CustomerId = customerId,
+                Quantity = cartItemDto.Quantity,
+                ColorId = color == null ?  (productColor == null ? null : productColor.ColorId) : color.Id
+            };
+            _unitOfWork.CartRepository.AddCartItem(newCartItem);
+            if (await _unitOfWork.Complete()) return Ok();
 
             return BadRequest("Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
         }

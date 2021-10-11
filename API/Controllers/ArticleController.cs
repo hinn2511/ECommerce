@@ -59,5 +59,15 @@ namespace API.Controllers
             var result = await _unitOfWork.ArticleRepository.GetArticleById(id);
             return Ok(result);
         }
+
+        [HttpGet("related/{id}")]
+        public async Task<ActionResult<IEnumerable<ArticleDto>>> GetRelatedArticles(int id)
+        {
+            var article = await _unitOfWork.ArticleRepository.GetArticleById(id);
+
+            var result = await _unitOfWork.ArticleRepository.GetRelatedArticles(article.Type, id);
+
+            return Ok(result);
+        }
     }
 }

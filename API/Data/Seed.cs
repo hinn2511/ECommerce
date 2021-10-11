@@ -268,6 +268,7 @@ namespace API.Entities
 
             foreach ( var area in areas)
             {
+                area.Name = area.Name.ToLower();
                 context.Areas.Add(area);
             }
 

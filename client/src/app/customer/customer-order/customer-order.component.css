@@ -175,3 +175,7 @@
     vertical-align: middle;
     line-height: 3rem; 
 }
+
+.container {
+    min-height: 80vh;
+}

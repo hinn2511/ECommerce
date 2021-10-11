@@ -42,20 +42,38 @@ namespace API.Data
 
         public async Task<PagedList<ArticleDto>> GetArticlesAsync(ArticleParams articleParams)
         {
-            var articles = _context.Articles.AsQueryable();
+            var query = _context.Articles.AsQueryable();
 
             int type =  articleParams.Type switch
             {
                 "news" => 1,
                 "promotions" => 2,
                 "product" => 3,
-                _ => 1
+                _ => 0
             };
 
-            articles = articles.Where(article => article.Type == type).OrderByDescending(article => article.PublishedDate);
-
-            return await PagedList<ArticleDto>.CreateAsync( articles.ProjectTo<ArticleDto>(_mapper.ConfigurationProvider),
+            if (type != 0)
+            {
+                query = query.Where(article => article.Type == type)
+                    .OrderByDescending(article => article.PublishedDate);
+            }
+            else 
+            {
+                query = query.Where(article => article.Type != 3)
+                    .OrderByDescending(article => article.PublishedDate);
+            }
+            return await PagedList<ArticleDto>.CreateAsync( query.ProjectTo<ArticleDto>(_mapper.ConfigurationProvider),
                  articleParams.PageNumber, articleParams.PageSize);
+        }
+
+        public async Task<IEnumerable<ArticleDto>> GetRelatedArticles(int type, int id)
+        {
+            return await _context.Articles
+                .Where(a => a.Type == type && a.Id != id)
+                .OrderByDescending(a => a.PublishedDate)
+                .Take(2)
+                .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
     }
 }

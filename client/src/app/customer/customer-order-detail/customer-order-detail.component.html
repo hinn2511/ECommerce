@@ -1,6 +1,10 @@
 <div class="containe my-4" *ngIf="order">
+    <div class="py-2 cs-pointer back-button">
+        <button class="btn border btn-light rounded" routerLink='/order'>
+            <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Trở về</button>
+    </div>
     <div class="col-12 text-center">
-        <h2 class="font-secondary py-2">Đơn đặt hàng</h2>
+        <h2 class="font-secondary py-3">Đơn đặt hàng</h2>
         <h5 class="font-secondary text-muted">Mã đơn hàng: DH000{{order.id}}</h5>
     </div>
     <div class="row col-12 justify-content-center">
@@ -8,19 +12,23 @@
             <h4 class="col-12 text-center">Thông tin đơn hàng</h4>
             <div class="mt-4 px-lg-4">
                 <div class="row">
-                    <div class="col-12 col-lg-6 px-0">
+                    <div class="col-6 col-lg-6 px-0">
                         <p>Ngày đặt</p>
                     </div>
-                    <div class="col-12 col-lg-6 px-0 text-sm-right">
+                    <div class="col-6 col-lg-6 px-0 text-right">
                         <p class="fw-bolder">{{order.date | date:'short'}}</p>
                     </div>
-                    <div class="col-12 col-lg-6 px-0">
+                    <div class="col-6 col-lg-6 px-0">
                         <p>Trạng thái</p>
                     </div>
-                    <div class="col-12 col-lg-6 px-0 text-sm-right">
-                        <p class="fw-bolder">{{order.state | orderState}}</p>
+                    <div class="col-6 col-lg-6 px-0 text-right">
+                        <p class="fw-bolder" 
+                            [class.text-muted]="order.state == 0"
+                            [class.text-primary]="order.state == 2"
+                            [class.text-success]="order.state == 3"
+                            [class.text-danger]="order.state == 4">{{order.state | orderState}}</p>
                     </div>
-                    <div class="col-12 col-lg-6 px-0 mt-lg-4">
+                    <div class="col-12 col-lg-6 px-0 mt-4">
                         <p>Họ và tên người nhận</p>
                     </div>
                     <div class="col-12 col-lg-6 px-0 mt-lg-4 text-sm-right">
@@ -38,7 +46,7 @@
                     <div class="col-12 col-lg-6 px-0 text-sm-right">
                         <p class="fw-bolder">{{order.destination}}</p>
                     </div>
-                    <div class="col-12 col-lg-6 px-0 mt-lg-4">
+                    <div class="col-12 col-lg-6 px-0 mt-4">
                         <p>Hình thức vận chuyển</p>
                     </div>
                     <div class="col-12 col-lg-6 px-0 mt-lg-4 text-sm-right">
@@ -50,16 +58,11 @@
                     <div class="col-12 col-lg-6 px-0 mt-lg-4 text-sm-right">
                         <p class="fw-bolder">{{order.paymentMethod.name | titlecase}}</p>
                     </div>
-                    <div class="col-6 col-lg-6 px-0 mt-lg-4">
-                        <p>Số lượng sản phẩm</p>
-                    </div>
-                    <div class="col-6 col-lg-6 px-0 mt-lg-4 text-right">
-                        <p class="fw-bolder">{{quantity}}</p>
-                    </div>
-                    <div class="col-6 col-lg-6 px-0">
+                    
+                    <div class="col-6 col-lg-6 mt-4 px-0">
                         <p>Tổng tiền</p>
                     </div>
-                    <div class="col-6 col-lg-6 px-0 text-right">
+                    <div class="col-6 col-lg-6 px-0 mt-4 text-right">
                         <p class="fw-bolder">{{order.subTotal / 110 * 100 | currency:"VND"}}</p>
                     </div>
                     <div class="col-6 col-lg-6 px-0">
@@ -80,18 +83,18 @@
                     <div class="col-6 col-lg-6 px-0 text-right">
                         <p class="fw-bolder">+&nbsp;{{order.shippingMethod.price | currency:"VND"}}</p>
                     </div>
-                    <div class="col-6 col-lg-6 px-0">
-                        <p>Tổng tiền thanh toán</p>
+                    <div class="col-6 col-lg-6 px-0 total">
+                        <p> Tổng tiền thanh toán</p>
                     </div>
-                    <div class="col-6 col-lg-6 px-0 text-right">
-                        <p class="fw-bolder">{{order.subTotal - order.discount + order.shippingMethod.price |
+                    <div class="col-6 col-lg-6 px-0 text-right total">
+                        <p class="fw-bolder total-price">{{order.subTotal - order.discount + order.shippingMethod.price |
                             currency:"VND"}}</p>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-lg-5 list">
             <h4 class="col-12 text-center mb-4">Danh sách sản phẩm</h4>
             <div class="d-none d-lg-block">
                 <table class="table">
@@ -148,11 +151,11 @@
                                 </div>
                                 <div class="col-8">
                                     <p>{{item.productName | titlecase}}</p>
+                                    <p>x {{item.quantity}}</p>
                                     <p *ngIf="item.colorName;else default">Tùy chọn: {{item.colorName | titlecase}}</p>
                                     <ng-template #default>
                                         <p>Tùy chọn: Mặc định</p>
                                     </ng-template>
-                                    <p>Số lượng: {{item.quantity}}</p>
                                     <p>Đơn giá: {{item.price | currency:"VND"}}</p>
                                 </div>
                             </td>
@@ -167,21 +170,11 @@
 
     </div>
 
-    <div class="col-12 text-center">
+    <div class="col-12 py-lg-5 text-center">
         <div class="row justify-content-center">
-            
-            
-            <div *ngIf="returnHome" class="col-12 col-lg-2">
-                <button class="btn border btn-light mt-sm-1r mx-2" routerLink='/'>
-                    <i class="fa fa-home"></i>&nbsp;&nbsp;Trở về trang chủ</button>
-            </div>
-            <div class="col-12 col-lg-3">
-                <button class="btn border btn-light mt-sm-1r mx-2" routerLink='/order'>
-                    <i class="fa fa-list"></i>&nbsp;&nbsp;Trở về danh sách đơn đặt hàng</button>
-            </div>
             <ng-container *ngIf="order.state == 0">
                 <div class="col-12 col-lg-2 ">
-                    <button class="btn border btn-danger mt-sm-1r mx-2" (click)="cancelOrder(order)">
+                    <button class="btn border btn-outline-danger mt-sm-1r mx-2" (click)="cancelOrder(order)">
                         <i class="fa fa-trash"></i>&nbsp;&nbsp;Hủy đơn hàng</button>
                 </div>
             </ng-container>

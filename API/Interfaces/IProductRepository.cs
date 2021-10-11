@@ -13,6 +13,7 @@ namespace API.Interfaces
         Task<PagedList<ProductDto>> GetAllProductsAsync(ProductParams productParams);
         Task<PagedList<ProductDto>> GetProductsByNameAsync(SearchProductParams searchProductParams);
         Task<IEnumerable<ProductColorDto>> GetProductColor(string productCode);
+        Task<ProductColor> GetDefaultProductColorAsync(int productId);
 
         //Business
         Task<Product> FindProductByCodeAsync(string productCode);

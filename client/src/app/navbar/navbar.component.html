@@ -109,14 +109,15 @@
 
         <!--Brand logo-->
         <div>
-            <a class="navbar-brand text-light" [class.text-dark]="router.url != '/' 
-                    && router.url != '/login' 
-                    && router.url != '/register'" routerLink='/' (click)="hideMenuToggle()">Furniture</a>
+            <a class="navbar-brand text-light"
+                [class.text-dark]="urlNotContain(['/', '/login', '/register'])" 
+                routerLink='/' 
+                (click)="hideMenuToggle()">Furniture</a>
         </div>
 
         <!--Search bar-->
         <div>
-            <app-search-bar [class.d-none]="router.url == '/login' || router.url == '/register'"></app-search-bar>
+            <app-search-bar [class.d-none]="!urlNotContain(['/login', '/register'])"></app-search-bar>
         </div>
 
         <!--Cart + Login/Register + Customer info-->
@@ -125,8 +126,8 @@
 
                 <!--Cart-->
                 <li class="nav-item">
-                    <button class="btn btn-cart position-relative text-light" [class.text-dark]="router.url != '/' && router.url != '/login' 
-                        && router.url != '/register'" routerLink='/cart'>
+                    <button class="btn btn-cart position-relative text-light" 
+                    [class.text-dark]="urlNotContain(['/', '/login', '/register'])" routerLink='/cart'>
                         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                         <span class="position-absolute top-0 start-100 translate-middle round badge bg-danger">
                             <span style="font-size: 10px;" *ngIf="(cartService.currentCart$ | async) as totalCartItem"
@@ -138,15 +139,15 @@
 
                 <!--Login-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" [class.text-light]="router.url == '/'"
-                        [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'"
+                    <a class="nav-link px-0" [class.text-light]="getCurrentRoute() == '/'"
+                        [class.text-dark]="urlNotContain(['/', '/login', '/register'])"
                         routerLink='/login' (click)="hideMenuToggle()">Đăng nhập</a>
                 </li>
 
                 <!--Register-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" [class.text-light]="router.url == '/'"
-                        [class.text-dark]="router.url != '/' && router.url != '/login' && router.url != '/register'"
+                    <a class="nav-link px-0" [class.text-light]="getCurrentRoute() == '/'"
+                        [class.text-dark]="urlNotContain(['/', '/login', '/register'])"
                         routerLink='/register' (click)="hideMenuToggle()">Đăng ký</a>
                 </li>
 
@@ -155,7 +156,7 @@
                     <div class="btn-group" dropdown placement="bottom right" dropdown>
 
                         <!--Customer info button-->
-                        <button [class.text-dark]="router.url != '/'" class="btn dropdown-toggle text-light"
+                        <button [class.text-dark]="urlNotContain(['/'])" class="btn dropdown-toggle text-light"
                             dropdownToggle>
                             <span>
                                 Xin chào, {{user.name | titlecase}}
@@ -186,13 +187,13 @@
 
     <!--Navigation link-->
     <div class="container row col-md-12 justify-content-center navigation"
-        *ngIf="router.url != '/login' && router.url != '/register'">
+        *ngIf="urlNotContain(['/login', '/register'])">
         <ul class="navbar-nav me-auto mb-2 ml-1 mb-lg-0 ">
 
             <!--Category dropdown-->
             <li class="nav-item">
                 <div class="dropdown" dropdown [insideClick]="true" [autoClose]="true">
-                    <a class="nav-link" [class.text-dark]="router.url != '/'" dropdownToggle>Danh mục sản phẩm <span><i
+                    <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" dropdownToggle>Danh mục sản phẩm <span><i
                                 class="fa fa-caret-down"></i></span></a>
                     <div class="dropdown-menu category-catalogue" *dropdownMenu>
                         <div class="row">
@@ -226,53 +227,53 @@
             </li>
 
             <!--Living room-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/phòng khách'>Phòng khách</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/phòng khách')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/phòng khách'>Phòng khách</a>
             </li>
             
             <!--Kitchen room-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/nhà bếp'>Nhà bếp</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/phòng bếp')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/phòng bếp'>Nhà bếp</a>
             </li>
 
             <!--Bedroom-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/phòng ngủ'>Phòng ngủ</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/phòng ngủ')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/phòng ngủ'>Phòng ngủ</a>
             </li>
 
             <!--Bathroom-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/phòng tắm'>Phòng tắm</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/phòng tắm')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/phòng tắm'>Phòng tắm</a>
             </li>
 
             <!--Bathroom-->
-             <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/area/sân vườn'>Sân vườn</a>
+             <li class="nav-item" [class.border-bottom]="urlContain('sân vườn')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/sân vườn'>Sân vườn</a>
             </li>
 
             <!--Decoration-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/category/đồ trang trí'>Đồ trang trí</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/đồ trang trí')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/category/đồ trang trí'>Đồ trang trí</a>
             </li>
 
             <!--Light-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/category/đèn'>Đèn</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/đèn')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/category/đèn'>Đèn</a>
             </li>
 
             <!--Sale-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-danger]="router.url != '/'" routerLink='/sale-off'><strong>Giảm giá</strong></a>
+            <li class="nav-item" [class.border-bottom]="urlContain('sale')">
+                <a class="nav-link" [class.text-danger]="urlNotContain(['/'])" routerLink='/sale'><strong>Giảm giá</strong></a>
             </li>
 
             <!--News-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/news'>Tin tức mới</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('news')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/news'>Tin tức mới</a>
             </li>
 
             <!--Help + support-->
-            <li class="nav-item">
-                <a class="nav-link" [class.text-dark]="router.url != '/'" routerLink='/help'>Tư vấn - Hỗ trợ</a>
+            <li class="nav-item" [class.border-bottom]="urlContain('/help')">
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/help'>Tư vấn - Hỗ trợ</a>
             </li>
         </ul>
     </div>

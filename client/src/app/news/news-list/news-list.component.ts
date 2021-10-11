@@ -13,7 +13,6 @@ export class NewsListComponent implements OnInit {
 
   articles: Article[];
   category: string;
-  type: string;
   pagination: Pagination;
   articleParams: ArticleParams;
 
@@ -22,7 +21,6 @@ export class NewsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.type = 'Tin tức mới nhất';
     this.loadArticles();
   }
 
@@ -41,31 +39,23 @@ export class NewsListComponent implements OnInit {
     }
   }
 
-  articleToggle(type: string) {
-    switch (this.articleParams.type) {
-      case 'news': {
-        if (type != 'news') {
-          this.type = 'Tin khuyến mãi';
-          this.articleParams.type = 'promotions';
-          this.articleService.setArticleParams(this.articleParams);
-          this.loadArticles();
-        }
-        break;
-      }
-      case 'promotions': {
-        if (type != 'promotions') {
-          this.type = 'Tin tức mới nhất';
-          this.articleParams.type = 'news';
-          this.articleService.setArticleParams(this.articleParams);
-          this.loadArticles();
-        }
-        break;
 
-      }
+  changeArticleOption(type: string) {
+    if (this.articleParams.type != type) {
+      this.articleParams.type = type;
+      this.articleService.setArticleParams(this.articleParams);
+      this.loadArticles();
     }
   }
 
-  getHeaderImage(): string {
-    return "'" + this.articles[0].thumbnailPhotoUrl + "'";
+  getTitle(): string {
+    switch (this.articleParams.type) {
+      case 'news':
+        return 'Thông báo mới';
+      case 'promotions':
+        return 'Tin khuyến mãi';
+      default:
+        return 'Tất cả tin tức';
+    }
   }
 }

@@ -9,6 +9,10 @@
         margin: 0;
     }
 
+    .back-button {
+        margin-left: 1rem;
+    }
+
     .img-container img {
         max-width: 7rem;
         max-height: 3rem;
@@ -37,7 +41,19 @@
             margin-bottom: 0;
         }
     
+        thead, tbody { display: block; }
+
+tbody {
+    height: 40vh;       /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+    .list {
+        padding-right: 0;
+    }
     
+    table {
+        min-height: 50vh;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -46,4 +62,27 @@
         max-height: 5rem;
     }
 
+    .back-button {
+        margin-left: 9.4%;
+    }
+
+}
+
+.total {
+    display: table;
+    text-align: center;
+}
+
+.total > p {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.total > .total-price {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 1.7rem;
+    color: rgb(233, 173, 76);
 }

@@ -49,7 +49,9 @@ export class NavbarComponent implements OnInit {
     photoUrl: ''
   };
 
-  constructor(public accountService: AccountService, public cartService: CartService, public router: Router, private categoryService: CategoryService) {
+  constructor(public accountService: AccountService, 
+    public cartService: CartService, private router: Router, 
+    private categoryService: CategoryService) {
 
   }
 
@@ -58,7 +60,7 @@ export class NavbarComponent implements OnInit {
     this.search = false;
     this.loadAllCategories();
     this.hoveredCategory.id = 0;
-    
+
   }
 
   navigationBarToggle() {
@@ -110,6 +112,26 @@ export class NavbarComponent implements OnInit {
 
   loadSubCategoryImage(subCategory: SubCategory) {
     this.categoryDropDownImage = subCategory.photoUrl;
+  }
+
+  urlContain(uri: string): boolean {
+    if (this.router.url.includes(encodeURI(uri)))
+      return true;
+    return false;
+  }
+
+  urlNotContain(uriList: string[]): boolean {
+    let result = true;
+
+    for (let element of uriList) {
+      if (this.router.url == element) {
+        result = false;
+        break;
+      }
+    }
+
+    return result;
+
   }
 
 }

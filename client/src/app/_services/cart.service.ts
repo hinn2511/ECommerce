@@ -41,31 +41,9 @@ export class CartService {
   }
 
   addCartItem(cartItem: CartItemUpdate) {
-    // return this.http.get<CartItem[]>(this.baseUrl + 'cart').pipe(concatMap((response) => {
-    //   this.carts = [];
-    //   this.carts = response;
-    //   return this.http.get<Color[]>(this.baseUrl + 'products/color/' + cartItem.productCode).pipe(
-    //     concatMap(color => {
-    //       var item = this.carts.find(x => x.productCode == cartItem.productCode);
-    //       //Tim thay san pham trong gio hang
-    //       if (item != null) {
-    //         cartItem.quantity = cartItem.quantity + item.quantity;
-    //         return this.http.put(this.baseUrl + 'cart/adjust', cartItem);
-    //       }
-    //       // Khong tim thay san pham trong gio hang
-    //       var newCartItem = {
-    //         productCode: cartItem.productCode,
-    //         colorCode: cartItem.colorCode,
-    //         quantity: cartItem.quantity
-    //       }
-    //       return this.http.post(this.baseUrl + 'cart/add', newCartItem);
-    //     })
-    //   )
-    // }));
 
     return this.http.get<CartItem[]>(this.baseUrl + 'cart').pipe(concatMap((response) => {
       this.carts = response;
-      
       var item = this.carts.find(x => x.productCode == cartItem.productCode);
       //Tim thay san pham trong gio hang
       if (item != null) {

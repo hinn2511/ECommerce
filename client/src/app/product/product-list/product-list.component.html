@@ -29,7 +29,8 @@
         <div class="col-lg-10">
             <div class="row list-head mt-5">
                 <div class="col-12">
-                    <h4 class="category-name font-brand">{{category | titlecase}}</h4>
+                    <h4 class="category-name font-brand" *ngIf="category != null">{{category | titlecase}}</h4>
+                    <h4 class="category-name font-brand" *ngIf="area != null">{{area | titlecase}}</h4>
                 </div>
                 <div class="col-12 col-lg-6">
                     <h3 class="category-name">{{pagination?.totalItems}} sản phẩm</h3>

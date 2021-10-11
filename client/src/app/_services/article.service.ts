@@ -52,4 +52,16 @@ export class ArticleService {
     }
     return this.http.get<Article>(this.baseUrl + 'article/' + id);
   }
+
+  getRelatedArticle(id: number, type: number) {
+    const article = [...this.articleCache.values()]
+      .reduce((arr, elm) => arr.concat(elm.result), [])
+      .filter((article: Article) => article.id !== id && article.type == type)
+      .slice(0,2);
+    if (article.length > 1) {
+      return of(article);
+    }
+    return this.http.get<Article[]>(this.baseUrl + 'article/related/' + id);
+  }
+
 }

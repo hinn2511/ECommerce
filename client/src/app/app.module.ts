@@ -17,7 +17,6 @@ import { ProductCardComponent } from './product/product-card/product-card.compon
 import { PromotionsComponent } from './promotions/promotions.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
-import { AreaComponent } from './area/area.component';
 import { FooterComponent } from './footer/footer.component';
 import { CustomerInfoComponent } from './customer/customer-info/customer-info.component';
 import { CustomerFavoriteComponent } from './customer/customer-favorite/customer-favorite.component';
@@ -43,6 +42,8 @@ import { SearchResultComponent } from './search/search-result/search-result.comp
 import { NewsListComponent } from './news/news-list/news-list.component';
 import { NewsDetailComponent } from './news/news-detail/news-detail.component';
 import { NewsCardComponent } from './news/news-card/news-card.component';
+import { ArticleTypePipe } from './_pipes/article-type.pipe';
+import { ProductFilterComponent } from './product/product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,6 @@ import { NewsCardComponent } from './news/news-card/news-card.component';
     PromotionsComponent,
     CollectionsComponent,
     HelpSupportComponent,
-    AreaComponent,
     FooterComponent,
     CustomerInfoComponent,
     CustomerFavoriteComponent,
@@ -79,7 +79,9 @@ import { NewsCardComponent } from './news/news-card/news-card.component';
     SearchResultComponent,
     NewsListComponent,
     NewsDetailComponent,
-    NewsCardComponent
+    NewsCardComponent,
+    ArticleTypePipe,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,

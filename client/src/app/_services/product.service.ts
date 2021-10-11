@@ -34,13 +34,14 @@ export class ProductService {
     return this.customerParams;
   }
 
-  getProductsByCategory(customerParams: ProductParams) {
+  getProducts(customerParams: ProductParams) {
     var response = this.productCache.get(Object.values(customerParams).join('-'));
     if (response) {
       return of(response);
     }
     let params = getPaginationHeaders(customerParams.pageNumber, customerParams.pageSize);
     params = params.append('categories', customerParams.categories);
+    params = params.append('area', customerParams.area);
     params = params.append('minPrice', customerParams.minPrice.toString());
     params = params.append('maxPrice', customerParams.maxPrice.toString());
     params = params.append('orderBy', customerParams.orderBy);
