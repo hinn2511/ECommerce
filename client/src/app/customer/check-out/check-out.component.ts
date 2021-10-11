@@ -23,7 +23,6 @@ export class CheckOutComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
   shippingMethod: ShippingMethod;
   paymentMethod: PaymentMethod;
-  quantity: number;
   subTotal: number;
   discount: number = 0;
   checkoutForm: FormGroup;
@@ -56,10 +55,8 @@ export class CheckOutComponent implements OnInit {
     this.cartService.getAllCustomerCart().subscribe(response => {
       this.carts = response;
       this.subTotal = 0;
-      this.quantity = 0;
       for (let item of response) {
         this.subTotal = this.subTotal + item.price * item.quantity;
-        this.quantity = this.quantity + item.quantity;
       }
     })
   }

@@ -44,6 +44,7 @@ import { NewsDetailComponent } from './news/news-detail/news-detail.component';
 import { NewsCardComponent } from './news/news-card/news-card.component';
 import { ArticleTypePipe } from './_pipes/article-type.pipe';
 import { ProductFilterComponent } from './product/product-filter/product-filter.component';
+import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { ProductFilterComponent } from './product/product-filter/product-filter.
     NewsDetailComponent,
     NewsCardComponent,
     ArticleTypePipe,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

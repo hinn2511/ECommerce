@@ -139,16 +139,16 @@
 
                 <!--Login-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" [class.text-light]="getCurrentRoute() == '/'"
+                    <a class="nav-link px-0" [class.text-light]="urlNotContain(['/'])"
                         [class.text-dark]="urlNotContain(['/', '/login', '/register'])"
-                        routerLink='/login' (click)="hideMenuToggle()">Đăng nhập</a>
+                        routerLink='/login'>Đăng nhập</a>
                 </li>
 
                 <!--Register-->
                 <li class="nav-item" *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="nav-link px-0" [class.text-light]="getCurrentRoute() == '/'"
+                    <a class="nav-link px-0" [class.text-light]="urlNotContain(['/'])"
                         [class.text-dark]="urlNotContain(['/', '/login', '/register'])"
-                        routerLink='/register' (click)="hideMenuToggle()">Đăng ký</a>
+                        routerLink='/register'>Đăng ký</a>
                 </li>
 
                 <!--Customer info-->
