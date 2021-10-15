@@ -46,6 +46,7 @@ import { ArticleTypePipe } from './_pipes/article-type.pipe';
 import { ProductFilterComponent } from './product/product-filter/product-filter.component';
 import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,7 @@ import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.
     NewsCardComponent,
     ArticleTypePipe,
     ProductFilterComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

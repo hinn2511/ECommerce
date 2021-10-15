@@ -24,7 +24,8 @@
                     <div class="col-6 col-lg-6 px-0 text-right">
                         <p class="fw-bolder" 
                             [class.text-muted]="order.state == 0"
-                            [class.text-primary]="order.state == 2"
+                            [class.text-primary]="order.state == 1"
+                            [class.text-warning]="order.state == 2"
                             [class.text-success]="order.state == 3"
                             [class.text-danger]="order.state == 4">{{order.state | orderState}}</p>
                     </div>
@@ -87,8 +88,8 @@
                         <p> Tổng tiền thanh toán</p>
                     </div>
                     <div class="col-6 col-lg-6 px-0 text-right total">
-                        <p class="fw-bolder total-price">{{order.subTotal - order.discount + order.shippingMethod.price |
-                            currency:"VND"}}</p>
+                        <h4 class="fw-bolder">{{order.subTotal - order.discount + order.shippingMethod.price |
+                            currency:"VND"}}</h4>
                     </div>
                 </div>
 
@@ -97,7 +98,7 @@
         <div class="col-12 col-lg-5 list">
             <h4 class="col-12 text-center mb-4">Danh sách sản phẩm</h4>
             <div class="d-none d-lg-block">
-                <table class="table">
+                <table class="table table-bordered border-primary">
                     <thead class="bg-light-grey">
                         <tr>
                             <th scope="col" class="text-center">Sản phẩm</th>

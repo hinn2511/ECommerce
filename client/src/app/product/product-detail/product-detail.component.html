@@ -5,7 +5,7 @@
             <li class="breadcrumb-item"><a class="text-decoration-none text-muted"
                     routerLink="/category/{{product.category | titlecase}}">{{product.category | titlecase}}</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none text-muted"
-                    routerLink="/category/{{product.subCategory | titlecase}}">{{product.subCategory | titlecase}}</a>
+                routerLink='/category' [queryParams]="{subCategory: product.subCategory}">{{product.subCategory | titlecase}}</a>
             </li>
             <li class="breadcrumb-item active text-dark " aria-current="page">{{product.productName | titlecase}}</li>
         </ol>

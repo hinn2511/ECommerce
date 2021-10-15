@@ -1,7 +1,7 @@
 <div class="wrapper">
     <ngx-spinner>Đang tải</ngx-spinner>
     <div class="content">
-        <app-navbar (showSearchBar)="showSearchBarMobile($event)" (navBarOpen)="hideContent($event)"></app-navbar>
+        <app-navbar [class.fixed-top]="isSticky" (showSearchBar)="showSearchBarMobile($event)" (navBarOpen)="hideContent($event)"></app-navbar>
 
         <div class="container" [class.d-none]="!showContent" 
             [class.padding]="router.url != '/' && router.url != '/login' && router.url != '/register'">

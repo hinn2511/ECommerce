@@ -8,7 +8,7 @@
                 [(ngModel)]="keyWord"
                 name="keyWord">
             
-            <button class="btn btn-dark" type="submit" id="button-addon2">Tìm kiếm</button>
+            <button class="btn btn-dark" [class.btn-accent]="isSticky" type="submit">Tìm kiếm</button>
 
             <i *ngIf="keyWord != ''" (click)="clearKeyWord()" class="fa fa-times cs-pointer"></i>
           </div>

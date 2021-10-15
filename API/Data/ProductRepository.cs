@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +7,6 @@ using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -27,28 +25,35 @@ namespace API.Data
         public async Task<PagedList<ProductDto>> GetAllProductsAsync(ProductParams productParams)
         {
             var query = _context.Products.AsQueryable();
+
+            if (productParams.Category != null)
+                query = query.Where(p => p.Category.CategoryName == productParams.Category);
+
+            if (productParams.SubCategory != null)
+                query = query.Where(p => p.SubCategory.SubCategoryName == productParams.SubCategory);
+
+            if (productParams.Area != null)
+                query = query.Where(p => p.Area.Name == productParams.Area);
             
+            if (productParams.SaleUpTo > 0)
+                query = query.Where(p => p.SalePercent <= productParams.SaleUpTo && p.SalePercent > 0);
+
             var minPrice = 0.0;
             var maxPrice = 1000000000.0;
             if (productParams.MinPrice > 0.0)
                 minPrice = productParams.MinPrice;
-        if (productParams.MaxPrice > 0.0)
+            if (productParams.MaxPrice > 0.0)
                 maxPrice = productParams.MaxPrice;
-            if (productParams.Categories != null)
-                query = query.Where(p => p.SubCategory.SubCategoryName == productParams.Categories
-                || p.Category.CategoryName == productParams.Categories);
-            
-            if (productParams.Area != null)
-                query = query.Where(p => p.Area.Name == productParams.Area);
 
             query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+
 
             query = productParams.OrderBy switch
             {
                 "newest" => query.OrderByDescending(u => u.Created),
-                "oldest" => query.OrderBy(u => u.Created),
                 "highestPrice" => query.OrderByDescending(u => u.Price),
                 "lowestPrice" => query.OrderBy(u => u.Price),
+                "salePercent" => query.OrderByDescending(u => u.SalePercent),
                 _ => query.OrderByDescending(u => u.Created)
             };
 
@@ -64,7 +69,7 @@ namespace API.Data
             var query = _context.Products.AsQueryable();
 
             query = query.Where(p => p.ProductName.Contains(searchProductParams.Keyword));
-            
+
             var minPrice = 0.0;
             var maxPrice = 1000000000.0;
             if (searchProductParams.MinPrice > 0.0)
@@ -72,13 +77,14 @@ namespace API.Data
             if (searchProductParams.MaxPrice > 0.0)
                 maxPrice = searchProductParams.MaxPrice;
 
-            if (searchProductParams.Categories != null) {
+            if (searchProductParams.Categories != null)
+            {
                 query = query.Where(p => p.SubCategory.SubCategoryName == searchProductParams.Categories
                     || p.Category.CategoryName == searchProductParams.Categories);
             }
 
-            
-            
+
+
             query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
             query = searchProductParams.OrderBy switch
@@ -146,7 +152,7 @@ namespace API.Data
         public async Task<IEnumerable<ProductColorDto>> GetProductColor(string productCode)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductCode == productCode);
-            if (product != null) 
+            if (product != null)
             {
                 return await _context.ProductColors
                 .Where(p => p.ProductId == product.Id)

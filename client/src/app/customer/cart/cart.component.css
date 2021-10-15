@@ -9,15 +9,24 @@
 }
 
 @media screen and (max-width: 1280px) {
+    .container {
+        margin: 10vh 0;
+    }
+
     .col-12 {
         padding-right: 0;
     }
 
     .row {
         margin-right: 0;
+        
     }
 
-    tr > .image{
+    .d-lg-none {
+        min-height: 50vh;
+    }
+
+    tr > .image, tr > .btn-delete{
         vertical-align: middle;
         width: 4rem;
     }
@@ -50,9 +59,15 @@
 }
 
 @media screen and (min-width: 1280px) {
+    .container {
+        margin-bottom: 10vh;
+    }
+
+    
     .row {
         margin: auto 0;
     }
+    
 
     td {
         height: 15vh;
@@ -78,3 +93,4 @@
         text-align: right;
     }
 }
+

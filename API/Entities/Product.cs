@@ -11,6 +11,7 @@ namespace API.Entities
         public string ProductCode { get; set; }
         public string ProductName { get; set; }
         public double Price { get; set; }
+        public int SalePercent { get; set; }
         public string Material { get; set; }
         public int Height { get; set; }
         public int Length { get; set; }

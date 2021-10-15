@@ -1,4 +1,4 @@
-namespace API.DTOs.Product
+namespace API.DTOs
 {
     public class CartItemDto
     {

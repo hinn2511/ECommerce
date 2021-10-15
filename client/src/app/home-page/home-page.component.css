@@ -386,15 +386,12 @@ img {
 .btn-header {
     right: 0;
     bottom: 0;
-    background-color: rgb(233, 173, 76);
     font-weight: bold;
     color: white;
     position: absolute;
 }
 
-.btn-header:hover {
-    background-color: rgb(194, 138, 17);
-}
+
 
 /* ------------- Category ----------------*/
 
@@ -413,7 +410,6 @@ img {
 }
 
 .email-signup {
-    background-color: rgb(219, 166, 67);
     padding-bottom: 10vh;
 }
 

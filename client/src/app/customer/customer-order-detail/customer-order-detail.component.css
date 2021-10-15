@@ -44,8 +44,8 @@
         thead, tbody { display: block; }
 
 tbody {
-    height: 40vh;       /* Trigger vertical scroll    */
-    overflow-x: hidden;  /* Hide the horizontal scroll */
+    height: 40vh;     
+    overflow-x: hidden; 
 }
     .list {
         padding-right: 0;
@@ -73,16 +73,15 @@ tbody {
     text-align: center;
 }
 
-.total > p {
+.total > p, .total > h4 {
     display: table-cell;
     vertical-align: middle;
+}
+
+.total > p {
     text-align: left;
 }
 
-.total > .total-price {
-    display: table-cell;
-    vertical-align: middle;
+.total > h4 {
     text-align: right;
-    font-size: 1.7rem;
-    color: rgb(233, 173, 76);
 }

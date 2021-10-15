@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-10" *ngIf="carts.length > 0; else empty">
             <div class="d-none d-lg-block">
-                <table class="table table-hover">
+                <table class="table table-bordered border-primary">
                     <thead class="bg-light-grey">
                         <tr>
                             <th scope="col" class="text-center">Sản phẩm</th>
@@ -11,7 +11,6 @@
                             <th scope="col" class="text-center">Lựa chọn</th>
                             <th scope="col" class="text-center">Đơn giá</th>
                             <th scope="col" class="text-center">Số lượng</th>
-                            <th scope="col" class="text-center">Tổng cộng</th>
                             <th scope="col" class="text-center">Xóa</th>
                         </tr>
                     </thead>
@@ -50,24 +49,19 @@
                             </td>
                             <td>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" appDebounceClick (debounceClick)="update('dec')"
-                                            (click)="decreaseQuantity(item)">
-                                            <i class="fa fa-minus text-muted"></i>
-                                        </span>
-                                    </div>
+                                    <button class="btn btn-minus btn-outline-secondary" type="button" 
+                                        appDebounceClick (debounceClick)="update('dec')"
+                                        (click)="decreaseQuantity(item)">
+                                        <i class="fa fa-minus text-muted"></i>
+                                    </button>
                                     <input type="number" min="1" max="99" pattern="\d*" class="form-control"
                                         value="{{item.quantity}}" placeholder="{{item.quantity}}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" appDebounceClick (debounceClick)="update('inc')"
-                                            (click)="increaseQuantity(item)">
-                                            <i class="fa fa-plus text-muted"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p>{{item.price * item.quantity | currency:"VND"}}</p>
+                                    <button class="btn btn-plus btn-outline-secondary" type="button" 
+                                        appDebounceClick (debounceClick)="update('inc')"
+                                        (click)="increaseQuantity(item)">
+                                        <i class="fa fa-plus text-muted"></i>
+                                    </button>
+                                  </div>
                             </td>
                             <td>
                                 <button class="btn btn-light border text-dark" (click)="removeFromCart(item.productCode)">
@@ -79,7 +73,7 @@
                 </table>
             </div>
             <div class="d-lg-none">
-                <table class="table">
+                <table class="table table-borderless">
                     <tbody>
                         <tr *ngFor="let item of carts">
                             <td class="image" routerLink='/product/{{item.productCode}}/{{item.productName}}'>
@@ -110,26 +104,25 @@
 
                                 <p>{{item.price | currency:"VND"}}</p>
 
+
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" appDebounceClick (debounceClick)="update('dec')"
-                                            (click)="decreaseQuantity(item)">
-                                            <i class="fa fa-minus text-muted"></i>
-                                        </span>
-                                    </div>
+                                    <button class="btn btn-minus btn-outline-secondary" type="button" 
+                                        appDebounceClick (debounceClick)="update('dec')"
+                                        (click)="decreaseQuantity(item)">
+                                        <i class="fa fa-minus text-muted"></i>
+                                    </button>
                                     <input type="number" min="1" max="99" pattern="\d*" class="form-control"
                                         value="{{item.quantity}}" placeholder="{{item.quantity}}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" appDebounceClick (debounceClick)="update('inc')"
-                                            (click)="increaseQuantity(item)">
-                                            <i class="fa fa-plus text-muted"></i>
-                                        </span>
-                                    </div>
-                                </div>
+                                    <button class="btn btn-plus btn-outline-secondary" type="button" 
+                                        appDebounceClick (debounceClick)="update('inc')"
+                                        (click)="increaseQuantity(item)">
+                                        <i class="fa fa-plus text-muted"></i>
+                                    </button>
+                                  </div>
 
                             </td>
-                            <td>
-                                <button class="btn btn-light border text-dark" (click)="removeFromCart(item.productCode)">
+                            <td class="btn-delete">
+                                <button class="btn btn-outline-danger" (click)="removeFromCart(item.productCode)">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </td>
@@ -138,7 +131,7 @@
                 </table>
     
             </div>
-            <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
+            <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination && pagination.totalItems > pagination.itemsPerPage">
                 <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
                     [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
                     (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
@@ -146,11 +139,9 @@
                 </pagination>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-6 col-lg-6 total">
-                    <h5>Tổng giá trị: <strong>{{total | currency:"VND"}}</strong></h5>
-                </div>
-                <div class="col-6 col-lg-6 check-out">
+            <div class="row justify-content-end mt-3">
+                <div class="col-12 col-lg-3 px-3 check-out">
+                    <h5>Tổng giá trị:&nbsp;&nbsp;<strong>{{total | currency:"VND"}}</strong></h5>
                     <button
                         class="btn btn-dark text-light px-4 pt-3"
                         [disabled]="carts.length == 0"

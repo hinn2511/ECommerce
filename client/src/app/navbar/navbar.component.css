@@ -48,7 +48,11 @@
 }
 
 @media screen and (min-width: 988px) {
-    
+
+    .bg-accent {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
     .navbar-brand {
         font-size: 2rem;
     }

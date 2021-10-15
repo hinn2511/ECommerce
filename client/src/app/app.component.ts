@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartItem } from './_models/cartItem';
 import { User } from './_models/user';
@@ -15,6 +15,12 @@ export class AppComponent implements OnInit{
   searchMode = false;
   showContent: boolean;
   carts: CartItem[];
+  isSticky: boolean;
+  
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 250;
+  }
   
   constructor(private accountService : AccountService, public router: Router) {
   }

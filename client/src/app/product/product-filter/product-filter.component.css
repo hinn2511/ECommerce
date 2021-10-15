@@ -1,0 +1,42 @@
+div > div > button {
+    width: 100%;
+}
+
+@media screen and (max-width: 990px) { 
+    .fixed-top  {
+        margin-top: 7vh;
+    }
+
+    div > .form-inline {
+        min-height: 80vh;
+    }
+
+    
+
+    div > .form-inline > .row {
+        min-height: 60vh;
+        max-height: calc(55vh + 20vw);
+        overflow-y: scroll; 
+        overflow-x: hidden;
+    }
+
+    div > .form-inline > .filter-btn {
+        width: 100%;
+    }
+
+    div > div > div > button{
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 990px) {
+
+    .form-inline > div, .form-inline > h5 {
+        width: 100%;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: rgb(90, 90, 90);
+}

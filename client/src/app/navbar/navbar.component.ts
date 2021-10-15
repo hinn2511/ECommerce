@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { Category, SubCategory } from '../_models/categories';
@@ -48,6 +48,12 @@ export class NavbarComponent implements OnInit {
     subCategories: [],
     photoUrl: ''
   };
+  isSticky: boolean;
+
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 250;
+  }
 
   constructor(public accountService: AccountService, 
     public cartService: CartService, private router: Router, 

@@ -1,5 +1,5 @@
 <!--Navbar mobile-->
-<nav class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light rounded d-lg-none">
+<nav class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light d-lg-none">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" (click)="navigationBarToggle()">
             <span class="navbar-toggler-icon"></span>
@@ -104,7 +104,10 @@
 </nav>
 
 <!--Navbar desktop-->
-<nav class="navbar navbar-expand-lg rounded d-none d-lg-block desktop">
+<nav class="navbar navbar-expand-lg d-none d-lg-block desktop" 
+    [class.fixed-top]="isSticky" 
+    [class.bg-light]="isSticky && urlNotContain(['/', '/login', '/register'])"
+    [class.bg-accent]="isSticky && !urlNotContain(['/', '/login', '/register'])">
     <div class="container-fluid">
 
         <!--Brand logo-->
@@ -206,7 +209,7 @@
                             <div class="col-3">
                                 <li *ngFor="let item of subCategories">
                                     <a class="dropdown-item" (mouseover)="loadSubCategoryImage(item)"
-                                        routerLink='/category/{{item.subCategoryName}}'>{{item.subCategoryName |
+                                        routerLink='/category' [queryParams]="{subCategory: item.subCategoryName}">{{item.subCategoryName |
                                         titlecase}}</a>
                                 </li>
                                 <li>
@@ -233,7 +236,7 @@
             
             <!--Kitchen room-->
             <li class="nav-item" [class.border-bottom]="urlContain('/phòng bếp')">
-                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/phòng bếp'>Nhà bếp</a>
+                <a class="nav-link" [class.text-dark]="urlNotContain(['/'])" routerLink='/area/phòng bếp'>Phòng bếp</a>
             </li>
 
             <!--Bedroom-->

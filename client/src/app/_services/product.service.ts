@@ -14,40 +14,56 @@ export class ProductService {
   baseUrl = environment.apiUrl;
   products: Product[] = [];
   productCache = new Map();
-  customerParams: ProductParams;
+  productParams: ProductParams;
+  state: string = '';
 
 
   constructor(private http: HttpClient) {
-    this.customerParams = new ProductParams();
+    this.productParams = new ProductParams();
   }
 
   getProductParams() {
-    return this.customerParams;
+    return this.productParams;
   }
 
   setProductParams(params: ProductParams) {
-    this.customerParams = params;
+    this.productParams = params;
   }
 
   resetProductParams() {
-    this.customerParams = new ProductParams();
-    return this.customerParams;
+    this.productParams = new ProductParams();
+    return this.productParams;
   }
 
-  getProducts(customerParams: ProductParams) {
-    var response = this.productCache.get(Object.values(customerParams).join('-'));
+  getState() {
+    return this.state;
+  }
+
+  setState(state: string) {
+    this.state = state;
+  }
+
+  resetState() {
+    this.state = '';
+    return this.setState;
+  }
+
+  getProducts(productParams: ProductParams) {
+    var response = this.productCache.get(Object.values(productParams).join('-'));
     if (response) {
       return of(response);
     }
-    let params = getPaginationHeaders(customerParams.pageNumber, customerParams.pageSize);
-    params = params.append('categories', customerParams.categories);
-    params = params.append('area', customerParams.area);
-    params = params.append('minPrice', customerParams.minPrice.toString());
-    params = params.append('maxPrice', customerParams.maxPrice.toString());
-    params = params.append('orderBy', customerParams.orderBy);
+    let params = getPaginationHeaders(productParams.pageNumber, productParams.pageSize);
+    params = params.append('category', productParams.category);
+    params = params.append('subCategory', productParams.subCategory);
+    params = params.append('area', productParams.area);
+    params = params.append('saleUpTo', productParams.saleUpTo.toString());
+    params = params.append('minPrice', productParams.minPrice.toString());
+    params = params.append('maxPrice', productParams.maxPrice.toString());
+    params = params.append('orderBy', productParams.orderBy);
     return getPaginatedResult<Product[]>(this.baseUrl + 'product', params, this.http).pipe(
       map(response => {
-        this.productCache.set(Object.values(customerParams).join('-'), response);
+        this.productCache.set(Object.values(productParams).join('-'), response);
         return response;
       })
     );

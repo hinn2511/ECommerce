@@ -117,3 +117,24 @@ input[type=number] {
 .pagination-page, .page-item {
     z-index: 0;
 }
+
+.btn-minus {
+    border-radius: 3px 0 0 3px;
+}
+
+.btn-plus {
+    border-radius: 0 3px 3px 0;
+}
+
+.btn-accent {
+    background-color: rgb(238, 174, 55);
+    border: none;
+}
+
+.btn-accent:hover {
+    background-color: rgb(194, 138, 17);
+}
+
+.bg-accent {
+    background-color: rgb(238, 174, 55);
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchProductParams } from 'src/app/_models/searchProductParams';
 import { SearchService } from 'src/app/_services/search.service';
@@ -10,6 +10,12 @@ import { SearchService } from 'src/app/_services/search.service';
 })
 export class SearchBarComponent implements OnInit {
   keyWord = '';
+  isSticky: boolean;
+  
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 250;
+  }
 
   constructor(private router: Router, private searchService: SearchService) { }
 
