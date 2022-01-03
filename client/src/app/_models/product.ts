@@ -16,6 +16,7 @@ export interface Product {
     brand: string;
     collection: string;
     price: number;
+    salePercent: number;
     introduction: string;
     productPhotos: ProductPhoto[];
     productColors: Color[];

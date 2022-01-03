@@ -9,13 +9,13 @@ import { Article } from 'src/app/_models/article';
 })
 export class NewsCardComponent implements OnInit {
   @Input() article: Article;
-  @Input() alignment: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+   }
 
   ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    window.scroll(0,0);
+    
   }
 
   

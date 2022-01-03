@@ -12,6 +12,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { viLocale } from 'ngx-bootstrap/locale';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ModalModule } from 'ngx-bootstrap/modal';
  defineLocale('vi', viLocale);
 
@@ -27,6 +28,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
+    CarouselModule.forRoot(),
     ModalModule.forRoot(),
     NgxSpinnerModule,
     NgxGalleryModule,
@@ -38,6 +40,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ToastrModule,
     TabsModule,
     PaginationModule,
+    CarouselModule,
     ButtonsModule,
     ModalModule,
     NgxGalleryModule,

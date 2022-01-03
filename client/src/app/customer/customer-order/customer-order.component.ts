@@ -16,6 +16,15 @@ export class CustomerOrderComponent implements OnInit {
   pagination: Pagination;
   tabActive = 0;
 
+  predicates: {id: number; name: string, value: string}[] = [
+    {id : -1, name: 'Tất cả', value: 'all'},
+    {id : 0, name: 'chờ xác nhận', value: 'wfa'},
+    {id : 1, name: 'đang chuẩn bị', value: 'preparing'},
+    {id : 2, name: 'đang giao', value: 'delivering'},
+    {id : 3, name: 'đã giao', value: 'delivered'},
+    {id : 4, name: 'đã hủy', value: 'cancelled'}
+  ];
+
 
   constructor(private orderService: OrderService, private router: Router) {
     this.orderService.resetOrderParams();
@@ -23,7 +32,6 @@ export class CustomerOrderComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
     this.loadOrders();
   }
 
@@ -43,39 +51,23 @@ export class CustomerOrderComponent implements OnInit {
     }
   }
 
-  selectPredicate(type: number) {
-    switch (type) {
-      case 0: {
-        this.selectTab(0);
-        break;
-      } 
-      case 1: {
-        this.selectTab(1);
-        break;
-      } 
-      case 2: {
-        this.selectTab(2);
-        break;
-      } 
-      case 3: {
-        this.selectTab(3);
-        break;
-      } 
-      case 4: {
-        this.selectTab(4);
-        break;
-      }
-    }
-    
-  }
 
-  selectTab(tabId: number) {
-    this.tabActive = tabId;
+    
+  selectPredicate(id: number) {
+    let pre = this.predicates.find(p => p.id == id);
+    this.orderParams.predicate = pre.value;
     this.loadOrders();
   }
 
-  getOrderDetail(orderId: number) {
-    this.router.navigateByUrl('order-detail/' + orderId);
-  }
+  // selectTab(tabId: number) {
+  //   this.tabActive = tabId;
+  //   this.loadOrders();
+  // }
+
+
+
+  // getOrderDetail(orderId: number) {
+  //   this.router.navigateByUrl('order-detail/' + orderId);
+  // }
 
 }

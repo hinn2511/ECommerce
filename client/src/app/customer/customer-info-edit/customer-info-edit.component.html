@@ -1,0 +1,111 @@
+<div class="container pt-3 p-lg-5" *ngIf="member">
+
+    <div class="row mx-0 justify-content-center">
+
+        <div class="col-lg-6">
+
+
+            <div class="card border-none bg-white shadow p-3 mb-3">
+                <h3 class="m-0 text-center py-lg-3 fw-bold text-uppercase">
+                    Thông tin cá nhân
+                </h3>
+                <form #editForm="ngForm" id="editForm" (ngSubmit)="updateCustomer()">
+                    <div class="row mx-0 my-4">
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Tên đăng nhập</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <p>{{user.username}}</p>
+                        </div>
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Họ</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <textarea class="form-control" [(ngModel)]="member.firstName" name="firstName"
+                                rows="1"></textarea>
+                        </div>
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Tên</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <textarea class="form-control" [(ngModel)]="member.lastName" name="lastName"
+                                rows="1"></textarea>
+                        </div>
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Ngày sinh</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <app-date-input [(ngModel)]="member.dateOfBirth" name="dateOfBirth" [label]='"Ngày sinh"'>
+                            </app-date-input>
+                        </div>
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Giới tính</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" [(ngModel)]="member.gender" name="gender"
+                                    value="nam" [checked]="member.gender == 'nam'">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" [(ngModel)]="member.gender" name="gender"
+                                    value="nữ" [checked]="member.gender == 'nữ'">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Nữ
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" [(ngModel)]="member.gender" name="gender"
+                                    value="khác" [checked]="member.gender == 'khác'">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Khác
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Số điện thoại</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <textarea class="form-control" [(ngModel)]="member.phoneNumber" name="phoneNumber"
+                                rows="1"></textarea>
+                        </div>
+                        <div class="col-lg-3 text-lg-right text-left mb-2 mb-lg-4">
+                            <p class="fw-bold">Email</p>
+                        </div>
+                        <div class="col-lg-8 mb-2 mb-lg-4">
+                            <textarea class="form-control" [(ngModel)]="member.email" name="email" rows="1"></textarea>
+                        </div>
+
+                    </div>
+                </form>
+
+                <div class="form-inline p-lg-3">
+                    <div class="alert alert-info w-100 p-3" *ngIf="editForm.dirty">
+                        <strong>Lưu ý: </strong> Bạn đã thay đổi thông tin. Vui lòng nhấn vào nút lưu bên dưới để tránh
+                        mất thông tin.
+                    </div>
+                    <div class="w-100 text-center">
+                        <button class="w-100 py-3 btn btn-red text-light" [disabled]="!editForm.dirty" form="editForm"
+                            type="submit">
+                            Lưu thông tin
+                        </button>
+                    </div>
+                    <div class="w-100 text-center p-3">
+                        <a class="w-100 py-3 text-dark" routerLink='/my-account'>
+                            Hủy
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

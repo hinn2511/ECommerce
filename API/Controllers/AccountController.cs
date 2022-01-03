@@ -48,7 +48,7 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
-                Name = user.LastName + ' ' + user.FirstName
+                Name = user.FirstName
             };
         }
 
@@ -69,7 +69,26 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
-                Name = user.LastName + ' ' + user.FirstName
+                Name = user.FirstName
+            };
+
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<ActionResult<UserDto>> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            var user = await _userManager.Users
+                    .SingleOrDefaultAsync(u => u.UserName == resetPasswordDto.Username.ToLower());
+
+            var result = await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.NewPassword);
+            
+            if (!result.Succeeded) return Unauthorized();
+
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = await _tokenService.CreateToken(user),
+                Name = user.FirstName
             };
 
         }

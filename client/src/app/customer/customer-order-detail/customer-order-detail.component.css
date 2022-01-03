@@ -1,87 +1,69 @@
-@media screen and (max-width: 1200px) {
-    .col-12 {
-        margin: 0;
-    }
 
 
-    .row {
-        width: 100%;
-        margin: 0;
-    }
-
-    .back-button {
-        margin-left: 1rem;
-    }
-
-    .img-container img {
-        max-width: 7rem;
-        max-height: 3rem;
-    }
-
-    .col-4 {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .dropdown-menu {
-        right: 0 !important;
-        left:0 !important; 
-    }
-
-    .dropdown-item {
-        padding: 0 0;
-    }
-
-        .ovf-sm-0{
-            white-space: normal;
-            margin: 0 auto;
-        }
-
-        .price {
-            margin-bottom: 0;
-        }
-    
-        thead, tbody { display: block; }
-
-tbody {
-    height: 40vh;     
-    overflow-x: hidden; 
-}
-    .list {
-        padding-right: 0;
-    }
-    
-    table {
-        min-height: 50vh;
-    }
+.timeline{
+	position: relative;
 }
 
-@media screen and (min-width: 1200px) {
-    .img-container img {
-        max-width: 4rem;
-        max-height: 5rem;
-    }
-
-    .back-button {
-        margin-left: 9.4%;
-    }
-
+/*Line*/
+.timeline>li::before{
+	content:'';
+	position: absolute;
+	width: 1px;
+	background-color: #d7cec7;
+	top: 0;
+	bottom: 0;
+	left:-19px;
 }
 
-.total {
-    display: table;
+/*Circle*/
+.timeline>li::after{
+    font-family: FontAwesome;
     text-align: center;
+    padding-top: 0px;
+	z-index: 10;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border:3px solid white;
+	background-color: #ece6e1;
+	border-radius: 50%;
+	top:0;
+	left:-33px;
 }
 
-.total > p, .total > h4 {
-    display: table-cell;
-    vertical-align: middle;
+.timeline>li:first-child::after{
+	content: "\f12a";
 }
 
-.total > p {
-    text-align: left;
+.timeline>li.approved::after{
+	content: "\f00c";
 }
 
-.total > h4 {
-    text-align: right;
+.timeline>li.delivering::after{
+	content: "\f0d1";
+}
+
+.timeline>li.delivered::after{
+	content: "\f164";
+}
+
+.timeline>li.prepared::after{
+	content: "\f085";
+}
+
+.timeline>li.canceled::after{
+	content: "\f00d";
+}
+
+/*Content*/
+.timeline>li{
+	padding: 5px 20px;
+	margin-left: 0px;
+	min-height: 50px;
+	position: relative;
+	background-color: white;
+	list-style: none;
+}
+.timeline>li:nth-last-child(1)::before{
+	width: 0px;
 }

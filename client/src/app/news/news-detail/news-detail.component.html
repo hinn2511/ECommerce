@@ -1,27 +1,25 @@
 <div class="container" *ngIf="artcicle">
-    <section class="thumbnail" style="background: url('{{artcicle.thumbnailPhotoUrl}}') no-repeat center center;">
-    </section>
+    <ng-container *ngIf="artcicle.thumbnailPhotoUrl != ''">
+        <section class="thumbnail" style="background: url('{{artcicle.thumbnailPhotoUrl}}') no-repeat center center;">
+        </section>
+    </ng-container>
+
 
     <section class="article-detail">
         <div class="title mt-5">
             <h5 class="text-muted cs-pointer" (click)='returnTo(artcicle.type)'>{{artcicle.type | articleType}}</h5>
-            <h1 class="fw-bolder mt-3">{{artcicle.title}}</h1>
-            <h6 class="mt-3">{{artcicle.publisherName}} &nbsp;&#8226;&nbsp; {{artcicle.publishedDate | date:'short'}}</h6>
+            <h1 class="fw-bolder text-red mt-3">{{artcicle.title}}</h1>
+            <h6 class="mt-3">{{artcicle.publisherName}} &nbsp;&#8226;&nbsp; {{artcicle.publishedDate | date:'short'}}
+            </h6>
         </div>
 
-        <div class="description">
-            <hr class="dropdown-diver">
-            <p class="fw-bold">
-                {{artcicle.description}}
-            </p>
-            <hr class="dropdown-diver">
-        </div>
+        
 
         <div class="paragraph mt-5">
             <div *ngFor="let paragraph of artcicle.paragraphs; let i = index">
 
                 <ng-container *ngIf="paragraph.heading">
-                    <h3 class="text-center fw-bolder" [class.pt-4]="i > 0">{{paragraph.heading}}</h3>
+                    <h4 class="text-center fw-bold" [class.mt-5]="i > 0">{{paragraph.heading}}</h4>
                 </ng-container>
 
                 <ng-container *ngIf="paragraph.content">
@@ -46,11 +44,11 @@
             </div>
         </div>
     </section>
-    <section class="related-article" *ngIf="relatedArticles">
-        <h3 class="fw-bold">Tin liên quan</h3>
+    <section class="related-article my-5 mt-lg-3" *ngIf="relatedArticles">
+        <h4 class="fw-bold text-red">Tin liên quan</h4>
         <div class="row">
-            <div *ngFor="let article of relatedArticles" class="col-12 col-md-6 col-lg-12">
-                <app-news-card class="m-3" [alignment]="'both'" [article]="article"></app-news-card>
+            <div *ngFor="let article of relatedArticles" class="p-3">
+                <app-news-card class="p-3" [article]="article"></app-news-card>
             </div>
         </div>
     </section>

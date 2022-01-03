@@ -12,6 +12,7 @@ import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { CartService } from 'src/app/_services/cart.service';
+import { FavoriteService } from 'src/app/_services/favorite.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -38,7 +39,8 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService, 
     private toastr: ToastrService, private route: Router, 
-    private productService: ProductService, private accountService: AccountService) {
+    private productService: ProductService, private accountService: AccountService,
+    private favoriteService: FavoriteService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
         this.user = user;
       })
@@ -50,7 +52,7 @@ export class CartComponent implements OnInit {
   }
 
   loadLoggedInCustomerCart() {
-    ;
+
     this.cartService.getCustomerCart(this.pageNumber, this.pageSize).subscribe(response => {
       this.carts = response.result;
       this.pagination = response.pagination;
@@ -63,6 +65,12 @@ export class CartComponent implements OnInit {
       this.pageNumber = event.page;
       this.loadLoggedInCustomerCart();
     }
+  }
+
+  addToFavorite(productCode: string) {
+    this.favoriteService.addToFavorite(productCode).subscribe(() => {
+      this.toastr.success('Đã thêm sản phẩm vào yêu thích');
+    })
   }
 
   removeFromCart(productCode: string) {

@@ -1,85 +1,85 @@
-<div class="container row col-lg-12 justify-content-center">
-  <div class="col-lg-9">
-    <div class="card mt-lg-5">
-      <div class="card-body">
-        <div class="row">
-          <!--Login card image-->
-          <div class="col-lg-5 fill d-none d-lg-block">
-            <img src="../../assets/register-cover.jpg" alt="">
-          </div>
-          <!--Login card text-->
-          <div class="col-lg-7 register-form row mt-4 ml-2 justify-content-center">
-            <!--Login input-->
-            <div class="col-lg-8">
-              <h2 class="title text-center font-secondary mb-5">Đăng ký</h2>
-
-              <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+<div class="container p-lg-5 bg-red">
+  <div class="row mx-0 justify-content-center">
+    <div class="col-lg-8 pb-lg-5">
+      <div class="card shadow border-none">
+        <div class="w-100"
+          style="height: 40vh; border-radius: 1rem 1rem 0 0; background-image: url('../../assets/cover_5.jpg'); background-size: cover;">
+  
+        </div>
+        <div class="card-body d-flex justify-content-center">
+          <div class="w-100 w-lg-50">
+            <h2 class="text-center w-100 pt-lg-3 fw-bold text-uppercase text-black mb-5">đăng ký tài khoản</h2>
+  
+            <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+              <div class="form-group">
+  
+                <label for="username" class="label">Tên đăng nhập</label>
+                <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Tên đăng nhập"'>
+                </app-text-input>
+  
+                <label for="password" class="label">Mật khẩu</label>
+                <app-text-input [formControl]='registerForm.controls["password"]' [type]='"password"'
+                  [label]='"Mật khẩu"'>
+                </app-text-input>
+  
+                <label for="confirmPassword" class="label">Xác nhận mật khẩu</label>
+                <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [type]='"password"'
+                  [label]='"Xác nhận mật khẩu"'>
+                </app-text-input>
+  
+                <label for="lastName" class="label">Họ</label>
+                <app-text-input [formControl]='registerForm.controls["lastName"]' [label]='"Họ"'>
+                </app-text-input>
+  
+                <label for="firstName" class="label">Tên</label>
+                <app-text-input [formControl]='registerForm.controls["firstName"]' [label]='"Tên"'>
+                </app-text-input>
+  
                 <div class="form-group">
-
-                  <label for="username" class="label font-secondary">Tên đăng nhập</label>
-                  <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Tên đăng nhập"'>
-                  </app-text-input>
-
-                  <label for="password" class="label font-secondary">Mật khẩu</label>
-                  <app-text-input [formControl]='registerForm.controls["password"]' [type]='"password"'
-                    [label]='"Mật khẩu"'>
-                  </app-text-input>
-
-                  <label for="confirmPassword" class="label font-secondary">Xác nhận mật khẩu</label>
-                  <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [type]='"password"'
-                    [label]='"Xác nhận mật khẩu"'>
-                  </app-text-input>
-
-                  <label for="lastName" class="label font-secondary">Họ</label>
-                  <app-text-input [formControl]='registerForm.controls["lastName"]' [label]='"Họ"'>
-                  </app-text-input>
-
-                  <label for="firstName" class="label font-secondary">Tên</label>
-                  <app-text-input [formControl]='registerForm.controls["firstName"]' [label]='"Tên"'>
-                  </app-text-input>
-
-                  <div class="form-group">
-                    <label class="control-label mr-3 font-secondary">Giới tính: </label>
-                    <div class="col-12">
-                      <label class="radio-inline mr-3">
-                        <input type="radio" value='nam' formControlName='gender' class="mr-2">Nam
-                      </label>
-                      <label class="radio-inline mr-3">
-                        <input type="radio" value='nữ' formControlName='gender' class="mr-2">Nữ
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" value='khác' formControlName='gender' class="mr-2">Khác
-                      </label>
-
-                    </div>
+                  <label class="control-label mr-3">Giới tính: </label>
+                  <div class="col-12">
+                    <label class="radio-inline mr-3">
+                      <input type="radio" value='nam' formControlName='gender' class="mr-2">Nam
+                    </label>
+                    <label class="radio-inline mr-3">
+                      <input type="radio" value='nữ' formControlName='gender' class="mr-2">Nữ
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" value='khác' formControlName='gender' class="mr-2">Khác
+                    </label>
+  
                   </div>
-
-                  <label for="dateOfBirth" class="label font-secondary">Ngày sinh</label>
-                  <app-date-input [formControl]='registerForm.controls["dateOfBirth"]'
-                    [label]='"Ngày sinh"' [maxDate]='maxDate'>
-                  </app-date-input>
-
-                  <label for="email" class="label font-secondary">Email</label>
-                  <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Email"'>
-                  </app-text-input>
-
-                  <label for="phoneNumber" class="label font-secondary">Số điện thoại</label>
-                  <app-text-input [formControl]='registerForm.controls["phoneNumber"]' [label]='"Số điện thoại"'>
-                  </app-text-input>
-
-                  <div class="form-check mt-4">
-                    <input type="checkbox" class="form-check-input" formControlName='userAgreement' value="agree" id="savePassword">
-                    <label class="form-check-label" for="savePassword">Đồng ý với <a href="">Điều khoản người
-                        dùng</a></label>
-                  </div>
-                  <button [disabled]='!registerForm.valid || registerForm.controls.userAgreement.value == false' type="submit" class="btn btn-register text-light mt-4">Đăng ký</button>
                 </div>
-              </form>
-            </div>
+  
+                <label for="dateOfBirth" class="label">Ngày sinh</label>
+                <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Ngày sinh"'
+                  [maxDate]='maxDate'>
+                </app-date-input>
+  
+                <label for="email" class="label">Email</label>
+                <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Email"'>
+                </app-text-input>
+  
+                <label for="phoneNumber" class="label">Số điện thoại</label>
+                <app-text-input [formControl]='registerForm.controls["phoneNumber"]' [label]='"Số điện thoại"'>
+                </app-text-input>
+  
+                <div class="form-check mt-4">
+                  <input type="checkbox" class="form-check-input" formControlName='userAgreement' value="agree"
+                    id="savePassword">
+                  <label class="form-check-label" for="savePassword">Đồng ý với <a href="">Điều khoản người
+                      dùng</a></label>
+                </div>
+                <button [disabled]='!registerForm.valid || registerForm.controls.userAgreement.value == false'
+                  type="submit" class="btn btn-tan w-100 p-3 text-light mt-4">
+                  <h4 class="p-0 m-0 fw-bold">Đăng ký</h4>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-
+  
 </div>

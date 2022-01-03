@@ -1,1 +1,82 @@
-<p>customer-info works!</p>
+
+<div class="container pt-3 p-lg-5" *ngIf="member">
+
+    <div class="row mx-0 justify-content-center">
+
+        <div class="col-lg-6">
+            
+
+            <div class="card border-none bg-white shadow p-3 mb-3">
+                <h3 class="m-0 text-center py-lg-3 fw-bold text-uppercase">
+                    Thông tin cá nhân
+                </h3>
+                <div class="row mx-0 my-4">
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Tên đăng nhập</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>{{user.username}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Họ</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="text-capitalize">{{member.firstName}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Tên</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="text-capitalize">{{member.lastName}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Ngày sinh</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>{{member.dateOfBirth | date:'shortDate'}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Giới tính</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="text-capitalize">{{member.gender}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Số điện thoại</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>{{member.phoneNumber}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="fw-bold">Email</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>{{member.email}}</p>
+                    </div>
+                   
+                </div>
+                <div class="form-inline">
+
+                    <div class="w-100 text-center p-3">
+                        <button class="w-100 py-3 btn btn-red text-light"
+                            routerLink='/edit-info'>
+                            Chỉnh sửa thông tin
+                        </button>
+                    </div>
+                    <div class="w-100 text-center p-3">
+                        <a class="w-100 py-3 text-dark">
+                            Đổi mật khẩu
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+    
+
+</div>

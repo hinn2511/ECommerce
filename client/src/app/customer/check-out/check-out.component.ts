@@ -5,7 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CartItem } from 'src/app/_models/cartItem';
 import { PaymentMethod, ShippingMethod } from 'src/app/_models/order';
 import { Pagination } from 'src/app/_models/pagination';
+import { RedeemResult } from 'src/app/_models/redeemResult';
 import { CartService } from 'src/app/_services/cart.service';
+import { addDays, getMonthFromString } from 'src/app/_services/helper';
 import { OrderService } from 'src/app/_services/order.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { PromotionService } from 'src/app/_services/promotion.service';
@@ -18,29 +20,40 @@ import { FormValidationRegex } from 'src/app/_validations/form-validation';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit {
+  checkoutForm: FormGroup;
+  regex = FormValidationRegex;
+  
   carts: CartItem[] = [];
   shippingMethods: ShippingMethod[] = [];
   paymentMethods: PaymentMethod[] = [];
-  shippingMethod: ShippingMethod;
-  paymentMethod: PaymentMethod;
+
+  chosenShippingMethod: ShippingMethod;
+  chosenPaymentMethod: PaymentMethod;
+
   subTotal: number;
-  discount: number = 0;
-  checkoutForm: FormGroup;
-  regex = FormValidationRegex;
-  model: any = {};
-  shippingDropdown = false;
-  paymentDropdown = false;
+
+  redeemResult: RedeemResult = {
+    id: null, 
+    discount: 0,
+    promotionCode: ''
+  };
+
+  orderInformation: any = {};
+
+  stage = '';
 
   constructor(private cartService: CartService, private formBuilder: FormBuilder,
-     private orderService: OrderService, private toastr: ToastrService,
-     private promotionService: PromotionService, private shippingService: ShippingService,
-     private paymentService: PaymentService, private route: Router) { }
+    private orderService: OrderService, private toastr: ToastrService,
+    private promotionService: PromotionService, private shippingService: ShippingService,
+    private paymentService: PaymentService, private route: Router) { }
 
   ngOnInit(): void {
+    this.stage = 'info';
     this.initializeForm();
     this.loadPaymentMethod();
     this.loadShipingMethod();
     this.loadCustomerOrder();
+    
   }
 
   initializeForm() {
@@ -48,6 +61,7 @@ export class CheckOutComponent implements OnInit {
       destination: ['', [Validators.required, Validators.pattern(this.regex.address)]],
       fullName: ['', [Validators.required, Validators.pattern(this.regex.string)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(this.regex.phoneNumber)]],
+      email: ['', [Validators.pattern(this.regex.email)]],
     })
   }
 
@@ -62,71 +76,98 @@ export class CheckOutComponent implements OnInit {
   }
 
   redeemPromotion() {
-    this.promotionService.redeemPromotionCode(this.model.promotionCode).subscribe(result => {
-      this.discount = result.discount;
-      this.model.promotionId = result.id;
+    this.promotionService.redeemPromotionCode(this.orderInformation.promotionCode).subscribe(result => {
+      this.redeemResult = result;
+      this.orderInformation.promotionId = result.id;
       this.toastr.success('Đã áp dụng mã giảm giá thành công');
     }, error => {
-      this.model.promotionId = null;
-      this.discount = 0;
+      this.orderInformation.promotionId = null;
+      this.clearRedeemResult()
     });
   }
 
+  removePromotion() {
+    this.toastr.warning('Đã hủy áp dụng mã giảm giá');
+    this.clearRedeemResult()
+  }
+
+  clearRedeemResult() {
+    this.redeemResult.discount = 0;
+    this.redeemResult.promotionCode = null;
+    this.redeemResult.id = null;
+  }
+
   order() {
-    this.model.fullName = this.checkoutForm.controls.fullName.value;
-    this.model.destination = this.checkoutForm.controls.destination.value;
-    this.model.phoneNumber = this.checkoutForm.controls.phoneNumber.value;
-    this.orderService.checkout(this.model).subscribe(result => {
+    this.orderInformation.fullName = this.getFullName();
+    this.orderInformation.destination = this.getDestination();
+    this.orderInformation.phoneNumber = this.getPhoneNumber();
+    this.orderService.checkout(this.orderInformation).subscribe(result => {
       this.cartService.refreshCartQuantity();
       this.toastr.success('Đặt hàng thành công');
       this.route.navigateByUrl('order-detail/' + result.id);
-      localStorage.setItem('orderId', result.id.toString());
       this.orderService.clearCache();
     }, error => {
       this.toastr.error('Đã có lỗi xảy ra trong quá trình đặt hàng');
     })
   }
 
+  getExpectedShippingDate(shippingMethod: ShippingMethod): string {
+    var currentDate = new Date();
+    let minDate = new Date(currentDate.setDate(currentDate.getDate() + shippingMethod.minTime));
+    let maxDate = new Date(currentDate.setDate(currentDate.getDate() + shippingMethod.maxTime));
+    return minDate.getDate() + '/' + (minDate.getMonth() + 1) + ' đến ' + 
+      maxDate.getDate() + '/' + (maxDate.getMonth() + 1);
+
+  }
+
+  getPhoneNumber(): any {
+    return this.checkoutForm.controls.phoneNumber.value;
+  }
+
+  getDestination(): any {
+    return this.checkoutForm.controls.destination.value;
+  }
+
+  getFullName(): any {
+    return this.checkoutForm.controls.fullName.value;
+  }
+
+  getEmail(): any {
+    return this.checkoutForm.controls.email.value;
+  }
+
   loadShipingMethod() {
     this.shippingService.getAllShippingMethods().subscribe(sm => {
       this.shippingMethods = sm;
-      this.shippingMethod = sm.find(x => x.state);
-      this.model.shippingMethodId = this.shippingMethod.id;
+      this.chosenShippingMethod = sm.find(x => x.state);
+      this.orderInformation.shippingMethodId = this.chosenShippingMethod.id;
     })
   }
 
-  chooseShippingMethod(shippingMethod: ShippingMethod) {
-    if (shippingMethod.state) {
-      this.shippingMethod = shippingMethod;
-      this.model.shippingMethodId = shippingMethod.id;
+  chooseShippingMethod(chosenShippingMethod: ShippingMethod) {
+    if (chosenShippingMethod.state) {
+      this.chosenShippingMethod = chosenShippingMethod;
+      this.orderInformation.shippingMethodId = chosenShippingMethod.id;
     }
   }
 
   loadPaymentMethod() {
     this.paymentService.getAllPaymentMethods().subscribe(pm => {
       this.paymentMethods = pm;
-      this.paymentMethod = pm.find(x => x.state);
-      this.model.paymentMethodId = this.paymentMethod.id;
+      this.chosenPaymentMethod = pm.find(x => x.state);
+      this.orderInformation.paymentMethodId = this.chosenPaymentMethod.id;
     })
   }
 
-  choosePaymentMethod(paymentMethod: PaymentMethod) {
-    if (paymentMethod.state) {
-      this.paymentMethod = paymentMethod;
-      this.model.paymentMethodId = paymentMethod.id;
+  choosePaymentMethod(chosenPaymentMethod: PaymentMethod) {
+    if (chosenPaymentMethod.state) {
+      this.chosenPaymentMethod = chosenPaymentMethod;
+      this.orderInformation.paymentMethodId = chosenPaymentMethod.id;
     }
   }
 
-  dropDownClose(option: string) {
-    if (option == 'shipping') {
-      this.shippingDropdown = false;
-      this.paymentDropdown = true;
-    }
-    if (option == 'payment') {
-      this.shippingDropdown = true;
-      this.paymentDropdown = false;
-    }
+  goTo(stage: string) {
+    this.stage = stage;
   }
-
 
 }

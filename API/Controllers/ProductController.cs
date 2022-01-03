@@ -46,6 +46,16 @@ namespace API.Controllers
             return Ok(productColors);
         }
 
+        [HttpGet("related/{productCode}")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetRelatedArticles(string productCode)
+        {
+            var product = await _unitOfWork.ProductRepository.GetProductByCodeAsync(productCode);
+
+            var result = await _unitOfWork.ProductRepository.GetRelatedProducts(productCode, product.CategoryId);
+
+            return Ok(result);
+        }
+
         [HttpGet("color/{productCode}")]
         public async Task<ActionResult<ProductColorDto>> GetProductColors(string productCode)
         {

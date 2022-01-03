@@ -1,18 +1,18 @@
-<div class="card">
-    <div class="card-header bg-dark text-light">
-        {{article.publishedDate | date:'short'}}
+<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative h-100">
+    <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2" [class.text-success]="article.type == 1"
+            [class.text-danger]="article.type == 2">
+            {{article.type | articleType}}
+        </strong>
+        <h3 class="mb-1">{{article.title}}</h3>
+        <div class="mb-3 text-muted">{{article.publishedDate | date:'longDate'}}</div>
+        <p class="mb-auto">{{article.description}}</p>
+        <a class="text-red stretched-link mt-2" routerLink='/news/{{article.id}}'>Xem chi tiết</a>
     </div>
-    <div class="row cs-pointer" routerLink='/news/{{article.id}}'>
-        <div [class.col-12]="alignment == 'both' || alignment == 'horizontal'" [class.col-lg-4]="alignment == 'both'">
-            <div class="p-3">
-                <img src="{{article.thumbnailPhotoUrl}}" class="card-img-top" alt="...">
-            </div>
-        </div>
-        <div [class.col-12]="alignment == 'both' || alignment == 'horizontal'" [class.col-lg-8]="alignment == 'both'">
-            <div class="card-body">
-                <h5 class="card-title fw-bolder">{{article.title}}</h5>
-                <p class="card-text">{{article.description}}</p>
-                <p class="card-text text-muted">Đăng bởi&nbsp;{{article.publisherName | titlecase}}</p>
+    <div class="col-auto d-none d-lg-block">
+        <div class="container h-100" style="width: 10rem">
+            <div class="row h-100">
+                <img class='img-fluid h-100' style="object-fit: cover;" src="{{article.thumbnailPhotoUrl}}" alt="" />
             </div>
         </div>
     </div>

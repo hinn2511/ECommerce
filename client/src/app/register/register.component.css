@@ -1,4 +1,4 @@
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 990px) {
     .row {
         width: 100%;
         margin: 0;
@@ -14,45 +14,15 @@
     }
 }
 
-.container {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    background-color: rgb(69, 98, 116);
+@media screen and (min-width: 990px) {
+    .w-lg-50 {
+        width: 50% !important;
+    }
 }
+
 
 
 .card {
     border-radius: 1rem;
 }
 
-
-.title {
-    color: rgb(169, 101, 101);
-}
-
-.btn-register {
-    width: 100%;
-    background-color: rgb(169, 101, 101);
-    border: none;
-    padding: 1rem 0;
-}
-
-.btn-register:hover {
-    background-color: rgb(131, 78, 78);
-}
-
-.fill {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
-}
-
-.fill img {
-    flex-shrink: 0;
-    min-width: 100%;
-    min-height: 100%;
-    border-radius: 1rem 0 0 1rem;
-    max-height: 1000px;
-}

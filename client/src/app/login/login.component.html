@@ -1,52 +1,57 @@
-<div class="login-card container row col-lg-12 justify-content-center">
+<div class="ontainer p-lg-5 bg-black">
   <!--Login card with 9/12 screen width-->
-  <div class="col-lg-9">
-    <div class="card mt-lg-5">
-      <div class="card-body">
-        <div class="row">
-          <!--Login card image-->
-          <div class="col-lg-6 d-none d-lg-block">
-            <div class="text-center">
-              <img class="login-img" src="../../assets/login-cover.jpg" alt="">
-            </div>
-          </div>
-          <!--Login card text-->
-          <div class="col-lg-6 login-text">
-            <div class="d-none d-lg-block desktop-padding"></div>
-            <h2 class="card-title text-center font-secondary">Đăng nhập</h2>
-            <!--Login input-->
-            <form #loginForm="ngForm" (ngSubmit)="login()">
-              <div class="form-group">
-                <label for="username" class="label font-secondary">Tên đăng nhập</label>
-                <input 
-                  name="username"
-                  [(ngModel)]="model.username"
-                  type="text" 
-                  class="form-control" 
-                  id="username" 
-                  aria-describedby="Username"
-                  placeholder="Tên đăng nhập">
-                <label for="password" class="label font-secondary">Mật khẩu</label>
-                <input 
-                  name="password"
-                  [(ngModel)]="model.password"
-                  type="password" 
-                  class="form-control" 
-                  id="password" 
-                  placeholder="Mật khẩu">
-                <div class="form-check">
-                  <input
-                    type="checkbox" 
-                    class="form-check-input" 
-                    id="savePassword">
-                  <label class="form-check-label" for="savePassword">Lưu thông tin đăng nhập</label>
-                </div>
-                <button type="submit" class="btn btn-primary btn-login">Đăng nhập</button>
-                <div class="forgot-passwd text-center">
-                  <a href="/forgotpassword" class="text-muted">Quên mật khẩu</a>
-                </div>
+  <div class="row justify-content-center">
+
+    <div class="col-lg-8 mb-5">
+      <div class="card shadow border-none">
+        <div class="card-body p-lg-0">
+          <div class="row px-lg-0 mx-lg-0">
+            <!--Login card image-->
+            <div class="col-lg-6 pl-lg-0 d-none d-lg-block">
+              <div class="text-center">
+                <img class="login-img" src="../../assets/login-cover.jpg" alt="">
               </div>
-            </form>
+            </div>
+            <!--Login card text-->
+            <div class="col-lg-6 login-text">
+              <div class="d-none d-lg-block desktop-padding"></div>
+              <h2 class="card-title text-center text-uppercase fw-bold font-primary text-red">đăng nhập</h2>
+              <!--Login input-->
+              <form #loginForm="ngForm" (ngSubmit)="login()">
+                <div class="form-group">
+                  <label for="username" class="label">Tên đăng nhập</label>
+                  <input 
+                    name="username"
+                    [(ngModel)]="model.username"
+                    type="text" 
+                    class="form-control" 
+                    id="username" 
+                    aria-describedby="Username"
+                    placeholder="Tên đăng nhập">
+                  <label for="password" class="label">Mật khẩu</label>
+                  <input 
+                    name="password"
+                    [(ngModel)]="model.password"
+                    type="password" 
+                    class="form-control" 
+                    id="password" 
+                    placeholder="Mật khẩu">
+                  <div class="form-check">
+                    <input
+                      type="checkbox" 
+                      class="form-check-input" 
+                      id="savePassword">
+                    <label class="form-check-label" for="savePassword">Lưu thông tin đăng nhập</label>
+                  </div>
+                  <button type="submit" class="btn btn-red text-light w-100 p-3">
+                    <h4 class="p-0 m-0">Đăng nhập</h4>
+                  </button>
+                  <div class="forgot-passwd text-center">
+                    <a href="/forgotpassword" class="text-muted">Quên mật khẩu</a>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

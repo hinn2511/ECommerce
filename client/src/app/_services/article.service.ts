@@ -14,6 +14,15 @@ export class ArticleService {
   baseUrl = environment.apiUrl;
   articleParams: ArticleParams;
   articleCache = new Map();
+  lastReadArticle: number;
+
+  getLastReadArticle(): number {
+    return this.lastReadArticle;
+  }
+
+  setLastReadArticle(value: number) {
+    this.lastReadArticle = value;
+  }
 
   constructor(private http: HttpClient) {
     this.articleParams = new ArticleParams();

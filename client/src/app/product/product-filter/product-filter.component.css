@@ -34,9 +34,15 @@ div > div > button {
     .form-inline > div, .form-inline > h5 {
         width: 100%;
     }
+
+
 }
 
 a {
     text-decoration: none;
     color: rgb(90, 90, 90);
+}
+
+.h-0 {
+    height: 0;
 }

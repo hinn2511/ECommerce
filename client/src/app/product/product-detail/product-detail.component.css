@@ -1,37 +1,19 @@
-@media screen and (min-width: 1200px) {
-    .ngx-gallery {
-        margin-left: 1rem;
-    }
-
-    .breadcrumb {
-        padding-left: 2rem;
-    }
-
-    .product-detail {
-        padding: 3rem 4rem;
-    }
-
-    .product-specification {
-        padding-left: 2rem;
-    }
+@media screen and (min-width: 990px) {
     
+    .related-product-card {
+        padding: 0 3vw;
+    }
+
+    .container > .row {
+        margin: auto 0;
+        padding: 2vw;
+    }
+
     
 }
 
-@media screen and (min-width: 480px) and (max-width: 1200px) { 
-    .product-gallery {
-        margin-top: 5rem;
-    } 
-}
 
-@media screen and (max-width: 480px) { 
-    .product-gallery {
-        margin-top: 1rem;
-    } 
-
-}
-
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 990px) {
     .row
     {
         margin-right: 0;
@@ -41,38 +23,46 @@
     .ngx-gallery {
         margin-bottom: 2rem;
     }
-}
-
-.fa-color {
-    font-size: 2rem;
-}
-
-
-.btn-material {
-    background-color: rgb(243, 243, 243);
+    
+    .slide {
+        padding: auto 20vw;
+    }
 }
 
 
 
-.product-detail {
-    background-color: rgb(246, 246, 246);
-}
-
-.breadcrumb {
-    background-color: white;
-}
 
 .breadcrumb>li+li:before { 
     padding-right: 5px;
-    color: #ccc; 
-    content: '▸ ' 
+    content: '>' 
 }
 
-.active {
-    font-weight: bold;
-}
 
 .form-control {
     max-width: 5rem;
 }
 
+.frame {
+    height: 100%;   
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.ngx-gallery {
+    vertical-align: middle;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.carousel-inner {
+    padding-bottom: 5% !important;
+}

@@ -1,27 +1,32 @@
 <!--Desktop-->
 <div class="container">
-    <section  *ngIf="thumbnailUrl != ''" class="thumbnail" style="background: url('{{thumbnailUrl}}') repeat center center;">
-    </section>
-
-    <div class="row pt-2 pt-lg-4 justify-content-center">
-        <div class="col-lg-2 px-4 px-lg-0">
-            <app-product-filter [productParams]="productParams" [option]="'category'" [defaultValue]="productParams.category" (filterParams)="filter($event)"></app-product-filter>
+    <div class="row justify-content-center">
+         <div class="col-12 px-0">
+            <section *ngIf="thumbnailUrl != ''" class="thumbnail"
+                style="background: url('{{thumbnailUrl}}') repeat center center;">
+            </section>
         </div>
 
-        <div class="col-lg-8">
-            
-            <div class="row">
+        <div class="col-lg-2 pb-3 d-none d-lg-block">
+            <app-product-filter [productParams]="productParams" [option]="option" [defaultValue]="defaultValue"
+                (filterParams)="filter($event)"></app-product-filter>
+        </div>
+
+        <div class="col-lg-10 shadow px-0 pt-lg-5 px-lg-3">
+
+            <div class="row mt-3">
                 <div class="col-12 col-lg-6">
-                    <h3 class="category-name font-brand">{{title | titlecase}}</h3>
+                    <h2 class="category-name text-red font-brand text-uppercase">{{title}}</h2>
                     <h5 class="category-name">{{pagination?.totalItems}} sản phẩm</h5>
                 </div>
                 <div class="col-12 d-lg-none">
-                    
+                    <app-product-filter [productParams]="productParams" [option]="option" [defaultValue]="defaultValue"
+                        (filterParams)="filter($event)"></app-product-filter>
                 </div>
                 <div class="col-12 col-lg-6 text-sm-right">
                     <div class="btn-group pt-sm-3" dropdown>
-                        <button dropdownToggle type="button"
-                            class="btn btn-sort btn-outline-dark dropdown-toggle" aria-controls="dropdown-basic">
+                        <button dropdownToggle type="button" class="btn btn-sort btn-outline-dark dropdown-toggle"
+                            aria-controls="dropdown-basic">
                             Xếp theo: {{sort}}
                         </button>
                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
@@ -34,30 +39,31 @@
                                     btnRadio='highestPrice' (click)="loadProducts()"
                                     (click)="selectSort('highestPrice')" type="button">Giá từ cao xuống thấp</button>
                                 <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
-                                    btnRadio='lowestPrice' (click)="loadProducts()"
-                                    (click)="selectSort('lowestPrice')" type="button">Giá từ thấp đến cao</button>
+                                    btnRadio='lowestPrice' (click)="loadProducts()" (click)="selectSort('lowestPrice')"
+                                    type="button">Giá từ thấp đến cao</button>
                                 <button class="btn col-12" [(ngModel)]="productParams.orderBy" name='orderBy'
-                                    btnRadio='salePercent' (click)="loadProducts()"
-                                    (click)="selectSort('salePercent')" type="button">Giảm giá nhiều</button>
+                                    btnRadio='salePercent' (click)="loadProducts()" (click)="selectSort('salePercent')"
+                                    type="button">Giảm giá nhiều</button>
                             </div>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="row product-list">
-                <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-4">
+            <div class="row">
+                <div *ngFor="let product of products" class="col-12 col-md-6 col-lg-3">
                     <app-product-card [product]="product"></app-product-card>
                 </div>
                 <div class="col-12 d-flex justify-content-lg-end justify-content-center py-5" *ngIf="pagination">
                     <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
                         [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
-                        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
-                        firstText="&laquo;" lastText="&raquo;">
+                        (pageChanged)="pageChanged($event)" previousText="🠠" nextText="🠢"
+                        firstText="&#11120;" lastText="&#11122;">
                     </pagination>
                 </div>
             </div>
         </div>
 
     </div>
+
 
 </div>

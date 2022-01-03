@@ -1,149 +1,137 @@
-<div class="container" *ngIf="orderList">
-    <div class="col-12">
-        <h3 class="font-secondary text-center mt-5">Danh sách đơn đặt hàng</h3>
-        <div class="tab-container py-1 my-lg-3">
-            <div class="tab">
-                <button class="btn border-2" [(ngModel)]="orderParams.predicate" btnRadio="wfa"
-                    [class.active]="tabActive == 0" (click)="selectPredicate(0)">
-                    Chờ xác nhận
-                </button>
-                <button class="btn border-2" [(ngModel)]="orderParams.predicate" btnRadio="preparing"
-                    [class.active]="tabActive == 1" (click)="selectPredicate(1)">
-                    Đang chuẩn bị
-                </button>
-                <button class="btn" [(ngModel)]="orderParams.predicate" btnRadio="delivering"
-                    [class.active]="tabActive == 2" (click)="selectPredicate(2)">
-                    Đang giao
-                </button>
-                <button class="btn" [(ngModel)]="orderParams.predicate" btnRadio="delivered"
-                    [class.active]="tabActive == 3" (click)="selectPredicate(3)">
-                    Đã giao
-                </button>
-                <button class="btn" [(ngModel)]="orderParams.predicate" btnRadio="cancelled"
-                    [class.active]="tabActive == 4" (click)="selectPredicate(4)">
-                    Đã hủy
-                </button>
-            </div>
-        </div>
-        <div class="row justify-content-center content">
-            <div class="col-12 col-md-10 col-lg-10" *ngIf="orderList.length > 0; else empty">
-                <div class="d-none d-lg-block">
-                    <table class="table table-bordered border-primary">
-                        <thead class="bg-light-grey">
-                            <tr>
-                                <th scope="col" class="text-center">Mã đơn hàng</th>
-                                <th scope="col" class="text-center">Ngày đặt</th>
-                                <th scope="col" class="text-center">Sản phẩm</th>
-                                <th scope="col" class="text-center">Tổng tiền</th>
-                                <th scope="col" class="text-center">Trạng thái</th>
-                                <th scope="col" class="text-center">Chi tiết</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of orderList">
-                                <td class="text-center">
-                                    <p class="pt-lg-3">DH000{{item.id}}</p>
-                                </td>
-                                <td class="text-center">
-                                    <p class="pt-lg-3">{{item.date | date:'short'}}</p>
-                                </td>
-                                <td>
-                                    <ng-container *ngIf="item.orderDetails.length > 2">
-                                        <div class="image-container">
-                                            <img class="image image-1-1" src={{item.orderDetails[0].photoUrl}}>
-                                            <img class="image image-1-2" src={{item.orderDetails[1].photoUrl}}>
-                                            <div class="image image-other text-light">
-                                                <p>+{{item.orderDetails.length - 2}}</p>
+<!--Section: Block Content-->
+<div class="container pt-3 p-lg-5">
+
+    <!--Grid row-->
+    <div class="w-100">
+
+        <!-- Card -->
+        <div class="card border-none bg-white wish-list mb-3">
+            <div class="card-body">
+
+                <h2 class="font-secondary ml-lg-3 w-100 text-center text-lg-left text-red text-uppercase">
+                    đơn hàng của tôi
+                </h2>
+
+                <div class="w-100 px-lg-3 py-lg-3">
+                    <tabset class="text-uppercase d-none d-lg-block">
+                        <tab heading="{{predicate.name}}" *ngFor="let predicate of predicates"
+                            (selectTab)="selectPredicate(predicate.id)">
+                        </tab>
+                    </tabset>
+                    <div class="p-1 d-lg-none">
+                        <carousel (activeSlideChange)="selectPredicate($event)" [interval]="0">
+                            <slide *ngFor="let predicate of predicates; let index=index" style="height: 100%;">
+                                <div class="w-100 h-100 p-3 text-center">
+                                    <p class="m-0 text-uppercase">
+                                        {{predicate.name}}
+                                    </p>
+                                </div>
+                            </slide>
+                        </carousel>
+                    </div>
+                    <div *ngFor="let item of orderList; let i = index" class="p-lg-3 my-4 shadow">
+                        <div class="row">
+                            <div class="d-lg-none col-12">
+                                <div class="px-3 py-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <div class="form-inline">
+                                                <p class="text-muted m-0">
+                                                    Mã ĐH
+                                                </p>
+                                                <p class="fw-bold m-0 text-red text-capitalize ml-1">
+                                                    #{{item.id}}
+                                                </p>
                                             </div>
                                         </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.orderDetails.length == 2">
-                                        <div class="image-container">
-                                            <img class="image image-2-1" src={{item.orderDetails[0].photoUrl}}>
-                                            <img class="image image-2-2" src={{item.orderDetails[1].photoUrl}}>
-                                            
+                                        <div class="form-inline" routerLink='/order-detail/{{item.id}}'>
+                                            <i class="fa fa-arrow-right p-0 m-0"></i>
                                         </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.orderDetails.length == 1">
-                                        <div class="image-container">
-                                            <img class="image image-3-1" src={{item.orderDetails[0].photoUrl}}>
-                                        </div>
-                                    </ng-container>
-                                    
-                                </td>
-                                <td class="text-center">
-                                    <p class="pt-lg-3">{{item.subTotal - item.discount + item.shippingMethod.price | currency:"VND"}}</p>
-                                </td>
-                                <td class="text-center">
-                                    <p class="pt-lg-3">{{item.state | orderState}}</p>
-                                </td>
-                                <td class="text-center">
-                                    <p class="pt-lg-3 text-decoration-underline cs-pointer" (click)="getOrderDetail(item.id)">Xem</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="d-lg-none">
-                    <table class="table">
-                        <tbody>
-                            <tr *ngFor="let item of orderList">
-                                <td (click)="getOrderDetail(item.id)">
-                                    <div class="row">
-                                        <div class="col-3" style="min-height: 3rem;">
-                                            <ng-container *ngIf="item.orderDetails.length > 2">
-                                                <div class="image-container">
-                                                    <img class="image image-1-1" src={{item.orderDetails[0].photoUrl}}>
-                                                    <img class="image image-1-2" src={{item.orderDetails[1].photoUrl}}>
-                                                    <div class="image image-other text-light">
-                                                        <p>+{{item.orderDetails.length - 2}}</p>
-                                                    </div>
-                                                </div>
-                                            </ng-container>
-                                            <ng-container *ngIf="item.orderDetails.length == 2">
-                                                <div class="image-container">
-                                                    <img class="image image-2-1" src={{item.orderDetails[0].photoUrl}}>
-                                                    <img class="image image-2-2" src={{item.orderDetails[1].photoUrl}}>
-                                                    
-                                                </div>
-                                            </ng-container>
-                                            <ng-container *ngIf="item.orderDetails.length == 1">
-                                                <div class="image-container">
-                                                    <img class="image image-3-1" src={{item.orderDetails[0].photoUrl}}>
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                        <div class="col-9">
-                                            <p>Mã đơn hàng: DH000{{item.id}}</p>
-                                            <p>{{item.date | date:'short'}}</p>
-                                            <p>Tổng tiền: {{item.subTotal - item.discount + item.shippingMethod.price | currency:"VND"}}</p>
-                                            <p>{{item.state | orderState}}</p>
-                                        </div>
-                                        
-                                        
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div routerLink='/order-detail/{{item.id}}'
+                                    class="view zoom overlay z-depth-1 rounded mb-0 mb-md-0 bg-pastel-light cs-pointer p-4 p-lg-3 text-center">
+                                    <img class="img-fluid" style="height: auto; max-height: 5rem;"
+                                        src="{{item.orderDetails[0].photoUrl}}" alt="Sample">
+                                </div>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="row h-100 p-3 form-inline detail">
+                                    <div class="col-lg-2 d-none d-lg-block">
+                                        <p class="text-muted m-0">
+                                            Đơn hàng
+                                        </p>
+                                        <p class="fw-bold m-0 text-red text-capitalize">
+                                            #&nbsp;{{item.id}}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-lg-2 d-none d-lg-block">
+                                        <p class="text-muted m-0">
+                                            Ngày đặt
+                                        </p>
+                                        <p class="fw-bold m-0 text-capitalize">
+                                            {{item.date | date:'shortDate'}}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-lg-2 m-lg-0">
+                                        <p class="text-muted m-0">
+                                            Số lượng
+                                        </p>
+                                        <p class="fw-bold m-0">
+                                            {{item.orderDetails.length}} sản phẩm
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-lg-2 m-lg-0">
+                                        <p class="text-muted m-0">
+                                            Tổng tiền
+                                        </p>
+                                        <p class="fw-bold m-0 text-capitalize">
+                                            {{item.subTotal - item.discount + item.shippingMethod.price |
+                                            currency:'VND'}}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-lg-2 m-lg-0">
+                                        <p class="text-muted m-0">
+                                            Trạng thái
+                                        </p>
+                                        <p class="fw-bold m-0">
+                                            {{item.state | orderState}}
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-2 mt-3 m-lg-0 text-right d-none d-lg-block">
+                                        <button class="btn" routerLink='/order-detail/{{item.id}}'>
+                                            <a class="text-red">Chi tiết</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
+
+
+
+
+                <h4 class="text-muted text-center my-5" style="min-height: 50vh;" *ngIf="orderList?.length == 0">
+                    <i class="fa fa-info"></i>&nbsp;&nbsp;Bạn chưa có đơn hàng nào
+                </h4>
+                <div class="col-12 d-flex justify-content-center py-5" *ngIf="pagination && pagination.totalItems > 0">
                     <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
                         [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
-                        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-                        lastText="&raquo;">
+                        (pageChanged)="pageChanged($event)" previousText="&#x2039;" nextText="&#x203A;"
+                        firstText="&#xab;" lastText="&#xbb;">
                     </pagination>
                 </div>
             </div>
-            <ng-template #empty>
-                <div class="empty px-5 my-4 text-center">
-                    <h4>Bạn chưa có đơn hàng nào hết</h4>
-                </div>
-                
-            </ng-template>
         </div>
+        <!-- Card -->
 
 
     </div>
+
+    <!--Grid row-->
+
 </div>
+<!--Section: Block Content-->

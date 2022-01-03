@@ -46,8 +46,6 @@
         max-width: 33%;
     }
 
-    
-
     .product-price {
         font-size: 0.7rem;
     }
@@ -56,19 +54,19 @@
 
 }
 
-@media screen and (min-width: 1200px){
+@media screen and (min-width: 990px){
     
-    .row {
-        margin: auto 0;
-        padding: 0 2vw;
-    }
+    
 
     .thumbnail {
         width: 100%;
         background-position: cover;
-        min-height: 40vh;
+        min-height: 50vh;
     }
 
+
+    
+    
 }
 
 
@@ -90,3 +88,7 @@ p {
     min-width: 20vw;
 }
 
+.row {
+    width: 100%;
+    margin: 0;
+}

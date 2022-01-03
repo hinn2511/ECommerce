@@ -57,6 +57,8 @@ export class ProductService {
     params = params.append('category', productParams.category);
     params = params.append('subCategory', productParams.subCategory);
     params = params.append('area', productParams.area);
+    params = params.append('sale', productParams.sale);
+    params = params.append('keyword', productParams.keyword);
     params = params.append('saleUpTo', productParams.saleUpTo.toString());
     params = params.append('minPrice', productParams.minPrice.toString());
     params = params.append('maxPrice', productParams.maxPrice.toString());
@@ -77,6 +79,20 @@ export class ProductService {
       return of(product);
     }
     return this.http.get<Product>(this.baseUrl + 'product/' + productCode);
+  }
+
+  getRelatedProducts(productCode: string, category: string) {
+    let product = [...this.productCache.values()]
+      .reduce((arr, elm) => arr.concat(elm.result), [])
+      .filter((product: Product) => product.productCode !== productCode && product.category === category)
+      .slice(0, 6);
+
+    product = product.slice().reverse().filter((v,i,a)=>a.findIndex(t=>(t.productCode === v.productCode))===i).reverse();
+    
+    if (product.length > 0) {
+      return of(product);
+    }
+    return this.http.get<Product>(this.baseUrl + 'product/related/' + productCode);
   }
 
 

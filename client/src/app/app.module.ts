@@ -21,7 +21,6 @@ import { FooterComponent } from './footer/footer.component';
 import { CustomerInfoComponent } from './customer/customer-info/customer-info.component';
 import { CustomerFavoriteComponent } from './customer/customer-favorite/customer-favorite.component';
 import { CartComponent } from './customer/cart/cart.component';
-import { CustomerNotificationsComponent } from './customer/customer-notifications/customer-notifications.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
@@ -38,14 +37,14 @@ import { CustomerOrderComponent } from './customer/customer-order/customer-order
 import { CustomerOrderDetailComponent } from './customer/customer-order-detail/customer-order-detail.component';
 import { OrderStatePipe } from './_pipes/order-state.pipe';
 import { SearchBarComponent } from './search/search-bar/search-bar.component';
-import { SearchResultComponent } from './search/search-result/search-result.component';
 import { NewsListComponent } from './news/news-list/news-list.component';
 import { NewsDetailComponent } from './news/news-detail/news-detail.component';
 import { NewsCardComponent } from './news/news-card/news-card.component';
 import { ArticleTypePipe } from './_pipes/article-type.pipe';
 import { ProductFilterComponent } from './product/product-filter/product-filter.component';
 import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.component';
-
+import { CapitalizeFirstLetterPipe } from './_pipes/capitalize-first-letter.pipe';
+import { CustomerInfoEditComponent } from './customer/customer-info-edit/customer-info-edit.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +64,6 @@ import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.
     CustomerInfoComponent,
     CustomerFavoriteComponent,
     CartComponent,
-    CustomerNotificationsComponent,
     TestErrorsComponent,
     ServerErrorComponent,
     TextInputComponent,
@@ -78,13 +76,14 @@ import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.
     CustomerOrderDetailComponent,
     OrderStatePipe,
     SearchBarComponent,
-    SearchResultComponent,
     NewsListComponent,
     NewsDetailComponent,
     NewsCardComponent,
     ArticleTypePipe,
     ProductFilterComponent,
     ConfirmDialogComponent,
+    CapitalizeFirstLetterPipe,
+    CustomerInfoEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +96,7 @@ import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

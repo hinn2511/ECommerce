@@ -1,15 +1,16 @@
-<div class="container row mt-5 justify-content-center">
-    <h3 class="font-secondary col-12 text-center">Sản phẩm yêu thích</h3>
-    <h5 class="text-muted col-12 text-center" *ngIf="products?.length > 0">{{products?.length}} sản phẩm</h5>
-    <div class="row col-sm-12 col-lg-10 product-list" *ngIf="products?.length > 0; else emptyList">
-        <div *ngFor="let product of products" class="col-10 col-md-6 col-lg-3">
+<div class="container p-1 pt-5 p-lg-5 justify-content-center" >
+    <h2 class="font-secondary w-100 p-0 pl-lg-3 text-center text-lg-left text-red">SẢN PHẨM YÊU THÍCH</h2>
+    <h5 class="text-muted text-center p-0 pl-lg-3 text-lg-left" *ngIf="products?.length > 0">{{products?.length}} sản
+        phẩm</h5>
+    <div class="row m-0" *ngIf="products?.length > 0; else emptyList">
+        <div *ngFor="let product of products" class="col-12 col-md-4 col-lg-3">
             <app-product-card [product]="product"></app-product-card>
         </div>
-        <div class="col-12 d-flex justify-content-center mt-5" *ngIf="pagination">
+        <div class="w-100 d-flex justify-content-lg-end justify-content-center mt-5" *ngIf="pagination">
             <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
                 [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
-                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-                lastText="&raquo;">
+                (pageChanged)="pageChanged($event)" previousText="🠠" nextText="🠢" firstText="&#11120;"
+                lastText="&#11122;">
             </pagination>
         </div>
     </div>
@@ -18,5 +19,5 @@
             <h3 class="text-center text-muted col-12">Bạn chưa yêu thích sản phẩm nào</h3>
         </div>
     </ng-template>
-    
+
 </div>

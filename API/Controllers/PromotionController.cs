@@ -39,13 +39,13 @@ namespace API.Controllers
 
             if (promotion == null) return BadRequest("Mã giảm giá không hợp lệ");
 
-            var currentDate = DateTime.UtcNow;
+            // var currentDate = DateTime.UtcNow;
 
-            if (DateTime.Compare(promotion.Start, currentDate) > 0
-                || DateTime.Compare(currentDate, promotion.End) > 0)
-            {
-                return BadRequest("Mã giảm giá không hợp lệ");
-            }
+            // if (DateTime.Compare(promotion.Start, currentDate) > 0
+            //     || DateTime.Compare(currentDate, promotion.End) > 0)
+            // {
+            //     return BadRequest("Mã giảm giá không hợp lệ");
+            // }
 
             if (promotion.MinOrderTotal > subTotal)
                 return BadRequest("Giá trị đơn hàng không đạt tối thiểu");

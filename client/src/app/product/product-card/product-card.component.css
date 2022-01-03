@@ -1,52 +1,7 @@
-@media screen and (max-width: 780px) {
-    .product-name {
-        padding-top: 1rem;
-    }
-
-    .btn-like, .btn-cart {
-        font-size: 1.7rem;
-    }
-
-    .product-name {
-        font-size: 2rem;
-    }
-
-    .product-detail{
-        display: none;
-    }
-
-    .product-price {
-        font-size: 1.6rem;
-    }
-
+@media screen and (max-width: 990px) {
+    
 }
 
-@media screen and (min-width: 1200px) {
-    .product-img {
-        width: 100%;
-        height: 100%;
-    }
-}
-
-.product-img {
-    max-width: 100%;
-}
-
-.card {
-    margin-top: 3rem;
-}
-
-.product-detail {
-    font-size: 0.9rem;
-}
-
-
-
-.img-wrapper {
-    min-height: 12rem;
-    object-fit: contain;
-    overflow: hidden;
-}
 
 @media screen and (min-width: 1200px) {
     .img-wrapper {
@@ -54,13 +9,14 @@
     }
 }
 
-@media screen and (min-width: 992px) and (max-width: 1400px){
-    
+.card {
+    border: none;
+    margin-top: 7vh;
+}
 
-    .product-price, .fa {
-        font-size: 0.9rem;
-    }
 
+.center > h6 {
+    max-width: calc(35px);
 }
 
 .card:hover img {
@@ -77,19 +33,58 @@
 }
 
 .btn-like:hover {
-    transform: scale(1.5, 1.5);
-    transition-duration: 1000ms;
-    transition-timing-function: ease-out;
+    transition-duration: 700ms;
+    transition-timing-function: ease-in-out;
     color: red;
-    border: none;
-    box-shadow: none;
 }
 
 .btn-cart:hover {
-    transform: scale(1.5, 1.5);
-    transition-duration: 1000ms;
-    transition-timing-function: ease-out;
-    color: rgb(32, 184, 77);
-    border: none;
-    box-shadow: none;
+    transition-duration: 700ms;
+    transition-timing-function: ease-in-out;
+    color: rgb(98, 170, 98);
+}
+
+.center {
+    display: table;
+    text-align: center;
+}
+
+.center > p, .center > h6, .center > button > p {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.cart, .like {
+    position: absolute;
+    right: -30%;
+    opacity: 0;
+    z-index: 500;
+}
+
+.card-img-wrapper:hover .cart,.card-img-wrapper:hover .like {
+    right: 0;
+    transition-duration: 700ms;
+    transition-timing-function: ease-in-out;
+    opacity: 1;
+}
+
+.frame {
+    height: 20rem;   
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+img {
+    vertical-align: middle;
+    max-height: 20rem;
+    max-width: 100%;
 }

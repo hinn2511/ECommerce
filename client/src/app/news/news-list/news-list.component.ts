@@ -15,6 +15,7 @@ export class NewsListComponent implements OnInit {
   category: string;
   pagination: Pagination;
   articleParams: ArticleParams;
+  defaultThumbnailUrl = '../../assets/cover_5.jpg';
 
   constructor(private articleService: ArticleService) {
     this.articleParams = this.articleService.getArticleParams();
@@ -45,6 +46,17 @@ export class NewsListComponent implements OnInit {
       this.articleParams.type = type;
       this.articleService.setArticleParams(this.articleParams);
       this.loadArticles();
+    }
+  }
+  
+  getCoverUrl(): string {
+    switch (this.articleParams.type) {
+      case 'news':
+        return './../assets/new_advertise_cover.webp';
+      case 'promotions':
+        return './../assets/new_notify_cover.webp';
+      default:
+        return './../assets/new_all_cover.webp';
     }
   }
 

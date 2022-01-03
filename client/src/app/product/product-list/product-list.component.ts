@@ -3,7 +3,9 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Pagination } from 'src/app/_models/pagination';
 import { Product } from 'src/app/_models/product';
 import { ProductParams } from 'src/app/_models/productParams';
+import { AreaService } from 'src/app/_services/area.service';
 import { CategoryService } from 'src/app/_services/category.service';
+import { redirectTo, selectSort } from 'src/app/_services/helper';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -17,12 +19,15 @@ export class ProductListComponent implements OnInit {
   thumbnailUrl = '';
   title = '';
 
+  option = '';
+  defaultValue = '';
+
   sort: string = "Mới nhất";
 
   pagination: Pagination;
   productParams: ProductParams;
 
-  constructor(private productService: ProductService, private categoryService: CategoryService,
+  constructor(private productService: ProductService, private areaService: AreaService, private categoryService: CategoryService,
     private route: ActivatedRoute, private router: Router) {
     this.productParams = this.productService.getProductParams();
   }
@@ -30,20 +35,79 @@ export class ProductListComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if (this.router.url.includes('sale')) {
+      this.title = "Các sản phẩm khuyến mãi";
+      this.option = 'sale';
+      if (!this.productParams.sale) {
+        this.productParams = this.productService.resetProductParams();
+        this.productParams.sale = true;
+      }
+      this.thumbnailUrl = '../../assets/sale_cover.webp';
+      this.defaultValue = 'true';
+    }
+
+    this.route.queryParams.subscribe(params => {
+      let sc = params['subCategory']?.toLowerCase();
+      if (sc != null) {
+        this.title = sc;
+        this.option = 'subCategory';
+        if (sc != this.productParams.subCategory) {
+          this.productParams = this.productService.resetProductParams();
+          this.productParams.subCategory = sc;
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        }
+        this.defaultValue = sc;
+        this.getThumbnailUrl(sc);
+      }
+
+      let kw = params['keyword']?.toLowerCase();
+      if ( kw != null) {
+        this.title = 'Kết quả tìm kiếm cho "' + kw + '"';
+        this.option = 'search';
+        if (kw != this.productParams.keyword) {
+          this.productParams = this.productService.resetProductParams();
+          this.productParams.keyword = kw;
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        }
+        this.defaultValue = kw;
+        this.thumbnailUrl = '../../assets/sale_cover.webp';
+      }
+    });
+
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       let category = params.get('category')?.toLowerCase();
 
       if (category != null) {
         this.title = category;
+        this.option = 'category';
         if (category != this.productParams.category) {
           this.productParams = this.productService.resetProductParams();
           this.productParams.category = category;
-          this.redirectTo('category/' + category);
-        }
-      }
-      this.getThumbnailUrl(category);
-    });
 
+
+          redirectTo(this.router, 'category/' + category);
+        }
+        this.defaultValue = category;
+        this.getThumbnailUrl(category);
+      }
+
+      let area = params.get('area')?.toLowerCase();
+
+      if (area != null) {
+        this.title = area;
+        this.option = 'area';
+        if (area != this.productParams.area) {
+          this.productParams = this.productService.resetProductParams();
+          this.productParams.area = area;
+          redirectTo(this.router, 'area/' + area);
+        }
+        this.defaultValue = area;
+        this.getThumbnailUrl(area);
+      }
+
+    });
+    console.log(this.productParams);
     this.loadProducts();
   }
 
@@ -56,10 +120,21 @@ export class ProductListComponent implements OnInit {
     })
   }
 
-  getThumbnailUrl(categoryName: string) {
-    this.categoryService.getAllCategories().subscribe(result => {
-      this.thumbnailUrl =  result.find(c => c.categoryName == categoryName).photoUrl;
-    });
+  getThumbnailUrl(name: string) {
+    if (this.option == 'category')
+      this.categoryService.getAllCategories().subscribe(result => {
+        this.thumbnailUrl = result.find(c => c.categoryName == name).photoUrl;
+      });
+    if (this.option == 'subCategory')
+      this.categoryService.getAllCategories().subscribe(result => {
+        let sc = result.find(result => result.subCategories.some(item => item.subCategoryName === name));
+        this.thumbnailUrl = sc.subCategories.find(sc => sc.subCategoryName == name).photoUrl;
+      });
+
+    if (this.option == 'area')
+      this.areaService.getAllAreas().subscribe(result => {
+        this.thumbnailUrl = result.find(c => c.name == name).photoUrl;
+      });
   }
 
   pageChanged(event: any) {
@@ -71,14 +146,7 @@ export class ProductListComponent implements OnInit {
   }
 
   selectSort(type: string) {
-    if (type == "newest")
-      this.sort = "Mới nhất";
-    if (type == "highestPrice")
-      this.sort = "Giá từ cao xuống thấp";
-    if (type == "lowestPrice")
-      this.sort = "Giá từ thấp đến cao";
-    if (type == "salePercent")
-      this.sort = "Giảm giá nhiều";
+    this.sort = selectSort(type);
   }
 
   filter(params: ProductParams) {
@@ -89,11 +157,6 @@ export class ProductListComponent implements OnInit {
   resetFilter() {
     this.productParams = this.productService.resetProductParams();
     this.loadProducts();
-  }
-
-  redirectTo(uri: string) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate([uri]));
   }
 
 

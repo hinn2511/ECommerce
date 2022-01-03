@@ -41,6 +41,7 @@ namespace API.Data
                 Category = product.Category.CategoryName,
                 SubCategory = product.SubCategory.SubCategoryName,
                 Brand = product.Brand.BrandName,
+                SalePercent = product.SalePercent,
                 Id = product.Id
             });
 

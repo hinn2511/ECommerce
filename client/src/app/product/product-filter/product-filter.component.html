@@ -1,4 +1,4 @@
-<div class="container py-3 d-lg-none" [class.fixed-top]="isSticky">
+<div class="container py-3 d-lg-none" [class.fixed-top]="isSticky" [class.h-0]="isSticky && hideFilter">
     <button class="btn pt-2" [class.btn-outline-dark]="!isSticky" [class.btn-light]="isSticky" [class.ml-2]="isSticky" (click)="filterToggle()">
         <h5 *ngIf="hideFilter"><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;Bộ lọc</h5>
         <h5 *ngIf="!hideFilter  "><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;Ẩn bộ lọc</h5>
@@ -6,7 +6,7 @@
     <button *ngIf="filtered && hideFilter" class="btn btn-light mx-2 pt-2" (click)="resetFilter()">
         <h5><i class="fa fa-times text-danger"></i>&nbsp;&nbsp;Đặt lại bộ lọc</h5>
     </button>
-    <div class="form-inline border bg-light my-3 p-3" [class.d-none]="hideFilter" autocomplete="off">
+    <div class="form-inline border bg-light my-3 p-3" [class.d-none]="hideFilter"  autocomplete="off">
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="form-group mt-1">
@@ -66,59 +66,58 @@
 
 </div>
 
-<div class="container my-5 d-none d-lg-block">
+<div class="container my-2 d-none d-lg-block">
 
-    <div class="form-inline" autocomplete="off">
-        <h5 class="fw-bold">Lọc theo giá</h5>
+    <div class="form-inline px-1 pt-3" autocomplete="off">
+        <h5 class="text-red fw-bold">Lọc theo giá</h5>
 
-        <div class="form-group mt-1">
-            <label class="form-label">Giá thấp nhất</label>
-            <input type="number" class="form-control col-12 mt-2" name="minPrice" [(ngModel)]="param.minPrice">
+        <div class="form-group mt-2">
+            <h6 class="fw-bold">Giá thấp nhất</h6>
+            <input type="number" class="form-control col-12 bg-grey" name="minPrice" [(ngModel)]="param.minPrice">
         </div>
 
-        <div class="form-group mt-1">
-            <label class="form-label">Giá cao nhất</label>
-            <input type="number" class="form-control col-12 mt-2" name="maxPrice" [(ngModel)]="param.maxPrice">
+        <div class="form-group mt-2">
+            <h6 class="fw-bold">Giá cao nhất</h6>
+            <input type="number" class="form-control col-12 bg-grey" name="maxPrice" [(ngModel)]="param.maxPrice">
         </div>
         <ng-container *ngIf="filterOn('category')">
 
-            <h5 class="fw-bold mt-4">Danh mục sản phẩm</h5>
+            <h5 class="text-red fw-bold mt-4">Danh mục sản phẩm</h5>
 
             <div>
                 <div class="p-2" *ngFor="let c of categories" 
-                [class.bg-dark]="param.category == c.categoryName">
-                    <a class="pl-2 fw-bold cs-pointer"
-                        [class.text-light]="param.category == c.categoryName"
+                [class.bg-pastel]="param.category == c.categoryName">
+                    <a class=" fw-bold cs-pointer"
                         (click)="choose('category', c.categoryName)">{{c.categoryName | titlecase}}</a>
                 </div>
             </div>
         </ng-container>
 
         <ng-container *ngIf="filterOn('subCategory')">
-            <h5 class="fw-bold mt-4">Danh mục phụ</h5>
+            <h5 class="text-red fw-bold mt-4">Danh mục phụ</h5>
 
             <div class="p-2" *ngFor="let sc of subCategories"
-                [class.bg-dark]="param.subCategory == sc.subCategoryName">
-                <a class="pl-2 fw-bold cs-pointer" [class.text-light]="param.subCategory == sc.subCategoryName"
+                [class.bg-pastel]="param.subCategory == sc.subCategoryName">
+                <a class="fw-bold cs-pointer"
                     (click)="choose('subCategory', sc.subCategoryName)">{{sc.subCategoryName | titlecase}}</a>
             </div>
         </ng-container>
 
         <ng-container *ngIf="filterOn('area')">
-            <h5 class="fw-bold mt-4">Vị trí</h5>
-            <div class="p-2" *ngFor="let a of areas" [class.bg-dark]="param.area == a.name">
-                <a class="pl-2 fw-bold cs-pointer" [class.text-light]="param.area == a.name"
+            <h5 class="text-red fw-bold mt-4">Vị trí</h5>
+            <div class="p-2" *ngFor="let a of areas" [class.bg-pastel]="param.area == a.name">
+                <a class=" fw-bold cs-pointer"
                     (click)="choose('area', a.name)">
                     {{a.name | titlecase}}
                 </a>
             </div>
         </ng-container>
 
-        <h5 class="fw-bold mt-4">Khuyến mãi - giảm giá</h5>
+        <h5 class="text-red fw-bold mt-4">Khuyến mãi - giảm giá</h5>
 
         <div>
-            <div class="p-2" *ngFor="let sp of salePercents" [class.bg-dark]="param.saleUpTo == sp">
-                <a class="pl-2 fw-bold cs-pointer" [class.text-light]="param.saleUpTo == sp"
+            <div class="p-2" *ngFor="let sp of salePercents" [class.bg-pastel]="param.saleUpTo == sp">
+                <a class=" fw-bold cs-pointer"
                      (click)="choose('saleUpTo', sp)">Lên đến
                     {{sp}}%</a>
             </div>
@@ -128,10 +127,10 @@
 
 
     </div>
-    <div class="filter-btn mt-1">
-        <button (click)="filterProduct()" class="btn btn-accent p-2 text-light" type="submit">
+    <div class="filter-btn mt-3">
+        <button (click)="filterProduct()" class="btn btn-red p-2 pt-3 text-light" type="submit">
             <h5>Lọc sản phẩm</h5></button>
-        <button (click)="resetFilter()" class="btn btn-light text-dark mt-2 border-secondary" type="submit">
+        <button (click)="resetFilter()" class="btn btn-tan text-light mt-2" type="submit">
             Đặt lại bộ lọc</button>
     </div>
 

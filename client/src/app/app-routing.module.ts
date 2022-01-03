@@ -4,8 +4,8 @@ import { CollectionsComponent } from './collections/collections.component';
 import { CartComponent } from './customer/cart/cart.component';
 import { CheckOutComponent } from './customer/check-out/check-out.component';
 import { CustomerFavoriteComponent } from './customer/customer-favorite/customer-favorite.component';
+import { CustomerInfoEditComponent } from './customer/customer-info-edit/customer-info-edit.component';
 import { CustomerInfoComponent } from './customer/customer-info/customer-info.component';
-import { CustomerNotificationsComponent } from './customer/customer-notifications/customer-notifications.component';
 import { CustomerOrderDetailComponent } from './customer/customer-order-detail/customer-order-detail.component';
 import { CustomerOrderComponent } from './customer/customer-order/customer-order.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
@@ -20,7 +20,6 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { PromotionsComponent } from './promotions/promotions.component';
 import { RegisterComponent } from './register/register.component';
-import { SearchResultComponent } from './search/search-result/search-result.component';
 import { AuthenticationGuard } from './_guards/authentication.guard';
 
 const routes: Routes = [
@@ -32,7 +31,7 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
     children: [
       { path: 'my-account', component: CustomerInfoComponent },
-      { path: 'notifications', component: CustomerNotificationsComponent },
+      { path: 'edit-info', component: CustomerInfoEditComponent },
       { path: 'check-out', component: CheckOutComponent },
       { path: 'order', component: CustomerOrderComponent},
       { path: 'order-detail/:id', component: CustomerOrderDetailComponent},
@@ -46,7 +45,7 @@ const routes: Routes = [
   { path: 'sale', component: ProductListComponent },
   { path: 'product/:code/:name', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'search', component: SearchResultComponent },
+  { path: 'search', component: ProductListComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'promotions', component: PromotionsComponent },

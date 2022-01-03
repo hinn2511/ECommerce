@@ -10,5 +10,6 @@ namespace API.DTOs
         public string SubCategory { get; set; }
         public string Brand { get; set; }
         public double Price { get; set; }
+        public int SalePercent { get; set; }
     }
 }

@@ -11,26 +11,17 @@
 
 @media screen and (min-width: 988px) {
 
-    .content {
-        position: relative;
-    }
+    
 
     .content > app-navbar {
-        position: absolute;
         top: 0;
         width: 100%;
-        z-index: 100;
     }
 
     .container {
         z-index: 0;
         width: 100vw;
     }
-
-    .padding {
-        padding-top: 7rem;
-    }
-
 }
 
 

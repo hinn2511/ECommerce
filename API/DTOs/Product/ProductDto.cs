@@ -21,6 +21,7 @@ namespace API.DTOs
         public double Price { get; set; }
         public int SalePercent { get; set; }
         public string Introduction { get; set; }
+        public int ProductArticleId { get; set; }
         public ICollection<ProductPhotoDto> ProductPhotos { get; set; }
         public ICollection<ProductColorDto> ProductColors { get; set; }
     }

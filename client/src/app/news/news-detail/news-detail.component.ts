@@ -11,13 +11,16 @@ import { ArticleService } from 'src/app/_services/article.service';
 export class NewsDetailComponent implements OnInit {
   artcicle: Article;
   relatedArticles: Article[] = [];
+  id: number;
 
-  constructor(private route: ActivatedRoute, private router: Router, private articleService: ArticleService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private articleService: ArticleService) {
+   }
 
   ngOnInit(): void {
-    var temp = this.route.snapshot.paramMap.get('id');
-    var id: number = +temp;
-    this.getArtcicle(id);
+    window.scroll(0,0);
+    let temp = this.route.snapshot.paramMap.get('id');
+    this.id = +temp;
+    this.getArtcicle(this.id);
   }
 
   getArtcicle(id: number) {

@@ -20,24 +20,12 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task<MemberDto> GetMemberAsync(string username)
+        public async Task<MemberDto> GetUserAsync(string username)
         {
             return await _context.Users
              .Where(u => u.UserName  == username)
              .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-             .SingleOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
-        {
-            return await _context.Users
-             .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-             .ToListAsync();
-        }
-
-        public async Task<IEnumerable<AppUser>> GetUserAsync()
-        {
-            return await _context.Users.ToListAsync();
+             .FirstOrDefaultAsync();
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
@@ -45,7 +33,7 @@ namespace API.Data
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<AppUser> GetUserByUserNameAsync(string username)
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
         }

@@ -1,9 +1,3 @@
-@media screen and (max-width: 1000px) {
-    .nav-link {
-        font-size: 2rem;
-    }
-}
-
 
 @media screen and (max-width: 988px) {
     .navbar {
@@ -37,89 +31,45 @@
         font-size: 2rem;
     }
 
-    .dropdown-item {
-        font-size: 1.75rem;
-    }
-
-    .btn {
-        padding: 0.55rem 1rem;
-        border: none;
-    }
 }
 
 @media screen and (min-width: 988px) {
 
-    .bg-accent {
-        background-color: rgba(0, 0, 0, 0.7);
+    .navbar-brand {
+        font-size: 2vw;
     }
 
-    .navbar-brand {
-        font-size: 2rem;
+    button > span, .nav-link {
+        font-size: 1vw;
     }
 
     .nav-link {
-        margin: 0 0.5rem;
+        margin: 0 0.2vw;
     }
 
-    .navigation > ul > li > .nav-link, .navigation > ul > li > div > .nav-link {
-        font-size: 0.9rem;
+    .navigation > ul > div > li > .nav-link {
+        font-size: 0.8vw;
+        margin: 0;
+        padding: 0.5rem 0;
     }
 
-    .btn-group > ul > li > a {
-        color: black;
+
+    .search-bar {
+        margin-left: 2vw;
+        min-width: 20vw;
     }
 
-    div > ul > li > a, div > ul > li > div > a {
+
+    nav > div > div {
+        min-width: 20vw;
+    }
+
+    .list-group-item:hover {
+        background-color: #76323f;
         color: white;
     }
 
-    .text-dark {
-        color: black!important;
-    }
-
     
-
-    .btn {
-        margin: 0 0.3rem;
-    }
-
-    .category-catalogue, .area-catalogue {
-        padding: 2rem 3rem;    
-    }
-
-    .category-catalogue {
-        width: 75vw; 
-    }
-
-    .area-catalogue {
-        width: 65vw;
-    }
-
-    .category-catalogue a, .area-catalogue a{
-        padding: 1rem;
-    }
-
-    .image-container {
-        width: 100%;
-        height: auto;
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 3px;
-    }
-
-    .dropdown-menu > .row{
-        min-height: 30rem;
-    }
-
-    .desktop > div > div {
-        min-width: 30vw;
-    }
-
-    
-}
-
-.navbar, .dropdown-item {
-    font-family: 'Raleway', sans-serif;
 }
 
 .dropdown-item, .dropdown-toggle {

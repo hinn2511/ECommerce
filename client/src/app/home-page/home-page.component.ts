@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  headerImgUrl = '../../assets/cover_2.jpg';
+  headerImgUrl = '../../assets/cover_5.jpg';
   introductImg1 = '../../assets/introduce_3.jpg';
   introductImg2 = '../../assets/introduce_4.jpg';
   categoryImg1 = '../../assets/category_1.jpg';
@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getHeaderImageUrl(): string {
-    return 'linear-gradient( 0deg, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.3) 90%), url('+ this.headerImgUrl + ')';
+    return 'linear-gradient( 0deg, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.4) 90%), url('+ this.headerImgUrl + ')';
   }
 
 }

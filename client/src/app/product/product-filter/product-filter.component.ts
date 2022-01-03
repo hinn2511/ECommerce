@@ -25,7 +25,7 @@ export class ProductFilterComponent implements OnInit {
   categories: Category[];
   subCategories: SubCategory[] = [];
   filter: string[] = [];
-  salePercents: number[] = [10, 20, 30, 50];
+  salePercents: number[] = [50, 30, 20, 10];
   
   isSticky: boolean;
   hideFilter: boolean;
@@ -40,12 +40,17 @@ export class ProductFilterComponent implements OnInit {
 
   constructor(private productService: ProductService,
     private categoryService: CategoryService, private areaService: AreaService, private router: Router) {
+      this.param = this.productService.getProductParams();
   }
 
   ngOnInit(): void {
     this.param = this.productParams;
     switch (this.option) {
-      
+      case 'search':
+        this.filter.push('category');
+        this.filter.push('area');
+        this.loadSubCategories('');
+        break;
       case 'category':
         this.filter.push('subCategory');
         this.filter.push('area');
@@ -57,13 +62,19 @@ export class ProductFilterComponent implements OnInit {
         this.loadSubCategories('');
         break;
 
+      case 'sale':
+        this.filter.push('category');
+        this.filter.push('area');
+        this.loadSubCategories('');
+        break;
+
       case 'subCategory':
         this.filter.push('area');
         break;  
 
       }
-
       this.loadAreas();
+      this.hideFilter = true;
   }
 
   filterOn(type: string): boolean {
@@ -94,6 +105,9 @@ export class ProductFilterComponent implements OnInit {
   resetFilter() {
     this.param = this.productService.resetProductParams();
     switch (this.option) {
+      case 'search':
+        this.param.keyword = this.defaultValue;
+        break;
       case 'category':
         this.param.category = this.defaultValue;
         break;
@@ -104,7 +118,7 @@ export class ProductFilterComponent implements OnInit {
         this.param.subCategory = this.defaultValue;
         break;
       case 'sale':
-        this.param.saleUpTo = 0;
+        this.param.saleUpTo = 100;
         break;
     }
     this.filtered = false;

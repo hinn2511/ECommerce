@@ -23,7 +23,9 @@ export class ProductCardComponent implements OnInit {
 
   constructor(private router: Router,
     private favoriteService: FavoriteService, private cartService: CartService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService) {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+     }
 
   ngOnInit(): void {
   }

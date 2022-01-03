@@ -1,234 +1,292 @@
-<div class="containe my-4">
-    <div class="col-12 text-center">
-        <h2 class="font-secondary py-4">Thanh toán</h2>
-    </div>
-    <div class="row col-12 justify-content-center">
+<!--Section: Block Content-->
+<div class="container pt-3 p-lg-5" *ngIf="chosenShippingMethod && chosenPaymentMethod">
 
-        <div class="col-12 col-lg-6">
-            <h4 class="col-12 text-center mb-4">Chi tiết đơn hàng</h4>
-            <div class="d-none d-lg-block">
-                <table class="table table-bordered border-primary">
-                    <thead class="bg-light-grey">
-                        <tr>
-                            <th scope="col" class="text-center">Sản phẩm</th>
-                            <th scope="col" class="text-center">Tùy chọn</th>
-                            <th scope="col" class="text-center">Số lượng</th>
-                            <th scope="col" class="text-center">Đơn giá&nbsp;*</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of carts">
-                            <td>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="img-container">
-                                            <img src="{{item.photoUrl}}" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <p class="pt-lg-3">{{item.productName | titlecase}}</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td *ngIf="item.colorName;else default" class="text-center">
-                                <p class="pt-lg-3">{{item.colorName | titlecase}}</p>
-                            </td>
-                            <ng-template #default>
-                                <td class="text-center">
-                                    <p class="pt-lg-3">Mặc định</p>
-                                </td>
-                            </ng-template>
-                            <td class="text-center">
-                                <p class="pt-lg-3">{{item.quantity}}</p>
-                            </td>
-                            <td class="text-center">
-                                <p class="pt-lg-3">{{item.price | currency:"VND"}}</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="text-center text-muted">*&nbsp;Giá của sản phẩm đã bao gồm thuế GTGT</p>
-            </div>
-            <div class="d-lg-none">
-                <table class="table">
-                    <tbody>
-                        <tr *ngFor="let item of carts">
-                            <td class="row">
-                                <div class="col-4 px-0">
-                                    <div class="img-container pt-5">
-                                        <img src="{{item.photoUrl}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <p>{{item.productName | titlecase}}</p>
-                                    <p *ngIf="item.colorName;else default">Tùy chọn: {{item.colorName | titlecase}}</p>
-                                    <ng-template #default>
-                                            <p>Tùy chọn: Mặc định</p>
-                                    </ng-template>
-                                    <p>Số lượng: {{item.quantity}}</p>
-                                    <p>Đơn giá: {{item.price | currency:"VND"}}</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="text-center text-muted">Giá của sản phẩm đã bao gồm thuế GTGT</p>
+    <!--Grid row-->
+    <div class="row w-100 justify-content-center mx-0">
 
-            </div>
-            <div class="row my-5 pl-lg-3">
-                <div class="col-12 col-lg-6 px-0">
-                    <div class="row">
-                        <div class="col-6 mt-3">
-                            <h6>Tổng tiền</h6>
-                        </div>
-                        <div class="col-6 text-right mt-3">
-                            <h6>{{subTotal / 110 * 100 | currency:"VND"}}</h6>
-                        </div>
-                        <div class="col-6 mt-3">
-                            <h6>Thuế GTGT</h6>
-                        </div>
-                        <div class="col-6 text-right mt-3">
-                            <h6>{{subTotal - (subTotal / 110 * 100) | currency:"VND"}}</h6>
-                        </div>
-                        <div class="col-6 mt-3">
-                            <h6>Giảm giá</h6>
-                        </div>
-                        <div class="col-6 text-right mt-3">
-                            <h6>-&nbsp;{{discount | currency:"VND"}}</h6>
-                        </div>
-                        <div class="col-6 mt-3">
-                            <h6>Phí vận chuyển</h6>
-                        </div>
-                        <div class="col-6 text-right mt-3">
-                            <h6 *ngIf="shippingMethod">+&nbsp;{{shippingMethod.price | currency:"VND"}}</h6>
-                        </div>
-                        <div class="col-6 mt-3">
-                            <h6 class="fw-bolder">Tổng tiền thanh toán</h6>
-                        </div>
-                        <div class="col-6 text-right mt-3" *ngIf="shippingMethod">
-                            <h5 class="fw-bolder" >{{subTotal - discount + shippingMethod.price | currency:"VND"}}</h5>
+        <!--Grid column-->
+        <div class="col-lg-6 px-lg-0">
+
+            <!-- Card -->
+            <div class="card border-none bg-white shadow wish-list mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center form-inline">
+
+                        <h3 class="font-secondary w-100 m-0 text-left text-red">
+                            1. Thông tin thanh toán
+                        </h3>
+                    </div>
+
+                    <div class="pt-3" [class.d-none]="!(stage == 'info')">
+                        <form [formGroup]='checkoutForm' (ngSubmit)="checkoutForm.valid && goTo('shipping')"
+                            autocomplete="off">
+                            <div class="form-group">
+
+                                <label for="fullName" class="label">Họ và tên</label>
+                                <app-text-input [formControl]='checkoutForm.controls["fullName"]' [label]='"Họ và tên"'>
+                                </app-text-input>
+
+                                <label for="phoneNumber" class="label">Số điện thoại</label>
+                                <app-text-input [formControl]='checkoutForm.controls["phoneNumber"]'
+                                    [label]='"Số điện thoại"'>
+                                </app-text-input>
+
+                                <label for="destination" class="label">Địa chỉ nhận hàng</label>
+                                <app-text-input [formControl]='checkoutForm.controls["destination"]'
+                                    [label]='"Địa chỉ nhận hàng"'>
+                                </app-text-input>
+
+
+                                <label for="email" class="label">Email (không bắt buộc)</label>
+                                <app-text-input [formControl]='checkoutForm.controls["email"]' [label]='"Email"'>
+                                </app-text-input>
+
+                                <div class="w-100 text-center">
+                                    <button [disabled]='!checkoutForm.valid' type="submit"
+                                        class="btn btn-red text-light mt-3 w-100 py-2 w-lg-50">
+                                        <h4 class="m-0">Tiếp theo</h4>
+                                    </button>
+
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="pt-3" [class.d-none]="stage == 'info'">
+                        <div class="w-100 form-inline">
+                            <div class="w-100 w-lg-50">
+                                <p class="m-0 text-left text-lg-center fw-bold">
+                                    Thông tin người nhận
+                                </p>
+                            </div>
+                            <div>
+                                <p class="my-1 text-capitalize">
+                                    {{getFullName()}}
+                                </p>
+                                <p class="my-1">
+                                    {{getPhoneNumber()}}
+                                </p>
+                                <p class="my-1">
+                                    {{getDestination()}}
+                                </p>
+                                <p class="my-1">
+                                    {{getEmail()}}
+                                </p>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6 mt-3 pl-lg-4">
-                    <div class="card">
-                        <h5 class="card-header text-center">Mã giảm giá</h5>
-                        <div class="input-group my-3 px-4">
-                            <div class="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="Nhập tại đây"
-                                    [(ngModel)]="model.promotionCode" placeholder="{{model.promotionCode}}">
-                                <button 
-                                    [disabled]="!model.promotionCode"
-                                    class="btn btn-dark" 
-                                    type="button" 
-                                    (click)="redeemPromotion()">Áp dụng</button>
-                              </div>
-                        </div>
-                      </div>
-                </div>
-                
             </div>
 
-        </div>
-        <div class="col-12 col-lg-4">
-            <h4 class="col-12 text-center">Thông tin thanh toán</h4>
-            <div class="mt-4 mx-3">
-                <form [formGroup]='checkoutForm' (ngSubmit)="checkoutForm.valid && order()" autocomplete="off">
-                    <div class="form-group">
+            <div class="card border-none bg-white shadow wish-list mb-3">
+                <div class="card-body">
 
-                        <label for="fullName" class="label">Họ và tên</label>
-                        <app-text-input [formControl]='checkoutForm.controls["fullName"]' [label]='"Họ và tên"'>
-                        </app-text-input>
+                    <div class="d-flex justify-content-center form-inline">
 
-                        <label for="phoneNumber" class="label">Số điện thoại</label>
-                        <app-text-input [formControl]='checkoutForm.controls["phoneNumber"]' [label]='"Số điện thoại"'>
-                        </app-text-input>
+                        <h3 class="font-secondary m-0 text-left text-red text-capitalize"
+                            [class.w-100]="!(stage == 'shipping')" [class.w-75]="stage == 'shipping'">
+                            2. vận chuyển
+                        </h3>
 
-                        <label for="destination" class="label">Địa chỉ nhận hàng</label>
-                        <app-text-input [formControl]='checkoutForm.controls["destination"]'
-                            [label]='"Địa chỉ nhận hàng"'>
-                        </app-text-input>
-
-                        <label for="shippingMethod" class="label mt-3">Hình thức giao hàng</label>
-
-                        <div class="btn-group col-12" *ngIf="shippingMethod" dropdown [isOpen]='shippingDropdown'>
-
-                            <button dropdownToggle type="button"
-                                class="btn mt-2 dropdown-toggle"
-                                (click)="dropDownClose('payment')">
-                                {{shippingMethod.name | titlecase}}<span class="caret"></span>
-                            </button>
-
-                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" role="menu"
-                                aria-labelledby="button-basic">
-                                <div *ngFor="let sm of shippingMethods">
-                                    <li>
-                                        <a class="dropdown-item my-3 pt-3" [class.disabled]="!sm.state"
-                                            (click)="chooseShippingMethod(sm)">
-                                            <div class="row col-12">
-                                                <div class="col-12 col-lg-9">
-                                                    <h6 class="ovf-sm-0">{{sm.name | titlecase}}</h6>
-                                                </div>
-                                                <div class="col-12 col-lg-3">
-                                                    <p class="price">{{sm.price | currency:'VND'}}</p>
-                                                </div>
-                                                <div class="col-12 col-lg-12">
-                                                    <p class="ovf-sm-0">Thời gian giao hàng từ {{sm.minTime}} đến {{sm.maxTime}} ngày</p>
-                                                </div>
-                                                <div class="col-12 col-lg-12" *ngIf="!sm.state">
-                                                    <p class="ovf-sm-0">Hình thức vận chuyển không khả dụng</p>
-                                                </div>
-                                            </div>
-                                        </a>
-
-                                    </li>
-                                </div>
-                            </ul>
-                        </div>
-
-                        <label for="shippingMethod" class="label mt-3">Hình thức thanh toán</label>
-
-                        <div class="btn-group col-12" *ngIf="paymentMethod" dropdown [isOpen]='paymentDropdown'>
-
-                            <button dropdownToggle type="button"
-                                class="btn mt-2 dropdown-toggle"
-                                (click)="dropDownClose('shipping')">
-                                {{paymentMethod.name | titlecase}}<span class="caret"></span>
-                            </button>
-
-                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" role="menu"
-                                aria-labelledby="button-basic">
-                                <div *ngFor="let pm of paymentMethods">
-                                    <li>
-                                        <a class="dropdown-item my-3 pt-3" [class.disabled]="!pm.state"
-                                            (click)="choosePaymentMethod(pm)">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="ovf-sm-0">{{pm.name | titlecase}}</h6>
-                                                </div>
-                                                <div class="col-12 col-lg-12 " *ngIf="!pm.state">
-                                                    <p class="ovf-sm-0">Hình thức thanh toán không khả dụng</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </div>
-                            </ul>
-                        </div>
-
-                        <button [disabled]='!checkoutForm.valid' 
-                            type="submit" 
-                            class="btn btn-dark text-light mt-4 pt-3 col-12">
-                            <h5>Đặt hàng</h5>
+                        <button (click)="goTo('info')"
+                            class="btn font-secondary w-25 m-0 text-center text-lg-right text-muted text-capitalize"
+                            [class.d-none]="!(stage == 'shipping')">
+                            <p class="m-0"><i class="fa fa-reply"></i></p>
                         </button>
-                        <button type="button" routerLink='/cart' class="btn btn-light text-dark mt-4 col-12">Trở về giỏ hàng</button>
-
                     </div>
-                </form>
+                    <div class="pt-3" [class.d-none]="!(stage == 'shipping')">
+                        <div class="my-3 p-3 p-lg-3 rounded cs-pointer" (click)="chooseShippingMethod(sm)"
+                            [class.btn-black]="sm.name == chosenShippingMethod.name"
+                            [class.btn-pastel-light]="sm.name != chosenShippingMethod.name"
+                            *ngFor="let sm of shippingMethods">
+                            <p class="text-capitalize fw-bold m-0">{{sm.name}}</p>
+                            <p class="my-1">{{sm.price | currency:'VND'}}</p>
+                            <p class="my-1">Thời gian giao hàng dự kiến từ {{getExpectedShippingDate(sm)}}</p>
+                        </div>
+                        <div class="w-100 text-center">
+                            <button type="button" (click)="goTo('payment')"
+                                class="btn btn-red text-light mt-3 w-100 w-lg-50 py-2">
+                                <h4 class="m-0">Tiếp theo</h4>
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="pt-3" [class.d-none]="stage == 'shipping' || stage == 'info'">
+                        <div class="w-100 form-inline">
+                            <div class="w-100 w-lg-50">
+                                <p class="m-0 text-left text-lg-center fw-bold">
+                                    Hình thức giao hàng
+                                </p>
+                            </div>
+                            <div>
+                                <p class="my-1 text-capitalize">
+                                    {{chosenShippingMethod.name}}
+                                </p>
+                                <p class="my-1">
+                                    {{chosenShippingMethod.price}}
+                                </p>
+                                <p class="my-1">
+                                    Thời gian giao dự kiến từ
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+            <div class="card border-none bg-white shadow wish-list mb-3">
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-center form-inline">
+
+                        <h3 class="font-secondary m-0 text-left text-red text-capitalize"
+                            [class.w-100]="!(stage == 'payment')" [class.w-75]="stage == 'payment'">
+                            3. thanh toán
+                        </h3>
+
+                        <button (click)="goTo('shipping')"
+                            class="btn font-secondary w-25 m-0 text-center text-lg-right text-muted text-capitalize"
+                            [class.d-none]="!(stage == 'payment')">
+                            <p class="m-0"><i class="fa fa-reply"></i></p>
+                        </button>
+                    </div>
+                    <div class="pt-3" [class.d-none]="!(stage == 'payment')">
+                        <div class="my-3 p-3 rounded cs-pointer" (click)="choosePaymentMethod(pm)"
+                            [class.btn-black]="pm.name == chosenPaymentMethod.name"
+                            [class.btn-pastel-light]="pm.name != chosenPaymentMethod.name && pm.state != false"
+                            [class.text-muted]="pm.name != chosenPaymentMethod.name && pm.state == false"
+                            *ngFor="let pm of paymentMethods">
+                            <p class="text-capitalize fw-bold m-0">{{pm.name}}</p>
+                            <p *ngIf="pm.state == false" class="m-0">Hình thức thanh toán không khả dụng</p>
+                        </div>
+                        <hr class="mb-4 px-3">
+
+                        <div class="input-group p-1 py-lg-4">
+                            <h5 class="mb-4 fw-bold">Mã giảm giá</h5>
+                            <div class="input-group mb-3" *ngIf="redeemResult.discount == 0">
+                                <input type="text" class="form-control" placeholder="Nhập tại đây"
+                                    [(ngModel)]="orderInformation.promotionCode"
+                                    placeholder="{{orderInformation.promotionCode}}">
+                                <button [disabled]="!orderInformation.promotionCode" class="btn text-red" type="button"
+                                    (click)="redeemPromotion()">Áp dụng</button>
+                            </div>
+                            <div class="form-inline w-100" *ngIf="redeemResult.discount != 0">
+                                <h5 class="m-0 p-3 text-red text-uppercase">abvcfxde</h5>
+                                <p class="ml-3 m-0" (click)="removePromotion()"><i class="fa fa-times"></i></p>
+                                <p class="m-0 w-100 text-muted">Đã áp dụng mã giảm giá</p>
+                            </div>
+                        </div>
+
+
+                        <div class="w-100 text-center">
+                            <button type="button" class="btn btn-danger text-light mt-3 w-100 py-3" (click)="order()">
+                                <h4 class="m-0 text-uppercase">Đặt hàng</h4>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+            <!-- Card -->
+
+
         </div>
+
+        <!--Grid column-->
+        <div class="col-lg-4">
+
+            <!-- Card -->
+            <div class="card border-none bg-white shadow mb-3">
+                <div class="card-body">
+                    <h3 class="font-secondary w-100 text-center text-lg-left text-red">
+                        Tóm tắt đơn hàng
+                    </h3>
+                    <p class="text-muted text-center text-lg-left mb-3 mb-lg-5">
+                        {{carts.length}}&nbsp;sản phẩm
+                    </p>
+                    <div *ngFor="let item of carts; let i = index" class="pb-2 ">
+                        <div class="row mb-4">
+                            <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                <div routerLink='/product/{{item.productCode}}/{{item.productName}}'
+                                    class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0 bg-pastel-light cs-pointer p-2 p-md-3">
+                                    <span class="helper"></span>
+                                    <img class="img-fluid w-100" style="height: auto;" src="{{item.photoUrl}}"
+                                        alt="Sample">
+                                    <span class="helper"></span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5 routerLink='/product/{{item.productCode}}/{{item.productName}}'
+                                            class="text-uppercase cs-pointer">
+                                            {{item.productName}}</h5>
+                                        <p class="mb-3 text-uppercase small">x {{item.quantity}}</p>
+
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                                <p class="mb-2"><span><strong>{{item.price | currency:'VND'}}</strong></span>
+                                </p>
+
+                            </div>
+                        </div>
+                        <hr class="mb-4" *ngIf="i < carts.length -1">
+                    </div>
+
+
+                    <ul class="list-group list-group-flush">
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            Tổng giá trị sản phẩm
+                            <span>{{subTotal | currency:'VND'}}</span>
+                        </li>
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            Phí vận chuyển
+                            <span>{{chosenShippingMethod.price | currency:'VND'}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Giảm giá
+                            <span>{{redeemResult.discount | currency:'VND'}}</span>
+                        </li>
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div>
+                                <strong>Tổng tiền thanh toán</strong>
+                                <strong>
+                                    <p class="mb-0">(đã bao gồm VAT)</p>
+                                </strong>
+                            </div>
+                            <span><strong>{{subTotal - redeemResult.discount + chosenShippingMethod.price |
+                                    currency:'VND'}}</strong></span>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <!--Grid column-->
+
     </div>
+    <!--Grid row-->
+
 </div>
+<!--Section: Block Content-->

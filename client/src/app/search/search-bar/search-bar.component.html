@@ -1,16 +1,15 @@
-<div class="container">
+<div class="container position-relative mr-5">
     <form (ngSubmit)="search()">
         <div class="input-group">
-            <input 
-                type="text" 
-                class="form-control" 
+            <input minlength="1"
+                type="text"
+                class="form-control border-bottom-only r-none" 
                 placeholder="Nhập từ khóa tìm kiếm" 
                 [(ngModel)]="keyWord"
                 name="keyWord">
-            
-            <button class="btn btn-dark" [class.btn-accent]="isSticky" type="submit">Tìm kiếm</button>
-
-            <i *ngIf="keyWord != ''" (click)="clearKeyWord()" class="fa fa-times cs-pointer"></i>
+            <button class="btn position-absolute" style="right: 0" type="submit">
+                <i class="fa fa-search text-muted"></i>
+            </button>
           </div>
     </form>
 </div>

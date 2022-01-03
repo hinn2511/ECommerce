@@ -44,25 +44,22 @@ namespace API.Data
         {
             var query = _context.Articles.AsQueryable();
 
-            int type =  articleParams.Type switch
+            int type = articleParams.Type switch
             {
+                "all" => 0,
                 "news" => 1,
                 "promotions" => 2,
-                "product" => 3,
                 _ => 0
             };
 
-            if (type != 0)
-            {
+            if (type == 0)
+                query = query.Where(article => article.Type == 1 || article.Type == 2)
+                    .OrderByDescending(article => article.PublishedDate);
+            else
                 query = query.Where(article => article.Type == type)
                     .OrderByDescending(article => article.PublishedDate);
-            }
-            else 
-            {
-                query = query.Where(article => article.Type != 3)
-                    .OrderByDescending(article => article.PublishedDate);
-            }
-            return await PagedList<ArticleDto>.CreateAsync( query.ProjectTo<ArticleDto>(_mapper.ConfigurationProvider),
+
+            return await PagedList<ArticleDto>.CreateAsync(query.ProjectTo<ArticleDto>(_mapper.ConfigurationProvider),
                  articleParams.PageNumber, articleParams.PageSize);
         }
 

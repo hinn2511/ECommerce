@@ -1,10 +1,12 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+import { Observable, ReplaySubject } from 'rxjs';
 import { Category, SubCategory } from '../_models/categories';
 import { AccountService } from '../_services/account.service';
 import { CartService } from '../_services/cart.service';
 import { CategoryService } from '../_services/category.service';
+import { urlContain } from '../_services/helper';
 
 @Component({
   selector: 'app-navbar',
@@ -18,36 +20,32 @@ export class NavbarComponent implements OnInit {
   collapse = false;
   search = false;
   categoryDropDownImage = '';
-  backgroungImage = 'https://images.dunelm.com/30464461.jpg?$standardplayerdefault$&img404=noimagedefault';
-  backgroungImage2 = 'https://thhome.vn/wp-content/uploads/2021/04/industrial-style-living-room-interior-with-furniture-sofa-1.jpg';
   categories: Category[] = [];
   subCategories: SubCategory[] = [];
-  categoryItem: string[] = [
-    'Bàn',
-    'Ghế',
-    'Đèn',
-    'Giường',
-    'Tủ',
-    'Kệ',
-    'Tác phẩm nghệ thuật',
-    'Các loại cây cảnh',
-    'Tất cả sản phẩm'
+  
+  categoryDropdown = true;
+  
+  recommendCategory: { id: number, name: string, type: string }[] = [
+    { "id": 0, "name": "đèn", "type": "category" },
+    { "id": 1, "name": "trang trí lễ hội", "type": "category" },
+    { "id": 2, "name": "bàn làm việc", "type": "subCategory" },
+    { "id": 3, "name": "giường đôi", "type": "subCategory" },
+    { "id": 4, "name": "nội thất phòng khách", "type": "area" },
+    { "id": 5, "name": "ghế sofa", "type": "subCategory" },
+    { "id": 6, "name": "cây cảnh", "type": "category" },
+    { "id": 7, "name": "gương", "type": "subCategory" },
+    { "id": 8, "name": "tranh treo tường", "type": "subCategory" },
+    { "id": 9, "name": "thiết bị vệ sinh", "type": "subCategory" },
+    { "id": 9, "name": "sản phẩm khuyến mãi", "type": "sale" }
   ];
 
-  spaceItem: string[] = [
-    'Phòng khách',
-    'Nhà bếp',
-    'Phòng ngủ',
-    'Phòng làm việc',
-    'Nhà vệ sinh',
-    'Sân vườn'
-  ];
   hoveredCategory: Category = {
     id: 0,
     categoryName: '',
     subCategories: [],
     photoUrl: ''
   };
+
   isSticky: boolean;
 
   @HostListener('window:scroll', ['$event'])
@@ -66,7 +64,6 @@ export class NavbarComponent implements OnInit {
     this.search = false;
     this.loadAllCategories();
     this.hoveredCategory.id = 0;
-
   }
 
   navigationBarToggle() {
@@ -74,6 +71,9 @@ export class NavbarComponent implements OnInit {
     this.navBarOpen.emit(this.collapse);
   }
 
+  hideCategoryDropdown(value: boolean) {
+      this.categoryDropdown = value;
+  }
 
   hideMenuToggle() {
     this.collapse = true;
@@ -120,24 +120,25 @@ export class NavbarComponent implements OnInit {
     this.categoryDropDownImage = subCategory.photoUrl;
   }
 
-  urlContain(uri: string): boolean {
-    if (this.router.url.includes(encodeURI(uri)))
-      return true;
-    return false;
+  displayIn(uriList: string[]): boolean {
+    return urlContain(this.router, uriList);
   }
 
-  urlNotContain(uriList: string[]): boolean {
-    let result = true;
-
-    for (let element of uriList) {
-      if (this.router.url == element) {
-        result = false;
+  gotoCategory(category: any) {
+    switch (category.type) {
+      case 'category':
+        this.router.navigateByUrl('/category/' + category.name);
         break;
-      }
+      case 'subCategory':
+        this.router.navigate(['/category'], { queryParams: { subCategory: category.name } });
+        break;
+      case 'area':
+          this.router.navigateByUrl('/area/' + category.name);
+          break;
+      case 'sale':
+          this.router.navigateByUrl('/sale');
+          break;
     }
-
-    return result;
-
   }
 
 }

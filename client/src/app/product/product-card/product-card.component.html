@@ -1,25 +1,68 @@
-<div class="card">
-    <div class="card-body">
-        <div class="product-info" (click)="showDetail(product.productCode, product.productName)">
-            <div class="img-wrapper text-center">
-                <img class="product-img" src="{{product.photoUrl}}" alt="">
+<div class="card border-none bg-grey">
+    <div class="card-body p-0">
+        <div>
+            <div class="frame position-relative card-img-wrapper">
+                <span class="helper"></span>
+                <img src="{{product.photoUrl}}" alt=""
+                    routerLink='/product/{{product.productCode}}/{{product.productName}}'>
+                <ng-container *ngIf="product.salePercent > 0">
+                    <div class="position-absolute ml-2 mt-2 p-2 bg-danger" style="top: 0;">
+                        <p class="m-0 text-light">-{{product.salePercent}}%</p>
+                    </div>
+                </ng-container>
+                <div class="like mr-2 p-2 d-none d-lg-block" style="top: 0; height: 2rem;">
+                    <button class="btn btn-danger" (click)="addToFavorite(product)">
+                        <i class="fa fa-heart"></i>
+                    </button>
+                </div>
+                <div class="cart mr-2 mt-2 p-2 d-none d-lg-block" style="top: 3rem;">
+                    <button class="btn btn-tan text-light" (click)="addToCart(product)">
+                        <i class="fa fa-cart-plus"></i>
+                    </button>
+                </div>
             </div>
-            <h5 class="text-dark text-decoration-none product-detail">{{product.brand | titlecase}}</h5>
-            <h4 class="product-name mt-3 font-secondary">{{product.productName | titlecase}}</h4>
+
+
         </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-7 pt-3 justify-content-start">
-                <p class="product-price">{{product.price | currency:'VND'}}</p>
+
+        <div class="w-100 mt-2 px-3 pb-3 text-uppercase cs-pointer"
+            routerLink='/product/{{product.productCode}}/{{product.productName}}'>
+            <div class="form-inline justify-content-start justify-content-lg-center">
+
+                <h5 class="font-secondary mt-2 mb-2">{{product.productName}}</h5>
             </div>
-            <div class="col-lg-6 col-md-5 d-flex justify-content-end">
-                <button class="btn btn-like" (click)="addToFavorite(product)">
+            <ng-container *ngIf="product.salePercent == 0; else sale">
+                <div class="form-inline justify-content-start justify-content-lg-center mb-2">
+                    <p class="my-0 product-price">{{product.price| currency:'VND'}}&nbsp;&nbsp;</p>
+                </div>
+            </ng-container>
+            <ng-template #sale>
+                <div class="form-inline justify-content-start justify-content-lg-center mb-2">
+                    <p class="my-0 product-price text-danger">{{product.price * (100 - product.salePercent) / 100 |
+                        currency:'VND'}}&nbsp;&nbsp;</p>
+                    <p class="my-0 text-decoration-line-through">{{product.price | currency:'VND'}}</p>
+                </div>
+            </ng-template>
+            <div class="form-inline justify-content-start justify-content-lg-center mb-2" *ngIf="product.productColors">
+
+                <i class="fa fa-square mr-1" *ngFor="let color of product.productColors"
+                    [ngStyle]="{ 'color': '#' + color.hexCode}"></i>
+
+            </div>
+            <div class="form-inline justify-content-end d-lg-none">
+                <button class="btn btn-danger mr-2" (click)="addToFavorite(product)">
                     <i class="fa fa-heart-o"></i>
                 </button>
-                <button class="btn btn-cart" (click)="addToCart(product)">
+                <button class="btn btn-tan text-light" (click)="addToCart(product)">
                     <i class="fa fa-cart-plus"></i>
                 </button>
             </div>
+
         </div>
-        
+
+
+
+
+
     </div>
 </div>

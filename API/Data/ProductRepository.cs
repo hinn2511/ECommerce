@@ -26,6 +26,9 @@ namespace API.Data
         {
             var query = _context.Products.AsQueryable();
 
+            if (productParams.Keyword != null)
+                query = query.Where(p => p.ProductName.Contains(productParams.Keyword));
+
             if (productParams.Category != null)
                 query = query.Where(p => p.Category.CategoryName == productParams.Category);
 
@@ -34,7 +37,10 @@ namespace API.Data
 
             if (productParams.Area != null)
                 query = query.Where(p => p.Area.Name == productParams.Area);
-            
+
+            if (productParams.Sale == true)
+                query = query.Where(p => p.SalePercent > 0);
+
             if (productParams.SaleUpTo > 0)
                 query = query.Where(p => p.SalePercent <= productParams.SaleUpTo && p.SalePercent > 0);
 
@@ -60,47 +66,8 @@ namespace API.Data
             return await PagedList<ProductDto>
                 .CreateAsync(query.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
                     productParams.PageNumber, productParams.PageSize);
-
         }
 
-
-        public async Task<PagedList<ProductDto>> GetProductsByNameAsync(SearchProductParams searchProductParams)
-        {
-            var query = _context.Products.AsQueryable();
-
-            query = query.Where(p => p.ProductName.Contains(searchProductParams.Keyword));
-
-            var minPrice = 0.0;
-            var maxPrice = 1000000000.0;
-            if (searchProductParams.MinPrice > 0.0)
-                minPrice = searchProductParams.MinPrice;
-            if (searchProductParams.MaxPrice > 0.0)
-                maxPrice = searchProductParams.MaxPrice;
-
-            if (searchProductParams.Categories != null)
-            {
-                query = query.Where(p => p.SubCategory.SubCategoryName == searchProductParams.Categories
-                    || p.Category.CategoryName == searchProductParams.Categories);
-            }
-
-
-
-            query = query.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
-
-            query = searchProductParams.OrderBy switch
-            {
-                "newest" => query.OrderByDescending(u => u.Created),
-                "oldest" => query.OrderBy(u => u.Created),
-                "highestPrice" => query.OrderByDescending(u => u.Price),
-                "lowestPrice" => query.OrderBy(u => u.Price),
-                _ => query.OrderByDescending(u => u.Created)
-            };
-
-            return await PagedList<ProductDto>
-                .CreateAsync(query.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
-                    searchProductParams.PageNumber, searchProductParams.PageSize);
-
-        }
 
         public async Task<ProductDto> GetProductAsync(string productCode)
         {
@@ -171,6 +138,15 @@ namespace API.Data
         {
             return await _context.ProductColors
                 .FirstOrDefaultAsync(x => x.ProductId == productId);
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetRelatedProducts(string productCode, int categoryId)
+        {
+            return await _context.Products
+                .Where(p => p.CategoryId == categoryId && p.ProductCode != productCode)
+                .Take(6)
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
 
